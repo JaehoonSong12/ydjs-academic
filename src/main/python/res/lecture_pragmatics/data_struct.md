@@ -1,0 +1,1 @@
+This is where notes for *data strcuture* will be placed!
