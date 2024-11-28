@@ -76,6 +76,9 @@ Introduction to computing principles and programming practices with an emphasis 
 - [HW05:](#hw05)
 - [HW06:](#hw06)
 - [HW07:](#hw07)
+- [Project Reference](#project-reference)
+  - [Documentation](#documentation)
+  - [Code Access](#code-access)
 
 <br /><br /><br />
 
@@ -192,5 +195,61 @@ To get started with your homework assignments, follow the steps below.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br /><br /><br />
+
+---
+
+
+# Project Reference
+This are the references for developers.
+
+## Documentation
+
+For detailed documentation, including textbook references, project specifications, development guidelines, and usage instructions, please visit our documentation on Google Drive:
+
+[YDJS Academy Documentation](https://drive.google.com/drive/folders/1quzaFGCofImVVMIplGbBr-Biqa3eWYgq?usp=drive_link)
+
+## Code Access
+
+The code for this project is hosted on GitHub in this repository. You can explore the source code, contribute, and access different branches as necessary:
+
+[GitHub Repository - YDJS Academy Project](https://github.com/JaehoonSong12/ydjs_academic)
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
