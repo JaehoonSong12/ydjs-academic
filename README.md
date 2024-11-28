@@ -75,7 +75,7 @@ For detailed documentation, including textbook references, project specification
 
 The code for this project is hosted on GitHub in this repository. You can explore the source code, contribute, and access different branches as necessary:
 
-[GitHub Repository - YDJS Academy Project](https://github.com/JaehoonSong12/yd_js_academics)
+[GitHub Repository - YDJS Academy Project](https://github.com/JaehoonSong12/ydjs_academic)
 
 ## Contributing
 
