@@ -1,4 +1,5 @@
 // A well adjusted printing program
+package chapter02;
 
 public class Adjusted
 {

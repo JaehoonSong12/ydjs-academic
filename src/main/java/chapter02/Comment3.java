@@ -1,6 +1,7 @@
 /**
    This class creates a program that calculates company payroll.
 */
+package chapter02;
 
 public class Comment3
 {
