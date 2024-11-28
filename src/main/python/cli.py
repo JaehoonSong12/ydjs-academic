@@ -1,5 +1,4 @@
 # cli.py
-import the_raise_of_legend
 import the_raise_of_legend.app
 # import gui
 
