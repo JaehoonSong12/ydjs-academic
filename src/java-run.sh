@@ -10,4 +10,28 @@ javac --version
 
 javac *.java
 
-java ${EXECUTABLE} "hello" "My name is" "Eugene"
+
+
+cd chapter01
+javac *.java
+cd ..
+
+cd chapter02
+javac *.java
+cd ..
+
+cd chapter03
+javac *.java
+cd ..
+
+cd chapter04
+javac *.java
+cd ..
+
+cd chapter05
+javac *.java
+cd ..
+
+
+
+java -cp . ${EXECUTABLE} "hello" "My name is" "Eugene"
