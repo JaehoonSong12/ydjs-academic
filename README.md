@@ -100,8 +100,8 @@ We welcome contributions! If you would like to suggest improvements, please subm
 # Instructions
 To start, clone the repository using the following command:
 ```bash
-git clone https://github.com/JaehoonSong12/yd_js_academics.git
-cd yd_js_academics
+git clone https://github.com/JaehoonSong12/ydjs_academic.git
+cd ydjs_academic
 ```
 
 ## Python (GT CS 1301 / AP CS A)
