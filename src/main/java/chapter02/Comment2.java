@@ -3,6 +3,7 @@
    Written by Herbert Dorfmann
    This program calculates company payroll
 */
+package chapter02;
 
 public class Comment2
 {

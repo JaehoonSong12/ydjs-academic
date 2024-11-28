@@ -16,21 +16,21 @@ cd chapter01
 javac *.java
 cd ..
 
-cd chapter02
-javac *.java
-cd ..
+# cd chapter02
+# javac *.java
+# cd ..
 
-cd chapter03
-javac *.java
-cd ..
+# cd chapter03
+# javac *.java
+# cd ..
 
-cd chapter04
-javac *.java
-cd ..
+# cd chapter04
+# javac *.java
+# cd ..
 
-cd chapter05
-javac *.java
-cd ..
+# cd chapter05
+# javac *.java
+# cd ..
 
 
 

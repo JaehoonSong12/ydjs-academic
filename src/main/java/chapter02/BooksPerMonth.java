@@ -2,6 +2,7 @@
    This program demonstrates how a cast operator
    can be used to prevent integer division.
 */
+package chapter02;
 
 public class BooksPerMonth
 {

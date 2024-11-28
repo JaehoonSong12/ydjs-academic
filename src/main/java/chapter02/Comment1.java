@@ -1,6 +1,7 @@
 // PROGRAM: Comment1.java
 // Written by Herbert Dorfmann
 // This program calculates company payroll
+package chapter02;
 
 public class Comment1
 {
