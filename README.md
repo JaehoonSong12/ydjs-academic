@@ -29,11 +29,11 @@
 <a id="readme-top"></a> 
 
 
-# YDJS Academy Project
+# Project Repo by YDJS (Jaehoon Song) Academic
 Welcome to the YDJS Academy project repository! This repo is for my students to study computer basics, AP CS principle, GT CS1301 (CS A), and GT CS1331: Object-Oriented Programming. Also, this README provides quick access to project documentation and code.
 
 ## Table of Contents
-- [YDJS Academy Project](#ydjs-academy-project)
+- [Project Repo by YDJS (Jaehoon Song) Academic](#project-repo-by-ydjs-jaehoon-song-academic)
   - [Table of Contents](#table-of-contents)
 - [Project Overview](#project-overview)
   - [Documentation](#documentation)
