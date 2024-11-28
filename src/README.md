@@ -63,7 +63,7 @@ Introduction to computing principles and programming practices with an emphasis 
   - [GT CS 1301 Homework References - Intro to Computing (Fall 2020)](#gt-cs-1301-homework-references---intro-to-computing-fall-2020)
   - [Table of Contents](#table-of-contents)
 - [HW00: Tutorial](#hw00-tutorial)
-  - [Set Up Your Virtual Environment](#set-up-your-virtual-environment)
+  - [Set Up Your Virtual Environment (Activate venv)](#set-up-your-virtual-environment-activate-venv)
   - [Open VSCode in this directory](#open-vscode-in-this-directory)
   - [Check Python Version](#check-python-version)
   - [Execution of Application with Environment Setup](#execution-of-application-with-environment-setup)
@@ -84,14 +84,20 @@ Introduction to computing principles and programming practices with an emphasis 
 # HW00: Tutorial
 To get started with your homework assignments, follow the steps below.
 
-## Set Up Your Virtual Environment
+## Set Up Your Virtual Environment (Activate venv)
 Before running any code, make sure you have your virtual environment set up.
 
 - If you haven't set up a virtual environment yet, follow the setup instructions provided in the root repository.
 - If you don't have `venv` like folder name and VSCode bash session does not show you `(venv)` on top, that means you need to setup a virtual environment
 
+Finally, to activate the venv, run the following script.
+```bash
+source venv/Scripts/activate
+```
+
 ## Open VSCode in this directory
 This `src` (source code) directory is where you are going to actually code. Open your VS Code here to proceed.
+
 
 ## Check Python Version
 Make sure that Python is virtually executing and the correct version is available in your virtual environment.

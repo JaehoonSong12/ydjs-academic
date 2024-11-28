@@ -1,4 +1,5 @@
 #!/bin/bash
+source venv/Scripts/activate
 PYTHON_SOURCE_CODE="main/python"
 EXECUTABLE="cli"                                #### YOUR DATA HERE
 cd ${PYTHON_SOURCE_CODE}
