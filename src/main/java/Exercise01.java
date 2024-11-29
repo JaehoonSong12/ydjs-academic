@@ -1,5 +1,6 @@
 /**
- * Exercise class containing methods to solve various exercises about `Introduction to Computers, Programs, and Java`.
+ * Exercise class containing methods to solve various exercises 
+ * about `Introduction to Computers, Programs, and Java`.
  */
 public class Exercise01 {
 
