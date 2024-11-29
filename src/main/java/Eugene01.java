@@ -20,6 +20,12 @@ public class Eugene01 {
         System.out.println("Welcome to Eugene01!");
         
         // Add method calls or logic here
+        Exercise01.main(args);
+        Exercise02.main(args);
+        Exercise03.main(args);
+        Exercise04.main(args);
+        Exercise05.main(args);
+        Exercise06.main(args);
     }
 
     /**
@@ -47,5 +53,22 @@ public class Eugene01 {
         System.out.println("Message: " + message);
     }
     
-    // Add more methods below as needed for your student's homework
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
