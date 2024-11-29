@@ -4,7 +4,7 @@
  */
 public class Exercise06 {
     /**
-     * Driver method to call individual exercise methods. dsadsads
+     * Driver method to call individual exercise methods.
      *
      * @param args command-line arguments
      */
