@@ -18,6 +18,20 @@ public class Eugene01 {
     public static void main(String[] args) {
         // Example: Print a welcome message to the console
         System.out.println("Welcome to Eugene01!");
+
+        // Call exercise methods from CustomUtils
+        CustomUtils.exercise01();
+        CustomUtils.exercise02();
+        CustomUtils.exercise03();
+        CustomUtils.exercise04();
+        CustomUtils.exercise05(5); // Pass a number for the multiplication table
+        CustomUtils.exercise06("Eugene");
+
+        // Call utility methods from CustomUtils
+        int doubled = CustomUtils.exampleMethod(7);
+        System.out.println("Doubled value: " + doubled);
+
+        CustomUtils.displayMessage("This is a test message!");
         
         // Add method calls or logic here
         Exercise01.main(args);
