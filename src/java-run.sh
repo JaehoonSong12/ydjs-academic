@@ -32,6 +32,9 @@ cd ..
 # javac *.java
 # cd ..
 
+clear
 
-
-java -cp . ${EXECUTABLE} "hello" "My name is" "Eugene"
+# java -cp . ${EXECUTABLE} "hello" "My name is" "Eugene"
+java -cp . ${EXECUTABLE}
+echo ""
+echo ""
