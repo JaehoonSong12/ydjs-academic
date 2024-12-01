@@ -27,11 +27,18 @@ public class Cli {
         }
 
         ////////////////////////////////////////
-        // Uncomment the method or class to run
+        // Uncomment the method or class to run for testing ***************************************************************
         ////////////////////////////////////////
         // numberGame();
-        Eugene01.main(args);
+        // Eugene01.main(args);
         // Payroll.main(args);
+
+
+        Workspace.main(args);
+        
+        
+
+
     }
 
     /**
