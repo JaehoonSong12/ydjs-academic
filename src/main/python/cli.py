@@ -11,24 +11,6 @@ import the_raise_of_legend.app
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # print("kbo is bigger than earth")
 # print("(1) roblux")
 # print('the super mario64 .glitchbrawl stars battle cat fortknight bladeball poki coolmath game math playground(*.*) rush royale infinite stair')
@@ -45,19 +27,9 @@ import the_raise_of_legend.app
 
 
 
-
-
-
-
-
-
-
-
-
-
 def main():
     x = 2
-    # print("Your App is running...")
+    print("Your App is running...")
     the_raise_of_legend.app.main()
 
 
