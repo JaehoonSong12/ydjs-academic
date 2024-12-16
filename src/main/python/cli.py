@@ -1,65 +1,10 @@
 # cli.py
 import the_raise_of_legend.app
-# import gui
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# print("kbo is bigger than earth")
-# print("(1) roblux")
-# print('the super mario64 .glitchbrawl stars battle cat fortknight bladeball poki coolmath game math playground(*.*) rush royale infinite stair')
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+import elemental_clash.gui
 
 def main():
-    x = 2
-    # print("Your App is running...")
-    the_raise_of_legend.app.main()
-
+    print("Your App is running...")
+    elemental_clash.gui.main()
 
 if __name__ == "__main__":
     main()
