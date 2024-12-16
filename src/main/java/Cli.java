@@ -22,9 +22,9 @@ public class Cli {
      */
     public static void main(String[] args) {
         // Print all command-line arguments
-        for (String arg : args) {
-            System.out.println(arg);
-        }
+        // for (String arg : args) {
+        //     System.out.println(arg);
+        // }
 
         ////////////////////////////////////////
         // Uncomment the method or class to run for testing ***************************************************************
