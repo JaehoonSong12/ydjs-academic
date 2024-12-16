@@ -24,6 +24,9 @@
   - In natural language: *"The cat sleeps"* means there is a specific cat that is performing the action of sleeping.
   - In programming: `if x > 0:` implies a conditional check to determine if `x` is greater than zero.
 
+
+
+
 ---
 
 ## 3. **Pragmatics**
