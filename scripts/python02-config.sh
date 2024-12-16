@@ -147,13 +147,20 @@ else
 fi
 
 
-
-# Activate virtual environment based on OS type
+# Suggest command to activate the virtual environment based on OS type
 if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then # Windows
-   source venv/Scripts/activate
+    echo "==============================================================="
+    echo "Run the following command to activate the virtual environment:"
+    echo "source venv/Scripts/activate"
+    echo "==============================================================="
 elif [[ "$OSTYPE" == "darwin"* || "$OSTYPE" == "linux-gnu"* ]]; then # macOS or Linux
-   source venv/bin/activate
+    echo "==============================================================="
+    echo "Run the following command to activate the virtual environment:"
+    echo "source venv/bin/activate"
+    echo "==============================================================="
 else
-   echo "Unsupported OS type: $OSTYPE"
-   exit 1
+    echo "==============================================================="
+    echo "Unsupported OS type: $OSTYPE"
+    exit 1
+    echo "==============================================================="
 fi

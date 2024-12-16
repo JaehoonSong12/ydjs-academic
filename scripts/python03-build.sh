@@ -1,7 +1,6 @@
 #!/bin/bash
-PYTHON_SOURCE_CODE="src/main/python"
+cd "src/main/python"
 EXECUTABLE="cli"                                #### YOUR DATA HERE
-cd ${PYTHON_SOURCE_CODE}
 ############################################
 ########## Shell Script (Scripts) ##########
 ############################################
