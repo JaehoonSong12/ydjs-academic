@@ -40,8 +40,10 @@
     - [Absolute Value Inequalities](#absolute-value-inequalities)
     - [Key Properties of Absolute Value](#key-properties-of-absolute-value)
     - [Summary Table](#summary-table)
+  - [Circle](#circle)
+    - [Definition](#definition-1)
 - [CS: PYTHON](#cs-python)
-  - [Hw (special): Elemental Clash Lite](#hw-special-elemental-clash-lite)
+  - [HW (special): Elemental Clash Lite](#hw-special-elemental-clash-lite)
     - [Future Improvements (Homework)](#future-improvements-homework)
     - [Features](#features)
       - [Gameplay Mechanics](#gameplay-mechanics)
@@ -157,7 +159,11 @@ Now you know that absolute value focuses only on the magnitude of a number (how 
 
 
 
+## Circle
 
+### Definition
+
+![cicle](./images/jayden01.jpg)
 
 
 
@@ -193,7 +199,7 @@ Now you know that absolute value focuses only on the magnitude of a number (how 
 
 
 
-## Hw (special): Elemental Clash Lite
+## HW (special): Elemental Clash Lite
 
 **Elemental Clash Lite** is a 2D side-view fighting game built with Python's Pygame library. Players control fighters with unique elemental powers in exciting battles within interactive arenas. The game features local multiplayer and single-player story modes.
 
