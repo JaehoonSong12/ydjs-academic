@@ -32,9 +32,22 @@
 
 ## Table of Contents
 - [Math: SAT](#math-sat)
+  - [What is Factored Form?](#what-is-factored-form)
+    - [Example:](#example)
+  - [Why Use Factored Form?](#why-use-factored-form)
+  - [Steps to Factor an Expression](#steps-to-factor-an-expression)
+  - [Types of Factoring](#types-of-factoring)
+    - [1. Factoring Out the GCF](#1-factoring-out-the-gcf)
+    - [2. Factoring Trinomials](#2-factoring-trinomials)
+    - [3. Factoring by Grouping](#3-factoring-by-grouping)
+    - [4. Factoring Special Cases](#4-factoring-special-cases)
+  - [Examples](#examples)
+  - [Tips for Factoring](#tips-for-factoring)
+  - [Practice Problems](#practice-problems)
+  - [Conclusion](#conclusion)
   - [Absolute Value](#absolute-value)
     - [Definition](#definition)
-    - [Examples](#examples)
+    - [Examples](#examples-1)
     - [Graphical Definition](#graphical-definition)
     - [Solving Absolute Value Equations](#solving-absolute-value-equations)
     - [Absolute Value Inequalities](#absolute-value-inequalities)
@@ -71,6 +84,164 @@
 # Math: SAT
 
 
+## What is Factored Form?
+
+Factored form is a way of writing a polynomial as the product of its factors. Factoring simplifies expressions, helps solve equations, and identifies roots (solutions).
+
+### Example:  
+A quadratic equation in standard form:  
+**ax² + bx + c**  
+
+Can be written in factored form:  
+**a(x - r₁)(x - r₂)**  
+
+Where **r₁** and **r₂** are the roots.  
+
+✅ Example:  
+**x² - 5x + 6 = (x - 2)(x - 3)**  
+
+---
+
+## Why Use Factored Form?
+
+Factored form is important because it:  
+- Helps find the roots (solutions) of an equation.  
+- Simplifies algebraic expressions.  
+- Makes graphing easier by identifying intercepts.  
+- Is used in real-world problems like physics and engineering.
+
+---
+
+## Steps to Factor an Expression
+
+Follow these steps to factor any expression:
+
+1. **Look for a GCF**:  
+   Factor out the greatest common factor from all terms.
+
+2. **Count the terms**:  
+   - **2 terms** → Check for a difference of squares.  
+   - **3 terms** → Factor as a trinomial.  
+   - **4 terms** → Try factoring by grouping.  
+
+3. **Factor step by step**:  
+   Use methods like the **AC Method** for trinomials.
+
+4. **Check for special cases**:  
+   Recognize patterns like perfect squares or differences of squares.
+
+5. **Verify**:  
+   Expand your factors to ensure they match the original expression.
+
+---
+
+## Types of Factoring
+
+### 1. Factoring Out the GCF
+
+Always start by factoring out the **greatest common factor**.  
+
+✅ Example:  
+**6x² + 12x**  
+**GCF = 6x**  
+**6x² + 12x = 6x(x + 2)**  
+
+---
+
+### 2. Factoring Trinomials
+
+For an expression in the form **ax² + bx + c**:  
+- Find two numbers that multiply to **ac** and add to **b**.
+
+✅ Example:  
+**x² + 5x + 6**  
+The numbers that multiply to 6 and add to 5 are **2 and 3**.  
+**x² + 5x + 6 = (x + 2)(x + 3)**  
+
+---
+
+### 3. Factoring by Grouping
+
+Use grouping when there are **4 terms**.  
+
+✅ Example:  
+**x³ + 2x² + x + 2**  
+Group terms:  
+**(x³ + 2x²) + (x + 2)**  
+Factor out the GCF from each group:  
+**x²(x + 2) + 1(x + 2)**  
+Combine:  
+**(x² + 1)(x + 2)**  
+
+---
+
+### 4. Factoring Special Cases
+
+1. **Difference of Squares**:  
+   **a² - b² = (a + b)(a - b)**  
+
+   ✅ Example:  
+   **x² - 16 = (x + 4)(x - 4)**  
+
+2. **Perfect Square Trinomials**:  
+   - **a² + 2ab + b² = (a + b)²**  
+   - **a² - 2ab + b² = (a - b)²**  
+
+   ✅ Example:  
+   **x² + 6x + 9 = (x + 3)²**  
+
+---
+
+## Examples
+
+1. **Factoring Out the GCF**  
+   Factor **12x² + 18x**:  
+   **GCF = 6x**  
+   **12x² + 18x = 6x(2x + 3)**  
+
+2. **Factoring a Trinomial**  
+   Factor **x² + 7x + 10**:  
+   Find numbers that multiply to 10 and add to 7 → **2 and 5**.  
+   **x² + 7x + 10 = (x + 2)(x + 5)**  
+
+3. **Factoring by Grouping**  
+   Factor **2x³ + 4x² + 3x + 6**:  
+   Group terms: **(2x³ + 4x²) + (3x + 6)**  
+   Factor GCF: **2x²(x + 2) + 3(x + 2)**  
+   Combine: **(2x² + 3)(x + 2)**  
+
+4. **Factoring a Difference of Squares**  
+   Factor **x² - 49**:  
+   **x² - 49 = (x + 7)(x - 7)**  
+
+---
+
+## Tips for Factoring
+
+- Always start by factoring out the **GCF**.  
+- Recognize patterns like perfect squares or differences of squares.  
+- Use the **AC Method** to factor trinomials efficiently.  
+- Expand your factors to check your work.  
+
+---
+
+## Practice Problems
+
+Try these problems on your own:  
+
+1. Factor **x² + 8x + 15**.  
+2. Factor **3x² + 12x + 9**.  
+3. Factor **x² - 36**.  
+4. Factor **4x³ + 8x² + 2x + 4**.  
+5. Factor **x³ - x² - 6x + 6**.  
+
+---
+
+## Conclusion
+
+Factored form is a fundamental concept in algebra that simplifies polynomials and helps solve equations. By practicing and recognizing patterns, you'll master factoring in no time.  
+
+Remember: **Factor, Check, and Verify!**  
 
 
 
