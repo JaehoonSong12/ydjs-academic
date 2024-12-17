@@ -32,6 +32,16 @@
 
 ## Table of Contents
 - [Math: SAT](#math-sat)
+- [📐 **Triangle Inequality Theorem**](#-triangle-inequality-theorem)
+  - [🎯 **What is the Triangle Inequality Theorem?**](#-what-is-the-triangle-inequality-theorem)
+    - [🔢 In Math Terms:](#-in-math-terms)
+  - [📝 **Why is this True?**](#-why-is-this-true)
+    - [⚠️ Example 1: No Triangle](#️-example-1-no-triangle)
+    - [✅ Example 2: Triangle Exists](#-example-2-triangle-exists)
+  - [🔍 **Real-Life Analogy**](#-real-life-analogy)
+  - [✅ **Key Rule to Remember**](#-key-rule-to-remember)
+  - [🧩 **Practice Problems**](#-practice-problems)
+  - [🏁 **Conclusion**](#-conclusion)
   - [What is Factored Form?](#what-is-factored-form)
     - [Example:](#example)
   - [Why Use Factored Form?](#why-use-factored-form)
@@ -84,11 +94,91 @@
 # Math: SAT
 
 
-## What is Factored Form?
 
-Factored form is a way of writing a polynomial as the product of its factors. Factoring simplifies expressions, helps solve equations, and identifies roots (solutions).
+# 📐 **Triangle Inequality Theorem**
+![Triangle Inequality Theorem](./images/Triangle-Inequality-Theorm.webp)
+
+## 🎯 **What is the Triangle Inequality Theorem?**  
+
+The **Triangle Inequality Theorem** states that:  
+
+> **The sum of the lengths of any two sides of a triangle must be *greater* than the length of the third side.**
+
+### 🔢 In Math Terms:  
+For any triangle with sides **a**, **b**, and **c**:  
+- ✅ **a + b > c**  
+- ✅ **a + c > b**  
+- ✅ **b + c > a**  
+
+---
+
+## 📝 **Why is this True?**  
+
+If two sides of a triangle are too short, they can’t meet to form the third side!  
+
+### ⚠️ Example 1: No Triangle  
+If the sides are **3**, **4**, and **8**:  
+- **3 + 4 = 7**, which is **not greater** than **8**.  
+❌ **No triangle can be formed.**
+
+### ✅ Example 2: Triangle Exists  
+If the sides are **3**, **4**, and **6**:  
+- **3 + 4 = 7**, which **is greater** than **6**.  
+✔️ **A triangle can be formed!**  
+
+---
+
+## 🔍 **Real-Life Analogy**  
+
+Think of a triangle as a **path**:  
+- You want to walk from **Point A** to **Point B** to **Point C**.  
+- If two paths are too short, it’s like walking in a straight line—no triangle is possible.  
+
+**Key Idea**: You can’t “bend” short sides to form a triangle.  
+
+---
+
+## ✅ **Key Rule to Remember**  
+
+For any triangle with sides **a**, **b**, and **c**:  
+
+- **a + b > c**  
+- **a + c > b**  
+- **b + c > a**  
+
+If even **one** of these is false, you **cannot** form a triangle!  
+
+---
+
+## 🧩 **Practice Problems**  
+
+1. Can a triangle have sides **5**, **7**, and **12**?  
+   A: No(Jayden)
+2. Can a triangle have sides **6**, **8**, and **10**?  
+   A: Yes(Jayden)
+3. Can a triangle have sides **2**, **2**, and **5**?  
+   A: No(Jayden)
+4. Can a triangle have sides **4**, **4**, and **7**?  
+   A: Yes(Jayden)
+
+---
+
+## 🏁 **Conclusion**  
+
+The **Triangle Inequality Theorem** ensures a triangle can exist. Always check:  
+
+> **The sum of any two sides must be greater than the third side.**  
+
+Remember: **No Sum, No Triangle!** 🛑  
+
+---
+
+## What is Factored Form?
+> actored form is a way of writing a polynomial as the product of its factors. Factoring simplifies expressions, helps solve equations, and identifies roots (solutions).
 
 ### Example:  
+![Factored Form](./images/Factored_Form_EX.png)
+
 A quadratic equation in standard form:  
 **ax² + bx + c**  
 
@@ -230,10 +320,15 @@ Combine:
 Try these problems on your own:  
 
 1. Factor **x² + 8x + 15**.  
+   Jayden A: (x+3)(x+5)
 2. Factor **3x² + 12x + 9**.  
-3. Factor **x² - 36**.  
-4. Factor **4x³ + 8x² + 2x + 4**.  
+   Jayden A: (3x+3)(x+3)
+3. Factor **x² - 36**. 
+   Jayden A: (x+6)(x-6) 
+4. Factor **4x³ + 8x² + 2x + 4**. 
+   Jayden A: 2(2x² + 1)(x + 2)
 5. Factor **x³ - x² - 6x + 6**.  
+   Jayden A: (x-1)(x²-6)
 
 ---
 
@@ -243,7 +338,7 @@ Factored form is a fundamental concept in algebra that simplifies polynomials an
 
 Remember: **Factor, Check, and Verify!**  
 
-
+---
 
 ## Absolute Value
 
@@ -334,7 +429,7 @@ Now you know that absolute value focuses only on the magnitude of a number (how 
 
 ### Definition
 
-![cicle](./images/jayden01.jpg)
+
 
 
 
