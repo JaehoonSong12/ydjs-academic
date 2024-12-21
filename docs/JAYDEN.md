@@ -83,10 +83,10 @@ A major update to our Java lecture series! To better support large-scale workflo
 
 To ensure a smooth transition, please fill out the following form to schedule your online meeting:
 
-* **Meeting Date:** _____________________________________________
-* **Meeting Time:** _____________________________________________
-* **Time Zone:** _______________________________________________
-* **Meeting Platform (e.g. Zoom, Google Meet, Skype):** _______________________
+* **Meeting Date:** January 4th, 2025(After korea travel)_____________________________________________
+* **Meeting Time:** 6:00 pm
+* **Time Zone:** USA GA
+* **Meeting Platform (e.g. Zoom, Google Meet, Skype):** Zoom
 
 
 
