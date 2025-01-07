@@ -137,14 +137,6 @@ To ensure a smooth transition, please fill out the following form to schedule yo
 
 
 
-
-
-
-
-
-
-
-
 <br /><br /><br />
 
 
@@ -706,12 +698,17 @@ So the solutions are \( x = 4 \) and \( x = -4 \).
 
 
 ### Summary Table
-| Input (\( x \)) | Output (\( |x| \)) |
+
+
+
+| **Input ($x$)** | **Output $\|x\|$** |
 |-----------------|-------------------|
 | 5               | 5                 |
 | -7              | 7                 |
 | 0               | 0                 |
 | -12             | 12                |
+
+
 
 
 
