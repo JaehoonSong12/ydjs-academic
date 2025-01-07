@@ -103,6 +103,26 @@
 
 
 
+# CS: JAVA
+
+## Announcement
+A major update to our Java lecture series! To better support large-scale workflows, we'll be adopting Gradle as our primary build automation tool.
+
+### Key Changes:
+* Improved project structure for easier navigation
+* Enhanced learning materials and resources
+* Large-scaled development experience with Gradle
+
+### Actions Required:
+
+To ensure a smooth transition, please fill out the following form to schedule your online meeting:
+
+* **Meeting Date:** January 4th, 2025(After korea travel)_____________________________________________
+* **Meeting Time:** 6:00 pm
+* **Time Zone:** USA GA
+* **Meeting Platform (e.g. Zoom, Google Meet, Skype):** Zoom
+
+
 
 
 
@@ -488,8 +508,6 @@ Factor out the GCF from each group:
 x²(x + 2) + 1(x + 2)
 Combine:  
 (x² + 1)(x + 2)  
-
-
 
 
 
