@@ -106,8 +106,16 @@ To ensure a smooth transition, please fill out the following form to schedule yo
 
 
 
+Here's a simple table showing the absolute value function:
 
+| Input (x) | Output (|x|) |
+|-----------|-------------|
+| 5         | 5           |
+| -7        | 7           |
+| 0         | 0           |
+| -12       | 12          |
 
+You can add text above or below the table as needed!
 
 
 
@@ -709,14 +717,12 @@ So the solutions are \( x = 4 \) and \( x = -4 \).
 
 
 ### Summary Table
-
-| Input (x) | Output (|x|) |
-|-----------|-------------|
-| 5         | 5           |
-| -7        | 7           |
-| 0         | 0           |
-| -12       | 12          |
-
+| Input (\( x \)) | Output (\( |x| \)) |
+|-----------------|-------------------|
+| 5               | 5                 |
+| -7              | 7                 |
+| 0               | 0                 |
+| -12             | 12                |
 
 
 
