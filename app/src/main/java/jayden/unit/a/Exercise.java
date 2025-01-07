@@ -35,8 +35,11 @@ public class Exercise {
      * </pre>
      */
     public static void displaySummation() {
-        // [YOUR_IMPLEMENTATION]
-        return;
+        int sum = 0;
+        for (int i = 1; i <= 9; i++) {
+            sum += i;
+        }
+        System.out.println("The summation of 1 + 2 + 3 + ... + 9 is: " + sum);
     }
 
     /**
