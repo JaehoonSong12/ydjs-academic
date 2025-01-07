@@ -1,11 +1,8 @@
-<!--
+<!-- 
  @requires
  1. VSCode extension: Markdown Preview Enhanced
  2. Shortcut: 'Ctrl' + 'Shift' + 'V'
  3. Split: Drag to right (->)
-
-
-
 
  @requires
  1. VSCode extension: Markdown All in One
@@ -13,45 +10,23 @@
  3. toggle code span > `Ctrl + '`
  4. toggle code block > `Ctrl + Shift + '`
 
-
-
-
  @usage
  1. End of Proof (Q.E.D.): <div style="text-align: right;">&#11035;</div>
- 2. End of Each Section:
-
-
-
+ 2. End of Each Section: 
 
      <br /><br /><br />
-
-
-
 
      ---
 
 
 
-
-
-
-
-
-
-
-
-
      <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 
  3. ![image_title_](images/imagefile.png)
  4. [url_title](URL)
  -->
 <!-- Anchor Tag (Object) for "back to top" -->
-<a id="readme-top"></a>
-
+<a id="readme-top"></a> 
 
 
 
@@ -64,6 +39,10 @@
 
 
 ## Table of Contents
+- [CS: JAVA](#cs-java)
+  - [Announcement](#announcement)
+    - [Key Changes:](#key-changes)
+    - [Actions Required:](#actions-required)
 - [Math: SAT](#math-sat)
   - [Triangle Inequality Theorem](#triangle-inequality-theorem)
     - [Math Terms](#math-terms)
