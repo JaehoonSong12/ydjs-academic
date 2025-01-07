@@ -23,3 +23,9 @@ fi
 ########## Shell Script (Scripts) ##########
 ############################################
 gradle init
+
+
+
+# ./gradlew setClass               # Run the setClass task in all submodules (this will match all subprojects)
+# ./gradlew :app:setClass          # Run the setClass task in the 'app' module
+# ./gradlew :utilities:setClass    # Run the setClass task in the 'utilities' module
