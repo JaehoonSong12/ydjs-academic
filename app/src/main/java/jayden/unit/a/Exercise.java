@@ -48,7 +48,14 @@ public class Exercise {
      * formula: area = width * height
      */
     public static void displayRectangleProperties() {
-        // [YOUR_IMPLEMENTATION]
+        double width = 4.5;
+        double height = 7.9;
+
+        double area = width * height;
+        double perimeter = 2 * (width + height);
+
+        System.out.println("The area of the rectangle is: " + area);
+        System.out.println("The perimeter of the rectangle is: " + perimeter);
         return;
     }
 
@@ -58,7 +65,17 @@ public class Exercise {
      * (Note that 1 mile is 1.6 kilometers.)
      */
     public static void displayAverageSpeed() {
-        // [YOUR_IMPLEMENTATION]
+        double miles = 24.0;
+        double totalTimeInSeconds = (1 * 3600) + (40 * 60) + 35; // Convert time to seconds
+        double kilometersPerMile = 1.6;
+
+        double totalTimeInHours = totalTimeInSeconds / 3600.0;
+
+        double kilometers = miles * kilometersPerMile;
+
+        double averageSpeed = kilometers / totalTimeInHours;
+
+        System.out.println("The average speed is: " + averageSpeed + " kilometers per hour.");
         return;
     }
 
