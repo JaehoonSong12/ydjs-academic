@@ -67,15 +67,25 @@
     - [Absolute Value Inequalities](#absolute-value-inequalities)
     - [Key Properties](#key-properties)
     - [Summary Table](#summary-table)
-- [CS: PYTHON](#cs-python)
-  - [HW (special): Elemental Clash Lite](#hw-special-elemental-clash-lite)
-    - [Future Improvements (Homework)](#future-improvements-homework)
-    - [Features](#features)
-      - [Gameplay Mechanics](#gameplay-mechanics)
-      - [Game Modes](#game-modes)
-    - [Controls](#controls)
-      - [Player 1](#player-1)
-      - [Player 2](#player-2)
+  - [Intro to Statistics](#intro-to-statistics)
+    - [Definition](#definition-1)
+    - [Key Concepts](#key-concepts)
+    - [Examples](#examples-1)
+    - [Practice Problems](#practice-problems-2)
+    - [Conclusion](#conclusion-2)
+  - [Order of Operations Explained](#order-of-operations-explained)
+    - [Definition](#definition-2)
+    - [PEMDAS](#pemdas)
+    - [Examples](#examples-2)
+    - [Practice Problems](#practice-problems-3)
+    - [Conclusion](#conclusion-3)
+  - [Inequality Symbols Explanation](#inequality-symbols-explanation)
+    - [Definition](#definition-3)
+    - [Key Symbols](#key-symbols)
+    - [Examples](#examples-3)
+    - [Practice Problems](#practice-problems-4)
+    - [Conclusion](#conclusion-4)
+
 
 
 
@@ -738,8 +748,91 @@ Now you know that absolute value focuses only on the magnitude of a number (how 
 
 
 
+## Intro to Statistics
+
+### Definition
+Statistics is the branch of mathematics that deals with collecting, organizing, analyzing, and interpreting data.
+
+### Key Concepts
+1. **Mean (Average):** Sum of all values divided by the number of values.
+2. **Median:** The middle value when data is ordered from least to greatest.
+3. **Mode:** The most frequently occurring value(s) in a data set.
+4. **Range:** Difference between the largest and smallest values.
+
+### Examples
+1. **Mean:** Data: 2, 4, 6, 8, 10. Mean = (2+4+6+8+10)/5 = 6.
+2. **Median:** Data: 3, 7, 9, 12, 15. Median = 9.
+3. **Mode:** Data: 5, 5, 7, 9, 9, 9. Mode = 9.
+4. **Range:** Data: 10, 15, 20, 25. Range = 25 - 10 = 15.
+
+### Practice Problems
+1. Find the mean of 4, 8, 12, 16.
+2. Identify the median of 10, 14, 18, 20, 22.
+3. Determine the mode of 2, 3, 3, 5, 7, 7, 7, 9.
+4. Calculate the range of 25, 30, 35, 40, 45.
+
+### Conclusion
+Understanding basic statistics helps analyze and interpret data in everyday life, from sports to finance.
+
+---
+
+## Order of Operations Explained
+
+### Definition
+The order of operations is the set of rules that defines the sequence in which mathematical operations are performed.
+
+### PEMDAS
+PEMDAS stands for:
+- **P**: Parentheses
+- **E**: Exponents
+- **M/D**: Multiplication/Division (from left to right)
+- **A/S**: Addition/Subtraction (from left to right)
+
+### Examples
+1. \( 3 + 6 \times 2 \) = 3 + 12 = 15.
+2. \( (2 + 3)^2 \times 4 \) = 5^2 \times 4 = 25 \times 4 = 100.
+3. \( 12 \div (3 + 1) \times 2 \) = 12 \div 4 \times 2 = 3 \times 2 = 6.
+
+### Practice Problems
+1. \( 7 + 3 \times 5 \).
+2. \( (8 + 2)^2 \div 5 \).
+3. \( 15 \div (5 - 2) + 4 \).
+4. \( 6 \times (3 + 4) - 2 \).
+
+### Conclusion
+Remembering PEMDAS ensures accurate calculations in all mathematical problems.
+
+---
+
+## Inequality Symbols Explanation
+
+### Definition
+Inequality symbols are used to compare values or expressions, showing the relationship between them.
+
+### Key Symbols
+1. **<**: Less than
+2. **>**: Greater than
+3. **≤**: Less than or equal to
+4. **≥**: Greater than or equal to
+5. **≠**: Not equal to
+
+### Examples
+1. \( 3 < 5 \): 3 is less than 5.
+2. \( 10 > 7 \): 10 is greater than 7.
+3. \( 6 \leq 6 \): 6 is less than or equal to 6.
+4. \( 8 \geq 5 \): 8 is greater than or equal to 5.
+5. \( 4 \neq 3 \): 4 is not equal to 3.
+
+### Practice Problems
+1. Compare: 7 __ 10.
+2. Compare: 15 __ 15.
+3. Compare: -3 __ -5.
+4. Compare: 0 __ 5.
 
 
+
+### Conclusion
+Understanding inequality symbols is essential for solving equations and comparing values in math.
 
 
 
@@ -804,144 +897,6 @@ Now you know that absolute value focuses only on the magnitude of a number (how 
 
 
 
-
----
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# CS: PYTHON
-
-
-
-
-
-
-
-
-
-
-
-
-## HW (special): Elemental Clash Lite
-
-
-
-
-**Elemental Clash Lite** is a 2D side-view fighting game built with Python's Pygame library. Players control fighters with unique elemental powers in exciting battles within interactive arenas. The game features local multiplayer and single-player story modes.
-
-
-
-
-### Future Improvements (Homework)
-- Players must be bounded to the screen, use `if-statement` to do it.
-- Key down of `s` and `d` are duplicated with player 1's action, identify the bug and fix it. (`if-statement`)
-- AI towards the right, not left, fix it by using mathematical concept, a transformation `reflection over y-axis`.
-- Use `for-loop`, to randomly generate some obstacles in the arena.
-- [extra] AI opponents in single-player mode.
-
-
-
-
-### Features
-
-
-
-
-#### Gameplay Mechanics
-- **Health System**: Each character starts with 100 HP.
-- **Basic Attacks**: Perform punches and combine them with special moves for combos.
-- **Special Moves**: Each fighter has two unique elemental abilities, such as fireballs or healing waves.
-- **Interactive Arenas**: Fixed environments with potential hazards and effects.
-
-
-
-
-#### Game Modes
-- **Story Mode**: A single-player campaign against 5 predefined enemies, culminating in a final boss fight.
-- **Multiplayer Mode**: A local 2-player mode using the keyboard or two controllers.
-
-
-
-
-### Controls
-
-
-
-
-#### Player 1
-- **Movement**: Arrow keys (← →).
-- **Jump**: Up Arrow (↑).
-- **Basic Attack**: Space.
-- **Special Move 1**: S.
-- **Special Move 2**: D.
-
-
-
-
-#### Player 2
-- **Movement**: WASD (A/D for left/right).
-- **Jump**: W.
-- **Basic Attack**: F.
-- **Special Move 1**: G.
-- **Special Move 2**: H.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
