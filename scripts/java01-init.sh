@@ -10,8 +10,8 @@ if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then          # Windows
     INIT_JDK        # dependency # 1
     INIT_GRADLE     # dependency # 2
 elif [[ "$OSTYPE" == "darwin"* ]]; then                              # macOS
-    echo "Detected macOS: $OSTYPE"
-    # Add macOS-specific commands here if needed
+    java -version
+    gradle -v
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then                           # Linux
     echo "Detected Linux: $OSTYPE"
     # Add Linux-specific commands here if needed
