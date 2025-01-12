@@ -28,7 +28,7 @@ fi
 ############################################
 gradle init
 
-
+# 43p4u   9h8r2[u4bg32br33qbri3fpu3bi]nonoqefnoionfwenoefqnfqenio
 
 # ./gradlew setClass               # Run the setClass task in all submodules (this will match all subprojects)
 # ./gradlew :app:setClass          # Run the setClass task in the 'app' module
