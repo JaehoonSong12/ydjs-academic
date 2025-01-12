@@ -7,8 +7,12 @@ if [ -f ~/.bashrc ]; then
 fi
 # /usr
 if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then          # Windows
-    INIT_JDK        # dependency # 1
-    INIT_GRADLE     # dependency # 2
+    if ! java -version 2>/dev/null; then
+        INIT_JDK
+    fi
+    if ! gradle -v 2>/dev/null; then
+        INIT_GRADLE
+    fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then                              # macOS
     java -version
     gradle -v
