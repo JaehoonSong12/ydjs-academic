@@ -63,7 +63,7 @@ application { // entry-points
 
 
     /***************************************************************************
-     * Instructor Space
+     * [Custom] Instructor Space
      ***************************************************************************/
     // mainClass.set("ydjs.app.Cli")        // entry-point for `Jaehoon (Instructor)`
     // mainClass.set("cs3510.app.Cli")         // Java-written class entry for CLI (Command Line Interface)
@@ -72,7 +72,7 @@ application { // entry-points
     // mainClass.set("cs3510.app.GuiKt")       // Kotlin-written top-level entry with companion object main for GUI (Graphical User Interface)
 
 
-    // mainClass.set("com.example.mvc.App")
+    mainClass.set("com.example.mvc.App")
     // mainClass.set("com.example.mvvm.App")
 }
 
@@ -103,6 +103,64 @@ application { // entry-points
 /***************************************************************************
  * [Custom] Gradle tasks.
  ***************************************************************************/
+tasks.dokkaHtml {
+    outputDirectory.set(buildDir.resolve("docs/dokka")) // Specify where to output the documentation
+    dokkaSourceSets {
+        configureEach {
+            includeNonPublic.set(false) // Only include public members
+            skipDeprecated.set(false)  // Include deprecated elements
+            reportUndocumented.set(true) // Warn about undocumented elements
+            sourceLink {
+                localDirectory.set(file("src/main/kotlin"))
+                remoteUrl.set(
+                    uri("https://github.com/your-repo/your-project/blob/main/src/main/kotlin").toURL()
+                )
+                remoteLineSuffix.set("#L")
+            }
+        }
+    }
+}
+
+
+tasks.dokkaJavadoc {
+    outputDirectory.set(buildDir.resolve("docs/javaxdoc")) // Specify where to output the documentation
+    dokkaSourceSets {
+        configureEach {
+            includeNonPublic.set(false) // Only include public members
+            skipDeprecated.set(false)  // Include deprecated elements
+            reportUndocumented.set(true) // Warn about undocumented elements
+            sourceLink {
+                localDirectory.set(file("src/main/kotlin"))
+                remoteUrl.set(
+                    uri("https://github.com/your-repo/your-project/blob/main/src/main/kotlin").toURL()
+                )
+                remoteLineSuffix.set("#L")
+            }
+        }
+    }
+}
+
+tasks.register("dokka") {
+    group = "documentation" // Group for better organization in Gradle tasks
+    description = "Generates both Dokka HTML and Javadoc documentation."
+
+    dependsOn(tasks.dokkaHtml, tasks.dokkaJavadoc)
+
+    doLast {
+        println("Documentation tasks completed: dokkaHtml and dokkaJavadoc.")
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
  // Define package names and class names as shared variables
 val packages = listOf(
     "eugene.unit.f",
@@ -224,51 +282,3 @@ fun createTestFile(testFile: File, packageName: String, className: String) {
 //         }
 //     }
 // }
-
-tasks.dokkaHtml {
-    outputDirectory.set(buildDir.resolve("docs/dokka")) // Specify where to output the documentation
-    dokkaSourceSets {
-        configureEach {
-            includeNonPublic.set(false) // Only include public members
-            skipDeprecated.set(false)  // Include deprecated elements
-            reportUndocumented.set(true) // Warn about undocumented elements
-            sourceLink {
-                localDirectory.set(file("src/main/kotlin"))
-                remoteUrl.set(
-                    uri("https://github.com/your-repo/your-project/blob/main/src/main/kotlin").toURL()
-                )
-                remoteLineSuffix.set("#L")
-            }
-        }
-    }
-}
-
-
-tasks.dokkaJavadoc {
-    outputDirectory.set(buildDir.resolve("docs/javaxdoc")) // Specify where to output the documentation
-    dokkaSourceSets {
-        configureEach {
-            includeNonPublic.set(false) // Only include public members
-            skipDeprecated.set(false)  // Include deprecated elements
-            reportUndocumented.set(true) // Warn about undocumented elements
-            sourceLink {
-                localDirectory.set(file("src/main/kotlin"))
-                remoteUrl.set(
-                    uri("https://github.com/your-repo/your-project/blob/main/src/main/kotlin").toURL()
-                )
-                remoteLineSuffix.set("#L")
-            }
-        }
-    }
-}
-
-tasks.register("dokka") {
-    group = "documentation" // Group for better organization in Gradle tasks
-    description = "Generates both Dokka HTML and Javadoc documentation."
-
-    dependsOn(tasks.dokkaHtml, tasks.dokkaJavadoc)
-
-    doLast {
-        println("Documentation tasks completed: dokkaHtml and dokkaJavadoc.")
-    }
-}
