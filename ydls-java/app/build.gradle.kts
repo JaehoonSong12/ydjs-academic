@@ -46,20 +46,28 @@ application { // entry-points
     // mainClass.set("eugene.app.Cli")      // entry-point for `Eugene`
     mainClass.set("jayden.app.Cli")         // entry-point for `Jayden`
     // mainClass.set("noah.app.Cli")           // entry-point for `Noah`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /***************************************************************************
+     * Instructor Space
+     ***************************************************************************/
     // mainClass.set("ydjs.app.Cli")        // entry-point for `Jaehoon (Instructor)`
-
-
-
-
-
-
-
-
-
-
-    
     // mainClass.set("cs3510.app.Cli")         // Java-written class entry for CLI (Command Line Interface)
-    mainClass.set("cs3510.app.Gui")         // Java-written class entry for GUI (Graphical User Interface)
+    // mainClass.set("cs3510.app.Gui")         // Java-written class entry for GUI (Graphical User Interface)
     // mainClass.set("cs3510.app.CliKt")         // Kotlin-written top-level entry for CLI (Command Line Interface)
     // mainClass.set("cs3510.app.GuiKt")       // Kotlin-written top-level entry with companion object main for GUI (Graphical User Interface)
 
@@ -67,6 +75,20 @@ application { // entry-points
     // mainClass.set("com.example.mvc.App")
     // mainClass.set("com.example.mvvm.App")
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -202,8 +224,6 @@ fun createTestFile(testFile: File, packageName: String, className: String) {
 //         }
 //     }
 // }
-
-
 
 tasks.dokkaHtml {
     outputDirectory.set(buildDir.resolve("docs/dokka")) // Specify where to output the documentation
