@@ -1,11 +1,11 @@
 #!/bin/bash
 if [ -f ~/.bashrc ]; then
     source ~/.bashrc
-# else
-#     echo -e "\033[1;31mError: ~/.bashrc not found. Exiting...\033[0m"
-#     exit 1
 fi
 # /usr
+cd "ydls-java"
+
+
 if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then          # Windows
     if ! java -version 2>/dev/null; then
         INIT_JDK
@@ -27,8 +27,6 @@ fi
 ########## Shell Script (Scripts) ##########
 ############################################
 gradle init
-
-
 
 # ./gradlew setClass               # Run the setClass task in all submodules (this will match all subprojects)
 # ./gradlew :app:setClass          # Run the setClass task in the 'app' module
