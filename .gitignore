@@ -281,9 +281,15 @@ dist/
 
 # private folders
 instructor/
+com/
+ydjs/
+
+
+
 
 # Computer Audio
 cs4590/
+
 # Information Visualization (Data Analytics)
 cs4460/
 cs6460/
@@ -300,6 +306,3 @@ cs6540/
 # Continuous Algorithms
 cs6550/ 
 
-
-com/
-ydjs/
