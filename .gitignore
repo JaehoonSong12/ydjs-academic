@@ -283,12 +283,15 @@ dist/
 instructor/
 com/
 ydjs/
-
+temp1
+temp2
+temp3
 
 
 
 # Computer Audio
 cs4590/
+cs6590/
 
 # Information Visualization (Data Analytics)
 cs4460/
