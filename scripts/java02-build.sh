@@ -1,11 +1,11 @@
 #!/bin/bash
 if [ -f ~/.bashrc ]; then
     source ~/.bashrc
-# else
-#     echo -e "\033[1;31mError: ~/.bashrc not found. Exiting...\033[0m"
-#     exit 1
 fi
 # /usr
+cd "ydls-java"
+
+
 if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then          # Windows
     if ! java -version 2>/dev/null; then
         INIT_JDK
@@ -30,11 +30,6 @@ fi
 ############################################
 ########## Shell Script (Scripts) ##########
 ############################################
-## java-execution
 clear
-
 gradle build
-
-
-clear
 gradle run
