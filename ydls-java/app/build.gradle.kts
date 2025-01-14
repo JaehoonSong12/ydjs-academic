@@ -72,7 +72,6 @@ application { // entry-points
     // mainClass.set("cs3510.app.GuiKt")       // Kotlin-written top-level entry with companion object main for GUI (Graphical User Interface)
 
 
-    mainClass.set("com.example.mvc.App")
     // mainClass.set("com.example.mvvm.App")
 }
 
@@ -104,7 +103,8 @@ application { // entry-points
  * [Custom] Gradle tasks.
  ***************************************************************************/
 tasks.dokkaHtml {
-    outputDirectory.set(buildDir.resolve("docs/dokka")) // Specify where to output the documentation
+    // `layout.buildDirectory`, making the build script more robust.
+    outputDirectory.set(layout.buildDirectory.dir("docs/dokka")) // Specify where to output the documentation
     dokkaSourceSets {
         configureEach {
             includeNonPublic.set(false) // Only include public members
@@ -123,7 +123,7 @@ tasks.dokkaHtml {
 
 
 tasks.dokkaJavadoc {
-    outputDirectory.set(buildDir.resolve("docs/javaxdoc")) // Specify where to output the documentation
+    outputDirectory.set(layout.buildDirectory.dir("docs/javaxdoc")) // Specify where to output the documentation
     dokkaSourceSets {
         configureEach {
             includeNonPublic.set(false) // Only include public members

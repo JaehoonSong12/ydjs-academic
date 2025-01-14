@@ -13,7 +13,7 @@ public class Cli {
 
 
 
-        test();
+        // test();
     }
 
     public static void test() {
