@@ -281,8 +281,14 @@ dist/
 
 # private folders
 instructor/
-cs4490/
+
+# Computer Audio
+cs4590/
+# Information Visualization (Data Analytics)
 cs4460/
+cs6460/
+
+
 # Offline Algorithms
 cs3510/
 # Automata Complexity
