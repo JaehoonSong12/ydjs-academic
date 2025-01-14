@@ -281,8 +281,19 @@ dist/
 
 # private folders
 instructor/
-cs3510/
 cs4490/
 cs4460/
+# Offline Algorithms
+cs3510/
+# Automata Complexity
+cs4510/
+cs6510/
+# Online Algorithms
+cs4540/
+cs6540/
+# Continuous Algorithms
+cs6550/ 
+
+
 com/
 ydjs/
