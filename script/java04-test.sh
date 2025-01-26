@@ -31,6 +31,7 @@ fi
 ########## Shell Script (Scripts) ##########
 ############################################
 clear
+gradle clean
 gradle build
 opens 'app/build/reports/tests/test/index.html'
 # opens 'list/build/reports/tests/test/index.html'
