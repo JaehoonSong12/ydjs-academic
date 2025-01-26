@@ -14,6 +14,8 @@ public class Cli {
 
 
         // test();
+
+        jayden.usaco.Exercise01.main(args);
     }
 
     public static void test() {
