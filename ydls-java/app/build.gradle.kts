@@ -44,7 +44,7 @@ dependencies {
 application { // entry-points
     // Define the main class for the application.
     // mainClass.set("eugene.app.Cli")      // entry-point for `Eugene`
-    mainClass.set("jayden.app.Cli")         // entry-point for `Jayden`
+    // mainClass.set("jayden.app.Cli")         // entry-point for `Jayden`
     // mainClass.set("noah.app.Cli")           // entry-point for `Noah`
 
 
@@ -65,7 +65,7 @@ application { // entry-points
     /***************************************************************************
      * [Custom] Instructor Space
      ***************************************************************************/
-    // mainClass.set("ydjs.app.Cli")        // entry-point for `Jaehoon (Instructor)`
+    mainClass.set("ydjs.app.Cli")        // entry-point for `Jaehoon (Instructor)`
     // mainClass.set("cs3510.app.Cli")         // Java-written class entry for CLI (Command Line Interface)
     // mainClass.set("cs3510.app.Gui")         // Java-written class entry for GUI (Graphical User Interface)
     // mainClass.set("cs3510.app.CliKt")         // Kotlin-written top-level entry for CLI (Command Line Interface)
