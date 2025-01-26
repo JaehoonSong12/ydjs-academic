@@ -2,6 +2,15 @@ package jayden.usaco;
 
 import java.util.Scanner;
 
+
+/// This is your first hw! 
+/// for testing, run `./script/java04-test.sh`.
+
+
+
+
+
+
 /**
  * Exercise01 contains methods that help practice:
  * 1. Writing `functions` and evaluating `expressions`.

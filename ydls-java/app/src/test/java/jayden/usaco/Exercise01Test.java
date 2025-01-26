@@ -3,6 +3,14 @@ package jayden.usaco;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+
+/// This is your first hw! 
+/// for testing, run `./script/java04-test.sh`, 
+/// then, you can check up why you got wrong test results here!
+/// 
+/// Your goal is to get 100% passing!
+
+
 public class Exercise01Test {
 
     @Test
