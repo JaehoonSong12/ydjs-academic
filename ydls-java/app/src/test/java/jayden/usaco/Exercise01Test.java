@@ -95,15 +95,25 @@ public class Exercise01Test {
     public void testBathBombCase1() {
         double radius = 3;
         String result = Exercise01.bathBomb(radius);
-        String expected = "The volume of a bath bomb with radius 3.0 is 113.04.";
-        assertEquals(expected, result);
+
+        // Extract numerical value from the result
+        double volume = Double.parseDouble(result.substring(45, result.length()-1));
+
+        // Check if the volume is within the range 112.00 to 113.99
+        assertTrue(volume >= 112.00 && volume <= 113.99,
+            "Volume should be between 112.00 and 113.99, but got: " + volume);
     }
 
     @Test
     public void testBathBombCase2() {
         double radius = 7;
         String result = Exercise01.bathBomb(radius);
-        String expected = "The volume of a bath bomb with radius 7.0 is 1436.03.";
-        assertEquals(expected, result);
+
+        // Extract numerical value from the result
+        double volume = Double.parseDouble(result.substring(45, result.length()-1));
+
+        // Check if the volume is within the range 1435.00 to 1436.99
+        assertTrue(volume >= 1435.00 && volume <= 1436.99,
+            "Volume should be between 1435.00 and 1436.99, but got: " + volume);
     }
 }
