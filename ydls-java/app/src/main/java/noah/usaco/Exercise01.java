@@ -43,11 +43,24 @@ public class Exercise01 {
         // given by Admin (Jaehoon)
         String formatter = 
             "By listening to %d songs and %d podcasts, " + 
-            "you have spent %d hours and %d minutes on Spotify.";
+            "you have spent %d hours and %d minutes on Spotify."; // string format
         /**
          * < Your Implementation Here >
+         
          */
-        return null;
+        
+        int songLength = 3 * songs;
+        int podcastLength = 25 * podcasts;
+        int Minutes = songLength + podcastLength;
+        int Hours = Minutes / 60; // integer division
+        int actualMinutes = Minutes%60;
+
+        String time = "By listening to " + songs + " songs and " 
+            + podcasts + " podcasts, you have spent " + Hours + " hours and " 
+                + actualMinutes + " minutes on Spotify.";
+        
+        
+        return time;
     }
 
     /**
