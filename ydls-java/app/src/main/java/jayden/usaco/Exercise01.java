@@ -179,7 +179,7 @@ public class Exercise01 {
     /**
      * Calculates the volume of a bath bomb given its radius. The radius is a floating-point number.
      * The method computes the volume using the formula for the volume of a sphere:
-     * - Volume = (4/3) * π * radius^3
+     * - Volume = (4/3) * (Math.pi) * radius^3
      * 
      * +
      * 6-
@@ -190,7 +190,7 @@ public class Exercise01 {
      */
     public static String bathBomb(double radius) {
         // Calculate the volume of the bath bomb using the formula for the volume of a sphere
-        double volume = (4.0 / 3.0) * Math.PI * Math.pow(radius, 3);
+        double volume = (4.0 / 3.0) * 3.14 * Math.pow(radius, 3);
         
         // Format the result to 2 decimal places
         return String.format("The volume of a bath bomb with radius %.1f is %.2f.", radius, volume);

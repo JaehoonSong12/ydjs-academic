@@ -1,15 +1,13 @@
 package jayden.app;
 
+import jayden.app.IqTest;
+
 import jayden.unit.a.Exercise;
 
 import javax.swing.JOptionPane; // Needed for JOptionPane
 
-
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.Scanner; // Needed for the Scanner class
+import java.io.IOException; // Needed for IOException
 
 public class Cli {
     public static void main(String[] args) { // executable main method 
@@ -18,7 +16,32 @@ public class Cli {
 
         // Exercise.main(args); // test homework! Unit A
 
-        SwingUtilities.invokeLater(() -> new ToDoListGUI());
+        try {
+            if (System.in.available() <= 0) {  // This checks if input is available
+                System.out.println("No input detected. Are you running this in an environment that supports standard input?");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Scanner sc = new Scanner(System.in); // Initialize scanner once
+        
+        System.out.println("Welcome to IQ test");
+        
+        System.out.print("name: ");
+        String name = sc.hasNextLine() ? sc.nextLine() : ""; // Check before reading
+
+        System.out.print("age: ");
+        int age = sc.hasNextInt() ? sc.nextInt() : 0;
+        sc.nextLine(); // Consume newline
+
+        System.out.println("Hello " + name + ", you are " + age + " years old.");
+        
+        sc.close(); // Close only at the end
+
+
+
+        IqTest.main(args); // test homework! Unit B
 
         // test();
 
@@ -60,58 +83,5 @@ public class Cli {
         }
 
         System.exit(0);
-    }
-}
-
-
-
-// why not 'public class'
-class ToDoListGUI {
-    private DefaultListModel<String> taskListModel;
-    private JList<String> taskList;
-    private JTextField taskInput;
-
-    public ToDoListGUI() {
-        JFrame frame = new JFrame("To-Do List");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
-        frame.setLayout(new BorderLayout());
-
-        taskListModel = new DefaultListModel<>();
-        taskList = new JList<>(taskListModel);
-        JScrollPane scrollPane = new JScrollPane(taskList);
-
-        taskInput = new JTextField();
-        JButton addButton = new JButton("Add Task");
-        JButton removeButton = new JButton("Remove Selected");
-
-        addButton.addActionListener(e -> addTask()); // lambda expression, what is this
-        removeButton.addActionListener(e -> removeTask());
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        panel.add(taskInput, BorderLayout.CENTER);
-        panel.add(addButton, BorderLayout.EAST);
-
-        frame.add(scrollPane, BorderLayout.CENTER);
-        frame.add(panel, BorderLayout.NORTH);
-        frame.add(removeButton, BorderLayout.SOUTH);
-
-        frame.setVisible(true);
-    }
-
-    private void addTask() {
-        String task = taskInput.getText().trim();
-        if (!task.isEmpty()) {
-            taskListModel.addElement(task);
-            taskInput.setText("");
-        }
-    }
-
-    private void removeTask() {
-        int selectedIndex = taskList.getSelectedIndex();
-        if (selectedIndex != -1) {
-            taskListModel.remove(selectedIndex);
-        }
     }
 }

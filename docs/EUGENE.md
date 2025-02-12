@@ -63,9 +63,6 @@
 
 
 
-
-<br /><br /><br />
-
 ---
 
 
@@ -90,29 +87,6 @@ To ensure a smooth transition, please fill out the following form to schedule yo
 * **Time Zone:** _______________________________________________
 * **Meeting Platform (e.g. Zoom, Google Meet, Skype):** _______________________
 
-
-
-
-
-
-
-
-
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-
-
-
-
-
-
-<br /><br /><br />
-
----
 
 # Math: SAT
 
@@ -219,18 +193,6 @@ Now you know that absolute value focuses only on the magnitude of a number (how 
 
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-
-
-
-
-
-
-
-<br /><br /><br />
 
 ---
 

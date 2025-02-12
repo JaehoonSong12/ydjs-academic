@@ -124,7 +124,7 @@ public class Exercise01 {
     /**
      * Calculates the volume of a bath bomb given its radius. The radius is a floating-point number.
      * The method computes the volume using the formula for the volume of a sphere:
-     * - Volume = (4/3) * π * radius^3
+     * - Volume = (4/3) * (Math.pi)) * radius^3
      * 
      * @param radius Radius of the bath bomb (must be a positive floating-point value)
      * @return A formatted string showing the volume of the bath bomb.
