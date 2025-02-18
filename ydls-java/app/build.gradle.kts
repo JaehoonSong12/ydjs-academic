@@ -8,8 +8,8 @@
 application { // entry-points
     // Define the main class for the application.
     // mainClass.set("eugene.app.Cli")      // entry-point for `Eugene`
-    mainClass.set("jayden.app.Cli")         // entry-point for `Jayden`
-    // mainClass.set("jayden.app.Gui")         // entry-point for `Jayden`
+    // mainClass.set("jayden.app.Cli")         // entry-point for `Jayden`
+    mainClass.set("jayden.app.Gui")         // entry-point for `Jayden`
     // mainClass.set("noah.app.Cli")           // entry-point for `Noah`
 
 
@@ -172,23 +172,26 @@ tasks.register("dokka") {
 
 
  // Define package names and class names as shared variables
-val packages = listOf(
-    "eugene.unit.f",
-    "jayden.unit.f",
-    "noah.unit.f",
-    "jayden.unit.f",
-    "ydjs.unit.f"
-)
-// val classNames = listOf(
-//     "Gui", 
-//     "Cli"
+// val packages = listOf(
+//     "eugene.unit.f",
+//     "jayden.unit.f",
+//     "noah.unit.f",
+//     "jayden.unit.f",
+//     "ydjs.unit.f"
 // )
+val packages = listOf(
+    "anderson.app"
+)
+val classNames = listOf(
+    "Gui", 
+    "Cli"
+)
 // repetition
-val classNames = mutableListOf<String>()
-for (i in 1..5) {
-    val suffix = i.toString().padStart(2, '0') // Ensures 01, 02, ..., 99
-    classNames.add("Exercise$suffix")
-}
+// val classNames = mutableListOf<String>()
+// for (i in 1..5) {
+//     val suffix = i.toString().padStart(2, '0') // Ensures 01, 02, ..., 99
+//     classNames.add("Exercise$suffix")
+// }
 
 
 // Register a Gradle task using the shared variables
