@@ -13,35 +13,40 @@ public class Cli {
     public static void main(String[] args) { // executable main method 
         System.out.println("Hello, Cli!");
         System.out.println("This is just for testing!");
+        String text = "Hello, world!";
+        String subText = text.substring(7,9); // Extracts "Hello"
+        System.out.println(subText);
+
+
 
         // Exercise.main(args); // test homework! Unit A
 
-        try {
-            if (System.in.available() <= 0) {  // This checks if input is available
-                System.out.println("No input detected. Are you running this in an environment that supports standard input?");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     if (System.in.available() <= 0) {  // This checks if input is available
+        //         System.out.println("No input detected. Are you running this in an environment that supports standard input?");
+        //     }
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
 
-        Scanner sc = new Scanner(System.in); // Initialize scanner once
+        // Scanner sc = new Scanner(System.in); // Initialize scanner once
         
-        System.out.println("Welcome to IQ test");
+        // System.out.println("Welcome to IQ test");
         
-        System.out.print("name: ");
-        String name = sc.hasNextLine() ? sc.nextLine() : ""; // Check before reading
+        // System.out.print("name: ");
+        // String name = sc.hasNextLine() ? sc.nextLine() : ""; // Check before reading
 
-        System.out.print("age: ");
-        int age = sc.hasNextInt() ? sc.nextInt() : 0;
-        sc.nextLine(); // Consume newline
+        // System.out.print("age: ");
+        // int age = sc.hasNextInt() ? sc.nextInt() : 0;
+        // sc.nextLine(); // Consume newline
 
-        System.out.println("Hello " + name + ", you are " + age + " years old.");
+        // System.out.println("Hello " + name + ", you are " + age + " years old.");
         
-        sc.close(); // Close only at the end
+        // sc.close(); // Close only at the end
 
 
 
-        IqTest.main(args); // test homework! Unit B
+        // IqTest.main(args); // test homework! Unit B
 
         // test();
 

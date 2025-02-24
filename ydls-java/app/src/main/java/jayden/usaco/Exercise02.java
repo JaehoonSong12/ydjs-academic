@@ -65,9 +65,17 @@ public class Exercise02 {
      *         or "Advanced".
      */
     public static String skillLevel(int passRate) {
-        /**
-         * < Your Implementation Here >
-         */
+        String level = "Beginner, Moderate, Advanced";
+
+        if (passRate <= 25) {
+            System.out.println("worked");
+        } 
+        if (passRate <= 75) {
+            System.out.println("worked");
+        } 
+        if (passRate <= 100) {
+            System.out.println("worked");
+        } 
         return null;
     }
 
