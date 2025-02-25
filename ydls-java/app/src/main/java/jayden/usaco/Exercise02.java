@@ -2,6 +2,9 @@ package jayden.usaco;
 
 import java.util.List;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 /// This is your 2nd hw! 
 /// for testing, run `./script/java04-test.sh`.
@@ -68,15 +71,15 @@ public class Exercise02 {
         String level = "Beginner, Moderate, Advanced";
 
         if (passRate <= 25) {
-            System.out.println("worked");
+            level = "Beginner";
         } 
-        if (passRate <= 75) {
-            System.out.println("worked");
+        else if (passRate <= 75) {
+            level = "Moderate";
         } 
-        if (passRate <= 100) {
-            System.out.println("worked");
+        else {
+            level = "Advanced";
         } 
-        return null;
+        return level;
     }
 
     /**
@@ -96,10 +99,25 @@ public class Exercise02 {
      *         money!" if the wallet amount is insufficient.
      */
     public static String bookStore(String item, double walletAmount, int quantity) {
-        /**
-         * < Your Implementation Here >
-         */
-        return null;
+        Map<String, Double> itemPrice = new HashMap<>();
+
+        itemPrice.put("Shirt", 15.50);
+        itemPrice.put("Lanyard", 4.25);
+        itemPrice.put("Sweatshirt", 25.00);
+        itemPrice.put("Mug", 10.50);
+        
+
+        Double Price = itemPrice.get(item);
+        Double realPrice = Price * quantity;
+        Double okPrice = walletAmount - realPrice;
+
+
+        if (okPrice < 0) {
+            return "Not enough money!";
+        } else {
+            okPrice = Math.round(okPrice * 100.0) / 100.0;
+            return String.format("%.2f", okPrice);
+        }
     }
 
     /**
