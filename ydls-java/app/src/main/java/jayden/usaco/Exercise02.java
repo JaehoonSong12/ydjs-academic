@@ -135,10 +135,29 @@ public class Exercise02 {
      * @return A string representing the mode of transport: "Walk" or "Uber".
      */
     public static String dinnerPlans(int distance, String hungerLevel) {
-        /**
-         * < Your Implementation Here >
-         */
-        return null;
+            if (distance < 0) {
+                throw new IllegalArgumentException("Distance must be a non-negative integer.");
+            }
+        
+            int hungryok;
+            switch (hungerLevel) {
+                case "Very Hungry":
+                    hungryok = 1;
+                    break;
+                case "Hungry":
+                    hungryok = 3;
+                    break;
+                case "Slightly Hungry":
+                    hungryok = 5;
+                    break;
+                case "Not Hungry":
+                    hungryok = 7;
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid hunger level.");
+            }
+        
+            return distance <= hungryok ? "Walk" : "Uber";
     }
 
     /**
@@ -157,10 +176,19 @@ public class Exercise02 {
      *         or a message indicating the trip is too time-consuming.
      */
     public static String weekendTrip(double distance, double speed, double freeTime) {
-        /**
-         * < Your Implementation Here >
-         */
-        return null;
+        double travelTime = distance / speed;
+
+        if (travelTime > 0.2 * freeTime) {
+            return "Going to this destination would take too much time.";
+        }
+
+        if (speed <= 15) {
+            return "walking";
+        } else if (speed <= 20) {
+            return "biking";
+        } else {
+            return "driving";
+        }
     }
 
     /**
@@ -179,9 +207,19 @@ public class Exercise02 {
      *         indicating the trip is infeasible.
      */
     public static String textFriends(double distance, double speed, double freeTime, int numSnacks, int numFriends) {
-        /**
-         * < Your Implementation Here >
-         */
-        return null;
+        double travelTime = distance / speed;
+        if (travelTime > 0.2 * freeTime) {
+            return "Going to this destination would take too much time.";
+        }
+
+        int snacksPerFriend = numSnacks / numFriends;
+        int leftoverSnacks = numSnacks % numFriends;
+
+        String transportMode = weekendTrip(distance, speed, freeTime);
+
+
+
+        return String.format("If each of us gets %d snack(s), there will be %d left. I will be %s, who else is doing the same?", 
+                             snacksPerFriend, leftoverSnacks, transportMode);
     }
 }
