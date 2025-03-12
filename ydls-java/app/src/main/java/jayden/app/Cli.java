@@ -1,7 +1,7 @@
 package jayden.app;
 
 import jayden.usaco.Exercise02;
-
+import jayden.app.javatest.MainJ;
 import jayden.app.IqTest;
 
 import java.util.HashMap;
@@ -20,33 +20,33 @@ import java.io.IOException; // Needed for IOException
 public class Cli {
     public static void main(String[] args) { // executable main method 
 
+        MainJ.main(args);
+        // System.out.println("Hello, Cli!");
+        // System.out.println("This is just for testing!");
+        // String text = "Hello, world!";
+        // String subText = text.substring(7,9); // Extracts "Hello"
+        // System.out.println(subText);
+        // System.out.println("Running Exercise02 from CLI...");
+        // Exercise02.main(args);
+        // int quantity = 9;
+        // double walletAmount = 3254.323;
+        // String item = "Shirt";
+        // Map<String, Double> itemPrice = new HashMap<>();
 
-        System.out.println("Hello, Cli!");
-        System.out.println("This is just for testing!");
-        String text = "Hello, world!";
-        String subText = text.substring(7,9); // Extracts "Hello"
-        System.out.println(subText);
-        System.out.println("Running Exercise02 from CLI...");
-        Exercise02.main(args);
-        int quantity = 9;
-        double walletAmount = 3254.323;
-        String item = "Shirt";
-        Map<String, Double> itemPrice = new HashMap<>();
+        // itemPrice.put("Shirt", 15.50);
+        // itemPrice.put("Lanyard", 4.25);
+        // itemPrice.put("Sweatshirt", 25.00);
+        // itemPrice.put("Mug", 10.50);
 
-        itemPrice.put("Shirt", 15.50);
-        itemPrice.put("Lanyard", 4.25);
-        itemPrice.put("Sweatshirt", 25.00);
-        itemPrice.put("Mug", 10.50);
+        // Double Price = itemPrice.get(item);
+        // Double realPrice = Price * quantity;
+        // Double okPrice = walletAmount - realPrice;
 
-        Double Price = itemPrice.get(item);
-        Double realPrice = Price * quantity;
-        Double okPrice = walletAmount - realPrice;
-
-        if (okPrice < 0) {
-            System.out.println("Not enough money!");
-        } else {
-            System.out.printf("%.2f%n", okPrice);
-        }
+        // if (okPrice < 0) {
+        //     System.out.println("Not enough money!");
+        // } else {
+        //     System.out.printf("%.2f%n", okPrice);
+        // }
 
 
 
