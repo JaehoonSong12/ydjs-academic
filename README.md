@@ -44,6 +44,8 @@ Welcome to the YDJS project repository! This repo is for my students to study co
   - [Code Access](#code-access)
   - [Contributing](#contributing)
 - [Instructions](#instructions)
+  - [Git/GitHub Script Interaction](#gitgithub-script-interaction)
+  - [Git/GitHub Manual Interaction](#gitgithub-manual-interaction)
   - [Python (GT CS 1301 / AP CS A)](#python-gt-cs-1301--ap-cs-a)
 
 
@@ -102,6 +104,21 @@ We welcome contributions! If you would like to suggest improvements, please subm
 ---
 
 # Instructions
+Here are the steps to initiate your project.
+
+## Git/GitHub Script Interaction
+All the students are expected to have git scripts (e.g. `git00-...`, `git01-...`, `git03-...`) for version control. 
+1. Open up your IDE in the project directory.
+2. Type in `../`, then double tab.
+3. `./git00-init`: to initialize your project repository. Once you initialize, `cd <your_directory>`.
+4. `../git00-init`: not expected to do anything inside the repo.
+5. `../git01-pull.sh`: to pull all the changes upto date **before everytime you start working**.
+6. `../git03-branch+push.sh`: to push all the changes and make PR in GitHub, [GitHub Repository - YDJS Academy Project](https://github.com/JaehoonSong12/ydjs_academic), **after everytime you finish working**.
+7. If, you do not see the scripts, reach out to the instructor (Jaehoon Song, manual20151276@gmail.com) to get the scripts to start off.
+
+
+
+## Git/GitHub Manual Interaction
 To start, clone the repository using the following command:
 ```bash
 git clone https://github.com/JaehoonSong12/ydjs_academic.git
