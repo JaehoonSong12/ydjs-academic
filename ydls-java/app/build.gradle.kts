@@ -11,6 +11,11 @@ application { // entry-points
     // mainClass.set("jayden.app.Cli")         // entry-point for `Jayden`
     mainClass.set("jayden.app.Gui")         // entry-point for `Jayden`
     // mainClass.set("noah.app.Cli")           // entry-point for `Noah`
+    // mainClass.set("anderson.app.Cli")         // entry-point for `Anderson`
+
+
+
+
 
 
 
