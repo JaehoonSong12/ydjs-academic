@@ -113,7 +113,7 @@ All the students are expected to have git scripts (e.g. `git00-...`, `git01-...`
 3. `./git00-init`: to initialize your project repository. Once you initialize, `cd <your_directory>`.
 4. `../git00-init`: not expected to do anything inside the repo.
 5. `../git01-pull.sh`: to pull all the changes upto date **before everytime you start working**.
-6. `../git03-branch+push.sh`: to push all the changes and make PR in GitHub, [GitHub Repository - YDJS Academy Project](https://github.com/JaehoonSong12/ydjs_academic), **after everytime you finish working**.
+6. `../git03-branch+push.sh <branch_name> [commit_message]`: to push all the changes and make PR in GitHub, [GitHub Repository - YDJS Academy Project](https://github.com/JaehoonSong12/ydjs_academic), **after everytime you finish working**.
 7. If, you do not see the scripts, reach out to the instructor (Jaehoon Song, manual20151276@gmail.com) to get the scripts to start off.
 
 
