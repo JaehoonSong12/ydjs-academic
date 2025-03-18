@@ -8,7 +8,10 @@ public class Q02MakeOutWord{
     
 
     public static void main(String[] args) {
-        // lost the things to print 
-        // can't find push or pull 
+        System.out.println(makeOutWord("<<>>", "Yay"));
+        System.out.println(makeOutWord("<<>>", "WooHoo"));
+        System.out.println(makeOutWord("[[]]", "word"));
+        System.out.println(makeOutWord("HHoo", "Hello"));
+        System.out.println(makeOutWord("abyz", "YAY"));
     }
 }
