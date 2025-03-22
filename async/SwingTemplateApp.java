@@ -169,51 +169,127 @@ class MenuController {
 
 
 
-
-
 // -------------------------------
-// View: Game 1 Panel
+// View: Game 1 Panel (Coin Flip Game)
 // -------------------------------
 class Game1View extends JPanel {
     private JLabel welcomeLabel;
+    private JLabel instructionLabel;
+    private JButton headButton, tailButton;
+    private JLabel scoreLabel;
+    private JLabel resultLabel;
     private JButton backButton;
-
+    
     public Game1View() {
         setLayout(new BorderLayout());
-        welcomeLabel = new JLabel("", SwingConstants.CENTER);
-        add(welcomeLabel, BorderLayout.CENTER);
         
+        // Top panel for welcome message
+        JPanel topPanel = new JPanel();
+        welcomeLabel = new JLabel();
+        topPanel.add(welcomeLabel);
+        add(topPanel, BorderLayout.NORTH);
+        
+        // Center panel for game controls
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+        
+        instructionLabel = new JLabel("Choose Head or Tail:");
+        instructionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        centerPanel.add(instructionLabel);
+        
+        // Panel for head and tail buttons
+        JPanel buttonPanel = new JPanel();
+        headButton = new JButton("Head");
+        tailButton = new JButton("Tail");
+        buttonPanel.add(headButton);
+        buttonPanel.add(tailButton);
+        centerPanel.add(buttonPanel);
+        
+        // Score label
+        scoreLabel = new JLabel("Score: 0");
+        scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        centerPanel.add(scoreLabel);
+        
+        // Result label
+        resultLabel = new JLabel("");
+        resultLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        centerPanel.add(resultLabel);
+        
+        add(centerPanel, BorderLayout.CENTER);
+        
+        // Bottom panel for back button
+        JPanel bottomPanel = new JPanel();
         backButton = new JButton("Back to Menu");
-        add(backButton, BorderLayout.SOUTH);
+        bottomPanel.add(backButton);
+        add(bottomPanel, BorderLayout.SOUTH);
     }
-
-    public void setWelcomeMessage(String message) {
-        welcomeLabel.setText(message);
+    
+    // Getters for components
+    public JLabel getWelcomeLabel() {
+        return welcomeLabel;
     }
-
+    
+    public JButton getHeadButton() {
+        return headButton;
+    }
+    
+    public JButton getTailButton() {
+        return tailButton;
+    }
+    
+    public JLabel getScoreLabel() {
+        return scoreLabel;
+    }
+    
+    public JLabel getResultLabel() {
+        return resultLabel;
+    }
+    
     public JButton getBackButton() {
         return backButton;
     }
 }
 
 // -------------------------------
-// Controller: Game 1
+// Controller: Game 1 (Coin Flip Logic)
 // -------------------------------
 class Game1Controller {
     private Game1View view;
     private User user;
-
+    private int score;
+    
     public Game1Controller(User user) {
         this.user = user;
+        score = 0;
         view = new Game1View();
-        view.setWelcomeMessage("Welcome to Game 1, " + user.getUsername() + "!");
+        view.getWelcomeLabel().setText("Welcome to Coin Flip, " + user.getUsername() + "!");
+        view.getScoreLabel().setText("Score: " + score);
         initController();
     }
-
+    
     private void initController() {
-        view.getBackButton().addActionListener(e -> SwingTemplateApp.setView(new MenuController(new MenuView()).getView()));
+        view.getBackButton().addActionListener(e -> 
+            SwingTemplateApp.setView(new MenuController(new MenuView()).getView())
+        );
+        view.getHeadButton().addActionListener(e -> processGuess("head"));
+        view.getTailButton().addActionListener(e -> processGuess("tail"));
     }
-
+    
+    private void processGuess(String guess) {
+       // int random_number = (int) (Math.random() * 2);
+       int random_number = 0;
+        String coin = (random_number == 0) ? "tail" : "head";
+        if (coin.equalsIgnoreCase(guess)) {
+            score++;
+            view.getScoreLabel().setText("Score: " + score);
+            view.getResultLabel().setText("Correct! It was " + coin + ".");
+        } else {
+            view.getResultLabel().setText("Incorrect! It was " + coin + " not " + guess + ". Final score: " + score);
+            view.getHeadButton().setEnabled(false);
+            view.getTailButton().setEnabled(false);
+        }
+    }
+    
     public Game1View getView() {
         return view;
     }
