@@ -103,7 +103,7 @@ class MenuView extends JPanel {
         add(usernameField);
         add(Box.createRigidArea(new Dimension(0, 10)));
 
-        game1Button = new JButton("Game 1");
+        game1Button = new JButton("TicTacToe");
         game2Button = new JButton("Game 2");
         game3Button = new JButton("Game 3");
         randomGameButton = new JButton("Random"); // jayden addition
@@ -144,14 +144,14 @@ class MenuController {
 
     public MenuController(MenuView view) {
         this.view = view;
-        view.getGame1Button().addActionListener(e -> launchGame("Game 1"));
+        view.getGame1Button().addActionListener(e -> launchGame("TicTacTeo"));
         view.getGame2Button().addActionListener(e -> launchGame("Game 2"));
         view.getGame3Button().addActionListener(e -> launchGame("Game 3"));
         view.getRandomGameButton().addActionListener(e -> RandomPick());
     }
 
     private void RandomPick() {
-        String[] games = { "Game 1", "Game 2", "Game 3" };
+        String[] games = { "TicTacTeo", "Game 2", "Game 3" };
         Random random = new Random();
         String randomGame = games[random.nextInt(games.length)]; // Pick random game
         launchGame(randomGame);
@@ -167,7 +167,7 @@ class MenuController {
         User user = new User(username);
 
         switch (gameName) {
-            case "Game 1": SwingTemplateApp.setView(new Game1Controller(user).getView()); break;
+            case "TicTacTeo": SwingTemplateApp.setView(new Game1Controller(user).getView()); break;
             case "Game 2": SwingTemplateApp.setView(new Game2Controller(user).getView()); break;
             case "Game 3": SwingTemplateApp.setView(new Game3Controller(user).getView()); break;
         }
@@ -205,27 +205,62 @@ class MenuController {
 
 
 // -------------------------------
-// View: Game 1 Panel
+// View: TicTacTeo Panel
 // -------------------------------
 class Game1View extends JPanel {
-    private JLabel welcomeLabel;
-    private JButton backButton;
+    private JLabel welcomeLabel, gameName;
+    private JButton backButton, easyBtn, mediumBtn, hardBtn;
 
     public Game1View() {
-        setLayout(new BorderLayout());
+        setLayout(new GridLayout(6, 1, 10, 10));
+        setBackground(Color.DARK_GRAY);
+        // Layout (HTML like) Operation
         welcomeLabel = new JLabel("", SwingConstants.CENTER);
-        add(welcomeLabel, BorderLayout.CENTER);
-        
+        gameName = new JLabel("Tic-Tac-Toe", SwingConstants.CENTER);
+        gameName.setForeground(Color.WHITE);
+        gameName.setFont(new Font("Arial", Font.BOLD, 36));
+        easyBtn = new JButton("Easy AI");
+        mediumBtn = new JButton("Medium AI");
+        hardBtn = new JButton("Hard AI");
         backButton = new JButton("Back to Menu");
-        add(backButton, BorderLayout.SOUTH);
+        add(welcomeLabel);
+        add(gameName);
+        add(easyBtn);
+        add(mediumBtn);
+        add(hardBtn);
+        add(backButton);
+
+        // Styling (CSS like) Operation
+        styleButton(easyBtn);
+        styleButton(mediumBtn);
+        styleButton(hardBtn);
     }
 
-    public void setWelcomeMessage(String message) {
+    public void setWelcomeLabel(String message) {
         welcomeLabel.setText(message);
+        welcomeLabel.setForeground(Color.WHITE);
+
     }
 
     public JButton getBackButton() {
         return backButton;
+    }
+
+    public JButton getEasyBtn() {
+        return easyBtn;
+    }
+    public JButton getMediumBtn() {
+        return mediumBtn;
+    }
+    public JButton getHardBtn() {
+        return hardBtn;
+    }
+
+    private void styleButton(JButton button) {
+        button.setFont(new Font("Arial", Font.BOLD, 24));
+        button.setBackground(Color.LIGHT_GRAY);
+        button.setForeground(Color.BLACK);
+        button.setFocusPainted(false);
     }
 }
 
@@ -239,37 +274,31 @@ class Game1Controller {
     public Game1Controller(User user) {
         this.user = user;
         view = new Game1View();
-        view.setWelcomeMessage("Welcome to Game 1, " + user.getUsername() + "!");
+        view.setWelcomeLabel("Welcome to Game 1, " + user.getUsername() + "!");
         initController();
     }
 
     private void initController() {
         view.getBackButton().addActionListener(e -> SwingTemplateApp.setView(new MenuController(new MenuView()).getView()));
+        view.getEasyBtn().addActionListener(e -> {
+            frame.startGame("Easy");
+        });
+        view.getMediumBtn().addActionListener(e -> {
+            // System.out.println("Medium mode start");
+            frame.startGame("Medium");
+        });
+        view.getHardBtn().addActionListener(e -> {
+            // System.out.println("Hard mode start");
+            frame.startGame("Hard");
+        });
     }
+
 
     public Game1View getView() {
         return view;
     }
-}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    //Game started
 
 
 
@@ -290,7 +319,7 @@ class Game2View extends JPanel {
         add(backButton, BorderLayout.SOUTH);
     }
 
-    public void setWelcomeMessage(String message) {
+    public void setWelcomeLabel(String message) {
         welcomeLabel.setText(message);
     }
 
@@ -309,7 +338,7 @@ class Game2Controller {
     public Game2Controller(User user) {
         this.user = user;
         view = new Game2View();
-        view.setWelcomeMessage("Welcome to Game 2, " + user.getUsername() + "!");
+        view.setWelcomeLabel("Welcome to Game 2, " + user.getUsername() + "!");
         initController();
     }
 
@@ -358,7 +387,7 @@ class Game3View extends JPanel {
         add(backButton, BorderLayout.SOUTH);
     }
 
-    public void setWelcomeMessage(String message) {
+    public void setWelcomeLabel(String message) {
         welcomeLabel.setText(message);
     }
 
@@ -378,7 +407,7 @@ class Game3Controller {
     public Game3Controller(User user) {
         this.user = user;
         view = new Game3View();
-        view.setWelcomeMessage("Welcome to Game 3, " + user.getUsername() + "!");
+        view.setWelcomeLabel("Welcome to Game 3, " + user.getUsername() + "!");
         initController();
     }
 
