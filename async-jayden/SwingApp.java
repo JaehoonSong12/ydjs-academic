@@ -8,8 +8,10 @@
  *
  * How to compile and run the application:
  * 1. Open a terminal or command prompt.
- * 2. Compile: javac async-jayden/*.java
- * 3. Run: java -cp async-jayden Main
+ * 2. Compile: 
+ *      `javac async-jayden/*.java`
+ * 3. Run: 
+ *      `java -cp async-jayden SwingApp`
  */
 
 import java.util.Random;
