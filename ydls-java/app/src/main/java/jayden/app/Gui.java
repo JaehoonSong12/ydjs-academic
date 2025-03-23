@@ -23,7 +23,8 @@ public class Gui {
 
 
         // jaydenTemplate();
-        SwingTemplateApp.main(args);
+        // SwingTemplateApp.main(args);
+        SwingUtilities.invokeLater(() -> new MainFrame());
         // jaydenTemp_2();
 
     }
