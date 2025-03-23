@@ -1,5 +1,5 @@
 /**
- * SwingAppWithFactory.java
+ * SwingApp.java
  * 
  * This is a Java Swing application that 
  * 
