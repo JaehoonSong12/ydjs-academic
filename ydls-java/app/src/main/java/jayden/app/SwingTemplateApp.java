@@ -281,15 +281,16 @@ class Game1Controller {
     private void initController() {
         view.getBackButton().addActionListener(e -> SwingTemplateApp.setView(new MenuController(new MenuView()).getView()));
         view.getEasyBtn().addActionListener(e -> {
-            frame.startGame("Easy");
+            System.out.println("Easy mode start");
+            // frame.startGame("Easy");
         });
         view.getMediumBtn().addActionListener(e -> {
-            // System.out.println("Medium mode start");
-            frame.startGame("Medium");
+            System.out.println("Medium mode start");
+            // frame.startGame("Medium");
         });
         view.getHardBtn().addActionListener(e -> {
-            // System.out.println("Hard mode start");
-            frame.startGame("Hard");
+            System.out.println("Hard mode start");
+            // frame.startGame("Hard");
         });
     }
 
@@ -297,8 +298,7 @@ class Game1Controller {
     public Game1View getView() {
         return view;
     }
-
-    //Game started
+}
 
 
 
