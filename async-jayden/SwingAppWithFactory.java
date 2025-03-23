@@ -40,8 +40,15 @@ import java.awt.event.ActionListener;
 // Model representing form data
 class FormModel {
     private static FormModel instance;
+
     private String name;
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
     private String email;
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
 
     // Private constructor to prevent instantiation
     private FormModel() {}
@@ -56,11 +63,6 @@ class FormModel {
         }
         return instance;
     }
-
-    public String getName() { return name; }
-    public String getEmail() { return email; }
-    public void setName(String name) { this.name = name; }
-    public void setEmail(String email) { this.email = email; }
 }
 
 
@@ -181,10 +183,13 @@ class ViewForm implements View {
     }
 
     private JPanel formPanel;
+
     private JTextField nameField;
     public JTextField getNameField() { return nameField; } // getter-only (immutable)
+
     private JTextField emailField;
     public JTextField getEmailField() { return emailField; }
+
     private JButton submitButton;
     public JButton getSubmitButton() { return submitButton; }
 
@@ -281,10 +286,14 @@ class ViewNav implements View {
     // Expose navigation buttons.
     private JButton btnList;
     public JButton getListButton() { return btnList; }
+
     private JButton btnDetail;
     public JButton getDetailButton() { return btnDetail; }
+
     private JButton btnForm;
     public JButton getFormButton() { return btnForm; }
+
+    
 
     public ViewNav() {
     // Create navigation panel. (Top)
@@ -318,7 +327,11 @@ class NavController {
 }
 
 
-
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// ----------------------------- Factory Pattern -----------------------------
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 
 // ViewFactory class for creating view objects
 // Factory for creating views. It accepts the model for views that need it.
@@ -383,7 +396,6 @@ class ViewFactory {
 // Note: This class must follow the given convention with a static JFrame stage.
 public class SwingAppWithFactory {
     private static JFrame stage;
-    private static ViewNav viewNav;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(SwingAppWithFactory::start);
@@ -394,20 +406,10 @@ public class SwingAppWithFactory {
         stage = new JFrame();
         stage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         stage.setSize(400, 300);
-
-        // Build the ViewNav (UI components).
-        ViewNav viewNav = new ViewNav();
-        stage.setLayout(new BorderLayout());
-        stage.add(viewNav.getRoot(), BorderLayout.CENTER);
-
-        // Create the NavController which attaches navigation events.
-        FormModel model = FormModel.getInstance();
-        new NavController(viewNav);
+        stage.setVisible(true);
 
         // Set a default view.
-        SwingAppWithFactory.setView("LIST");
-
-        stage.setVisible(true);
+        SwingAppWithFactory.setView("form");
     }
 
     // Switch the content view based on viewType.
