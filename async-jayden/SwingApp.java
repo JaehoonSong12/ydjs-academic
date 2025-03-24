@@ -12,6 +12,8 @@
  *      `javac async-jayden/*.java`
  * 3. Run: 
  *      `java -cp async-jayden SwingApp`
+ * 4. Clean: 
+ *      `rm -rf async-jayden/*.class`
  */
 
 import java.util.Random;
