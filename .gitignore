@@ -383,7 +383,7 @@ dist
 
 # Package Files #
 # *.jar
-ydls-java/gradle/wrapper/
+ydls-java/gradle/wrapper/*.jar
 *.war
 *.nar
 *.ear
