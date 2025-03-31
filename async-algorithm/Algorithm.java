@@ -31,8 +31,25 @@ public class Algorithm {
      * </ul>
      */
     public static int factorial(int n) {
-        return 0;
+
+        // // classic way (using for-loop)
+        // int result = 1;
+        // for (int i = 1; i <= n; i++) {
+        //     result *= i; // compound operator (shortcut): result = result * i;
+        // }
+        // return result;
+
+        // recursive way (divide-and-conquer, recursion)
+        // 1. base-case
+        if (n < 2) return 1;
+        // 2. recursive-case
+        return n * factorial(n - 1);
     }
+
+
+
+
+
 
     /**
      * Recursively computes the total number of ears across a given number of bunnies.
@@ -67,7 +84,27 @@ public class Algorithm {
      * </ul>
      */
     public static int fibonacci(int n) {
-        return 0;
+
+        // // classic way (using for-loop)
+        // if (n == 0) return 0; // early-return (exception-handling)
+        // if (n == 1) return 1;
+        // // n = 2,3,4,5,6,7,...
+        // int[] fibArray = new int[n + 1];
+        // fibArray[0] = 0;
+        // fibArray[1] = 1;
+        // for (int i = 2; i <= n; i++) {
+        //     fibArray[i] = fibArray[i-1] + fibArray[i-2];
+        // }
+        // return fibArray[n];
+
+
+
+        // recursive way (divide-and-conquer, recursion)
+        // base-case
+        if (n == 0) return 0;
+        if (n == 1) return 1;
+        // recursive-case
+        return fibonacci(n - 1) + fibonacci(n - 2);
     }
 
     /**
@@ -123,6 +160,16 @@ public class Algorithm {
         return 0;
     }
 
+
+
+
+
+
+
+
+
+
+
     /**
      * Main method to demonstrate sample outputs of the recursive algorithms.
      *
@@ -130,6 +177,11 @@ public class Algorithm {
      */
     public static void main(String[] args) {
         System.out.println("factorial(5) = " + factorial(5));
+
+
+
+
+
         System.out.println("bunnyEars(5) = " + bunnyEars(5));
         System.out.println("fibonacci(7) = " + fibonacci(7));
         System.out.println("sumDigits(126) = " + sumDigits(126));
