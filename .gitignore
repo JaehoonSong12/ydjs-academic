@@ -383,6 +383,7 @@ dist
 
 # Package Files #
 # *.jar
+wrapper/
 *.war
 *.nar
 *.ear
