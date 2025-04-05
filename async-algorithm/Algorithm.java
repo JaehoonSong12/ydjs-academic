@@ -193,7 +193,7 @@ public class Algorithm {
 
 
 
-    
+
 
     /********************************************************************************
      * ******************************************************************************
@@ -207,7 +207,8 @@ public class Algorithm {
      * greater than the one before.
      *
      * @param scores an array of integers (length 2 or more)
-     * @return true if each score is equal or greater than the previous one, false otherwise
+     * @return true if each score is equal or greater than the previous one, 
+     *         false otherwise
      * <p>
      * <ul>
      *   <li>scores_increasing(new int[]{1, 3, 4}) returns true</li>
@@ -234,7 +235,8 @@ public class Algorithm {
      * next to each other in the array.
      *
      * @param scores an array of integer scores (length at least 2)
-     * @return true if there is at least one occurrence of consecutive 100's, else false
+     * @return true if there is at least one occurrence of consecutive 100's, 
+     *         else false
      * <p>
      * Examples:
      * <ul>
@@ -265,8 +267,8 @@ public class Algorithm {
      * lowest) of 2 or less, the function returns true.
      *
      * @param scores an array of integer scores, sorted in increasing order
-     * @return true if there exists a triplet of adjacent scores with a max difference of 2 or less,
-     *         otherwise false
+     * @return true if there exists a triplet of adjacent scores with a max 
+     *         difference of 2 or less, otherwise false
      * <p>
      * Examples:
      * <ul>

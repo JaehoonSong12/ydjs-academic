@@ -138,9 +138,6 @@ public class AlgorithmTest {
         assertTrue(Algorithm.scoresIncreasing(new int[]{-5, 4, 11}));          // → True
     }
 
-
-
-    
     /**
      * Tests the scores100 method.
      */
@@ -154,8 +151,6 @@ public class AlgorithmTest {
         assertFalse(Algorithm.scores100(new int[]{1, 2, 100, 4, 5}));        // → False
     }
 
-
-    
     /**
      * Tests the scoresClump method.
      */
