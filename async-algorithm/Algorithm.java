@@ -226,6 +226,52 @@ public class Algorithm {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Given an array of scores sorted in increasing order,
+     * return true if the array contains 3 adjacent scores that differ
+     * from each other by at most 2. In other words, if any consecutive
+     * triplet of scores has a maximum difference (between the highest and
+     * lowest) of 2 or less, the function returns true.
+     *
+     * @param scores an array of integer scores, sorted in increasing order
+     * @return true if there exists a triplet of adjacent scores with a max difference of 2 or less,
+     *         otherwise false
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>scoresClump(new int[]{3, 4, 5}) returns true</li>
+     *   <li>scoresClump(new int[]{3, 4, 6}) returns false</li>
+     *   <li>scoresClump(new int[]{1, 3, 5, 5}) returns true</li>
+     * </ul>
+     * </p>
+     */
+    public static boolean scoresClump(int[] scores) {
+        // [Your Implementation Here]
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
+        return false;
+    }
+
+
+
     /**
      * Main method to demonstrate sample outputs of the recursive algorithms.
      *

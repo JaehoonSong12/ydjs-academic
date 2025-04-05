@@ -153,4 +153,22 @@ public class AlgorithmTest {
         assertFalse(Algorithm.scores100(new int[]{1, 2, 3, 4, 5}));          // → False
         assertFalse(Algorithm.scores100(new int[]{1, 2, 100, 4, 5}));        // → False
     }
+
+
+    
+    /**
+     * Tests the scoresClump method.
+     */
+    @Test
+    public void testScoresClump() {
+        assertTrue(Algorithm.scoresClump(new int[]{3, 4, 5}));           // → True
+        assertFalse(Algorithm.scoresClump(new int[]{3, 4, 6}));          // → False
+        assertTrue(Algorithm.scoresClump(new int[]{1, 3, 5, 5}));         // → True
+        assertTrue(Algorithm.scoresClump(new int[]{2, 4, 5, 6}));         // → True
+        assertFalse(Algorithm.scoresClump(new int[]{2, 4, 5, 7}));         // → False
+        assertTrue(Algorithm.scoresClump(new int[]{2, 4, 4, 7}));          // → True
+        assertFalse(Algorithm.scoresClump(new int[]{3, 3, 6, 7, 9}));       // → False
+        assertTrue(Algorithm.scoresClump(new int[]{3, 3, 7, 7, 9}));        // → True
+        assertFalse(Algorithm.scoresClump(new int[]{4, 5, 8}));             // → False
+    }
 }
