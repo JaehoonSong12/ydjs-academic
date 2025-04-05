@@ -164,9 +164,65 @@ public class Algorithm {
 
 
 
+    /**
+     * Given an array of scores (integers), return true if the scores are
+     * in non-decreasing order — that is, each score is equal to or 
+     * greater than the one before.
+     *
+     * @param scores an array of integers (length 2 or more)
+     * @return true if each score is equal or greater than the previous one, false otherwise
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>powerN(3, 1) returns 3</li>
+     *   <li>powerN(3, 2) returns 9</li>
+     *   <li>powerN(3, 3) returns 27</li>
+     * </ul>
+     * </p>
+     */
+    public static boolean scoresIncreasing(int[] scores) {
+        // [Your Implementation Here]
+    
+        // Case-1. If the question can be solved with 'iteration (for/while)', 
+        //         design the most efficient algorithm.
+    
+        // Case-2. If the question can be solved with 'recursion', design a 
+        //         correct algorithm. Since the recursion can be inefficient, 
+        //         use either 'tabulation' or 'memorization' to break it down 
+        //         into 'iteration'.
+        return false;
+    }
 
 
 
+
+    /**
+     * Given an array of scores, return true if there are scores of 100
+     * next to each other in the array.
+     *
+     * @param scores an array of integer scores (length at least 2)
+     * @return true if there is at least one occurrence of consecutive 100's, else false
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>scores100(new int[]{1, 100, 100}) returns true</li>
+     *   <li>scores100(new int[]{1, 100, 99, 100}) returns false</li>
+     *   <li>scores100(new int[]{100, 1, 100, 100}) returns true</li>
+     * </ul>
+     * </p>
+     */
+    public static boolean scores100(int[] scores) {
+        // [Your Implementation Here]
+    
+        // Case-1. If the question can be solved with 'iteration (for/while)', 
+        //         design the most efficient algorithm.
+    
+        // Case-2. If the question can be solved with 'recursion', design a 
+        //         correct algorithm. Since the recursion can be inefficient, 
+        //         use either 'tabulation' or 'memorization' to break it down 
+        //         into 'iteration'.
+        return false;
+    }
 
 
 
