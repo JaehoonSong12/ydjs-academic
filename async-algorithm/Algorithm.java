@@ -15,6 +15,7 @@
  * 4. Clean: 
  *      `rm -rf async-algorithm/*.class`
  */
+
 public class Algorithm {
 
     /**
@@ -290,6 +291,135 @@ public class Algorithm {
         //         into 'iteration'.
         return false;
     }
+
+
+    /**
+     * Given an array of scores, compute the integer average of the
+     * first half and the second half, and return whichever is larger.
+     * The second half begins at index scores.length / 2.
+     *
+     * You must use a helper function that computes the average
+     * of the values between two indices.
+     *
+     * @param scores an array of integer scores (at least 2 elements long)
+     * @return the higher integer average between the first and second half of the list
+     *
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>scoresAverage(new int[]{2, 2, 4, 4}) returns 4</li>
+     *   <li>scoresAverage(new int[]{4, 4, 4, 2, 2, 2}) returns 4</li>
+     *   <li>scoresAverage(new int[]{3, 4, 5, 1, 2, 3}) returns 4</li>
+     * </ul>
+     * </p>
+     */
+    public static int scoresAverage(int[] scores) {
+        // [Your Implementation Here]
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
+        return 0;
+    }
+    /**
+     * Helper function to compute the integer average of elements in scores[start:end).
+     *
+     * @param scores the array of scores
+     * @param start the start index (inclusive)
+     * @param end the end index (exclusive)
+     * @return the integer average of the values between start and end
+     */
+    private static int average(int[] scores, int start, int end) {
+        // [Your Implementation Here]
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
+        return 0;
+    }
+
+
+
+    /**
+     * Given an array of strings, return the count of the number
+     * of strings that have the given length.
+     *
+     * @param words an array of strings
+     * @param length the target length to match
+     * @return the number of strings in the array that have the given length
+     *
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>wordsCount(new String[]{"a", "bb", "b", "ccc"}, 1) returns 2</li>
+     *   <li>wordsCount(new String[]{"a", "bb", "b", "ccc"}, 3) returns 1</li>
+     *   <li>wordsCount(new String[]{"a", "bb", "b", "ccc"}, 4) returns 0</li>
+     * </ul>
+     * </p>
+     */
+    public static int wordsCount(String[] words, int length) {
+        // [Your Implementation Here]
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
+        return 0;
+    }
+
+    /**
+     * Given an array of strings, return a new array containing the first N strings.
+     * N will be in the range 1..length of the input array.
+     *
+     * @param words an array of strings
+     * @param n the number of strings to return from the start
+     * @return an array containing the first N strings
+     *
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 1) → ["a"]</li>
+     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 2) → ["a", "b"]</li>
+     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 3) → ["a", "b", "c"]</li>
+     * </ul>
+     * </p>
+     */
+    public static String[] wordsFront(String[] words, int n) {
+        // [Your Implementation Here]
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
+        return null;
+    }
+
+
+
+
+    // Q07 comming soon..!
+
+
+
+
+
+
+
+
 
 
 

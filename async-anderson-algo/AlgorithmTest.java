@@ -111,4 +111,27 @@ public class AlgorithmTest {
         assertEquals(100, Algorithm.powerN(10, 2), "powerN(10, 2) should return 100");
         assertEquals(1000, Algorithm.powerN(10, 3), "powerN(10, 3) should return 1000");
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 }

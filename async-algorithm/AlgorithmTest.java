@@ -166,4 +166,45 @@ public class AlgorithmTest {
         assertTrue(Algorithm.scoresClump(new int[]{3, 3, 7, 7, 9}));        // → True
         assertFalse(Algorithm.scoresClump(new int[]{4, 5, 8}));             // → False
     }
+
+    /**
+     * Tests the scoresAverage method.
+     */
+    @Test
+    public void testScoresAverage() {
+        assertEquals(4, Algorithm.scoresAverage(new int[]{2, 2, 4, 4}));
+        assertEquals(4, Algorithm.scoresAverage(new int[]{4, 4, 4, 2, 2, 2}));
+        assertEquals(4, Algorithm.scoresAverage(new int[]{3, 4, 5, 1, 2, 3}));
+        assertEquals(6, Algorithm.scoresAverage(new int[]{5, 6}));
+        assertEquals(5, Algorithm.scoresAverage(new int[]{5, 4}));
+        assertEquals(5, Algorithm.scoresAverage(new int[]{5, 4, 5, 6, 2, 1, 2, 3}));
+    }
+
+
+    
+    /**
+     * Tests the wordsCount method.
+     */
+    @Test
+    public void testWordsCount() {
+        assertEquals(2, Algorithm.wordsCount(new String[]{"a", "bb", "b", "ccc"}, 1));
+        assertEquals(1, Algorithm.wordsCount(new String[]{"a", "bb", "b", "ccc"}, 3));
+        assertEquals(0, Algorithm.wordsCount(new String[]{"a", "bb", "b", "ccc"}, 4));
+        assertEquals(2, Algorithm.wordsCount(new String[]{"xx", "yyy", "x", "yy", "z"}, 1));
+        assertEquals(2, Algorithm.wordsCount(new String[]{"xx", "yyy", "x", "yy", "z"}, 2));
+        assertEquals(1, Algorithm.wordsCount(new String[]{"xx", "yyy", "x", "yy", "z"}, 3));
+    }
+    
+    /**
+     * Tests the wordsFront method.
+     */
+    @Test
+    public void testWordsFront() {
+        assertArrayEquals(new String[]{"a"}, Algorithm.wordsFront(new String[]{"a", "b", "c", "d"}, 1));
+        assertArrayEquals(new String[]{"a", "b"}, Algorithm.wordsFront(new String[]{"a", "b", "c", "d"}, 2));
+        assertArrayEquals(new String[]{"a", "b", "c"}, Algorithm.wordsFront(new String[]{"a", "b", "c", "d"}, 3));
+        assertArrayEquals(new String[]{"a", "b", "c", "d"}, Algorithm.wordsFront(new String[]{"a", "b", "c", "d"}, 4));
+        assertArrayEquals(new String[]{"Hi"}, Algorithm.wordsFront(new String[]{"Hi", "There"}, 1));
+        assertArrayEquals(new String[]{"Hi", "There"}, Algorithm.wordsFront(new String[]{"Hi", "There"}, 2));
+    }
 }
