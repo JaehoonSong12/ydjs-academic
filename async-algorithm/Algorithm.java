@@ -163,6 +163,11 @@ public class Algorithm {
 
 
 
+    /********************************************************************************
+     * ******************************************************************************
+     * AP Challenge Questions
+     * ******************************************************************************
+     ********************************************************************************/
 
     /**
      * Given an array of scores (integers), return true if the scores are
@@ -172,11 +177,10 @@ public class Algorithm {
      * @param scores an array of integers (length 2 or more)
      * @return true if each score is equal or greater than the previous one, false otherwise
      * <p>
-     * Examples:
      * <ul>
-     *   <li>powerN(3, 1) returns 3</li>
-     *   <li>powerN(3, 2) returns 9</li>
-     *   <li>powerN(3, 3) returns 27</li>
+     *   <li>scores_increasing(new int[]{1, 3, 4}) returns true</li>
+     *   <li>scores_increasing(new int[]{1, 3, 2}) returns false</li>
+     *   <li>scores_increasing(new int[]{1, 1, 4}) returns true</li>
      * </ul>
      * </p>
      */
@@ -192,9 +196,6 @@ public class Algorithm {
         //         into 'iteration'.
         return false;
     }
-
-
-
 
     /**
      * Given an array of scores, return true if there are scores of 100
@@ -223,20 +224,6 @@ public class Algorithm {
         //         into 'iteration'.
         return false;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      * Given an array of scores sorted in increasing order,
