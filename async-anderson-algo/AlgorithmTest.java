@@ -61,12 +61,13 @@ public class AlgorithmTest {
      */
     @Test
     public void testSumDigits() {
-        assertEquals(9, Algorithm.sumDigits(126), "Sum of digits of 126 should be 9");
         assertEquals(13, Algorithm.sumDigits(49), "Sum of digits of 49 should be 13");
         assertEquals(3, Algorithm.sumDigits(12), "Sum of digits of 12 should be 3");
         assertEquals(1, Algorithm.sumDigits(10), "Sum of digits of 10 should be 1");
         assertEquals(0, Algorithm.sumDigits(0), "Sum of digits of 0 should be 0");
         assertEquals(10, Algorithm.sumDigits(730), "Sum of digits of 730 should be 10");
+        assertEquals(9, Algorithm.sumDigits(126), "Sum of digits of 126 should be 9");
+        assertEquals(33, Algorithm.sumDigits(1265487), "Sum of digits of 1265487 should be 33");
     }
 
     /**
@@ -74,8 +75,9 @@ public class AlgorithmTest {
      */
     @Test
     public void testCount8() {
-        assertEquals(1, Algorithm.count8(8), "count8(8) should return 1");
-        assertEquals(2, Algorithm.count8(818), "count8(818) should return 2");
+        assertEquals(0, Algorithm.count8(0),    "count8(0) should return 0");
+        assertEquals(2, Algorithm.count8(818),  "count8(818) should return 2");
+        assertEquals(1, Algorithm.count8(8),    "count8(8) should return 1");
         assertEquals(4, Algorithm.count8(8818), "count8(8818) should return 4");
         assertEquals(4, Algorithm.count8(8088), "count8(8088) should return 4");
         assertEquals(0, Algorithm.count8(123), "count8(123) should return 0");
@@ -84,7 +86,6 @@ public class AlgorithmTest {
         assertEquals(1, Algorithm.count8(8234), "count8(8234) should return 1");
         assertEquals(1, Algorithm.count8(2348), "count8(2348) should return 1");
         assertEquals(3, Algorithm.count8(23884), "count8(23884) should return 3");
-        assertEquals(0, Algorithm.count8(0), "count8(0) should return 0");
         assertEquals(5, Algorithm.count8(1818188), "count8(1818188) should return 5");
         assertEquals(5, Algorithm.count8(8818181), "count8(8818181) should return 5");
         assertEquals(1, Algorithm.count8(1080), "count8(1080) should return 1");

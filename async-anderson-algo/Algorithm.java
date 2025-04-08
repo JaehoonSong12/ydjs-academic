@@ -31,13 +31,18 @@ public class Algorithm {
      * </ul>
      */
     public static int factorial(int n) {
-
-        // classic way (using for-loop)
-        return 0;
+        // // classic way (using for-loop)
+        // int product = 1;
+        // for(int i = 1; i <= n; i++) {
+        //     product = product * i;
+        // }
+        // return product;
 
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
+        if (n == 0) return 1;
         // 2. recursive-case
+        return n * factorial(n - 1);
     }
 
 
@@ -61,18 +66,20 @@ public class Algorithm {
      */
     public static int bunnyEars(int bunnies) {
 
-        // classic way (using for-loop)
-        return 0;
+        // // classic way (using for-loop)
+        // return bunnies * 2;
 
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
+        if (bunnies <= 0) return 0;
         // 2. recursive-case
+        return 2 + bunnyEars(bunnies-1);
     }
 
     /**
      * Recursively calculates the nth Fibonacci number.
      * The sequence starts with fibonacci(0) = 0 and fibonacci(1) = 1.
-     *
+     * 
      * @param n the position in the Fibonacci sequence, starting from 0.
      * @return the nth Fibonacci number.
      * <p>
@@ -86,11 +93,16 @@ public class Algorithm {
     public static int fibonacci(int n) {
 
         // classic way (using for-loop)
-        return 0;
+        // if (n <= 0) return 0;
+        // return n;
 
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
+        if (n <= 0) {return 0;}
+        if (n == 1) {return 1;}
+        if (n == 2) {return 1;}
         // 2. recursive-case
+        return fibonacci(n-1) + fibonacci(n-2);
     }
 
     /**
@@ -107,13 +119,43 @@ public class Algorithm {
      * </ul>
      */
     public static int sumDigits(int n) {
+        
+        // //classic way (using for-loop)
+        // if (n <= 9) {
+        //     return n;
+        //     }
+        //     int total = 0;
+        //     int remains = n;
+        //     int answer = 0;
+        //     int n_int = (int) (Math.log10(n) + 1);
+        //     //if (n < )
+        //     for (int i = 0; i < n_int; i++) {// n = 7
+        //         total = remains % 10; // total = 7
+        //         remains = remains - total; // remains = 7
+        //         remains = remains / 10; // remains = 0
+        //         answer = total + answer; // 0 + 3 + 7
+        //     }
+        // return answer;
 
-        // classic way (using for-loop)
-        return 0;
 
+        // if (n < 10) return n;
+
+        // int answer = 0;
+        // String str = Integer.toString(n);
+        // for (int i = 0; i < str.length(); i++) {
+        //     int digit = Character.getNumericValue(str.charAt(i));
+        //     answer += digit;
+        //     System.out.println(str.charAt(i));
+        // }
+
+
+        int answer = 0;
+        for (int i = 0; n > 0; n = n / 10) answer += n % 10;
+        
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
         // 2. recursive-case
+        return answer;
     }
 
     /**
@@ -133,12 +175,28 @@ public class Algorithm {
     public static int count8(int n) {
 
         // classic way (using for-loop)
-        return 0;
+        int count = 0;
+        boolean double_8 = false;
+        //if (n < )
+        while (n > 0) {
+            int lastDigit = n % 10;
+            if (lastDigit == 8) {
+                count++;
+                if (double_8) {
+                    count++;
+                }
+                double_8 = true;
+            } else {
+                double_8 = false;                
+            }
+            n /= 10;
+        }
+        return count;
+    }    
 
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
         // 2. recursive-case
-    }
 
     /**
      * Recursively computes the value of base raised to the power n.
@@ -155,9 +213,14 @@ public class Algorithm {
      * </ul>
      */
     public static int powerN(int base, int n) {
-
+        int answer = base;
         // classic way (using for-loop)
-        return 0;
+        if (n == 1) {return answer;}
+        while (n > 1){
+            answer = answer * base;            
+            n--;
+        }
+        return answer;
 
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
@@ -172,24 +235,24 @@ public class Algorithm {
 
 
 
-
-
     /**
      * Main method to demonstrate sample outputs of the recursive algorithms.
      *
      * @param args command line arguments (not used).
      */
     public static void main(String[] args) {
+        System.out.println("n/n/n/" + count8(818));
         System.out.println("factorial(5) = " + factorial(5));
-
-
-
-
-
         System.out.println("bunnyEars(5) = " + bunnyEars(5));
         System.out.println("fibonacci(7) = " + fibonacci(7));
         System.out.println("sumDigits(126) = " + sumDigits(126));
         System.out.println("count8(8818) = " + count8(8818));
         System.out.println("powerN(3, 3) = " + powerN(3, 3));
+        System.out.println("HI");
+        System.out.println(":"+count8(818)+":");
+
+
+        
+        System.out.println("sumDigits(1265487) = " + sumDigits(1265487));
     }
 }
