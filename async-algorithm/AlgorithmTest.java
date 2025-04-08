@@ -1,6 +1,8 @@
 // JUnit: https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter/5.10.0
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * The AlgorithmTest class provides JUnit tests for the recursive methods in the Algorithm class.
@@ -124,6 +126,13 @@ public class AlgorithmTest {
 
 
 
+
+    /********************************************************************************
+     * ******************************************************************************
+     * AP Challenge Questions
+     * ******************************************************************************
+     ********************************************************************************/
+
     
     /**
      * Tests the scoresIncreasing method.
@@ -206,5 +215,104 @@ public class AlgorithmTest {
         assertArrayEquals(new String[]{"a", "b", "c", "d"}, Algorithm.wordsFront(new String[]{"a", "b", "c", "d"}, 4));
         assertArrayEquals(new String[]{"Hi"}, Algorithm.wordsFront(new String[]{"Hi", "There"}, 1));
         assertArrayEquals(new String[]{"Hi", "There"}, Algorithm.wordsFront(new String[]{"Hi", "There"}, 2));
+    }
+    
+    /**
+     * Tests the wordsWithoutList method.
+     */
+    @Test
+    public void testWordsWithoutList() {
+        List<String> expected1 = Arrays.asList("bb", "ccc");
+        assertEquals(expected1, Algorithm.wordsWithoutList(new String[]{"a", "bb", "b", "ccc"}, 1));
+
+        List<String> expected2 = Arrays.asList("a", "bb", "b");
+        assertEquals(expected2, Algorithm.wordsWithoutList(new String[]{"a", "bb", "b", "ccc"}, 3));
+
+        List<String> expected3 = Arrays.asList("a", "bb", "b", "ccc");
+        assertEquals(expected3, Algorithm.wordsWithoutList(new String[]{"a", "bb", "b", "ccc"}, 4));
+
+        List<String> expected4 = Arrays.asList("xx", "yyy", "yy");
+        assertEquals(expected4, Algorithm.wordsWithoutList(new String[]{"xx", "yyy", "x", "yy", "z"}, 1));
+
+        List<String> expected5 = Arrays.asList("yyy", "x", "z");
+        assertEquals(expected5, Algorithm.wordsWithoutList(new String[]{"xx", "yyy", "x", "yy", "z"}, 2));
+    }
+
+    /**
+     * Tests the hasOne method.
+     */
+    @Test
+    public void testHasOne() {
+        assertTrue(Algorithm.hasOne(10));
+        assertFalse(Algorithm.hasOne(22));
+        assertFalse(Algorithm.hasOne(220));
+        assertTrue(Algorithm.hasOne(212));
+        assertTrue(Algorithm.hasOne(1));
+        assertFalse(Algorithm.hasOne(9));
+        assertTrue(Algorithm.hasOne(211112));
+        assertTrue(Algorithm.hasOne(121121));
+        assertFalse(Algorithm.hasOne(222222));
+        assertTrue(Algorithm.hasOne(56156));
+        assertFalse(Algorithm.hasOne(56556));
+    }
+
+    /**
+     * Tests the dividesSelf method.
+     */
+    @Test
+    public void testDividesSelf() {
+        assertTrue(Algorithm.dividesSelf(128));
+        assertTrue(Algorithm.dividesSelf(12));
+        assertFalse(Algorithm.dividesSelf(120));
+        assertTrue(Algorithm.dividesSelf(122));
+        assertFalse(Algorithm.dividesSelf(13));
+        assertFalse(Algorithm.dividesSelf(32));
+        assertTrue(Algorithm.dividesSelf(22));
+        assertFalse(Algorithm.dividesSelf(42));
+        assertTrue(Algorithm.dividesSelf(212));
+        assertFalse(Algorithm.dividesSelf(213));
+        assertTrue(Algorithm.dividesSelf(162));
+    }
+
+    /**
+     * Tests the copyEvens method.
+     */ 
+    @Test
+    public void testCopyEvens() {
+        assertArrayEquals(new int[]{2, 4}, 
+            Algorithm.copyEvens(new int[]{3, 2, 4, 5, 8}, 2));
+
+        assertArrayEquals(new int[]{2, 4, 8}, 
+            Algorithm.copyEvens(new int[]{3, 2, 4, 5, 8}, 3));
+
+        assertArrayEquals(new int[]{6, 2, 4}, 
+            Algorithm.copyEvens(new int[]{6, 1, 2, 4, 5, 8}, 3));
+
+        assertArrayEquals(new int[]{6, 2, 4, 8}, 
+            Algorithm.copyEvens(new int[]{6, 1, 2, 4, 5, 8}, 4));
+
+        assertArrayEquals(new int[]{4}, 
+            Algorithm.copyEvens(new int[]{3, 1, 4, 1, 5}, 1));
+
+        assertArrayEquals(new int[]{2}, 
+            Algorithm.copyEvens(new int[]{2}, 1));
+
+        assertArrayEquals(new int[]{6, 2}, 
+            Algorithm.copyEvens(new int[]{6, 2, 4, 8}, 2));
+
+        assertArrayEquals(new int[]{6, 2, 4}, 
+            Algorithm.copyEvens(new int[]{6, 2, 4, 8}, 3));
+
+        assertArrayEquals(new int[]{6, 2, 4, 8}, 
+            Algorithm.copyEvens(new int[]{6, 2, 4, 8}, 4));
+
+        assertArrayEquals(new int[]{8}, 
+            Algorithm.copyEvens(new int[]{1, 8, 4}, 1));
+
+        assertArrayEquals(new int[]{8, 4}, 
+            Algorithm.copyEvens(new int[]{1, 8, 4}, 2));
+
+        assertArrayEquals(new int[]{2, 8}, 
+            Algorithm.copyEvens(new int[]{2, 8, 4}, 2));
     }
 }
