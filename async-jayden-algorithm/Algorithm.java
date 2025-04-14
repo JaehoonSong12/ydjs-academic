@@ -31,13 +31,19 @@ public class Algorithm {
      * </ul>
      */
     public static int factorial(int n) {
-
-        // classic way (using conditions, repetition)
+        // // classic way (using conditions, repetition)
+        // int product = 1;
+        // for (int num = n; num >= 1; num-- ){
+        //     product = product * num;
+        // }
+        // return product;
 
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
+        if (n == 0) return 1;
+        if (n == 1) return 1;
         // 2. recursive-case
-        return 0;
+        return n * factorial(n - 1); // recursive function call (self-call)
     }
 
 
@@ -60,13 +66,15 @@ public class Algorithm {
      * </ul>
      */
     public static int bunnyEars(int bunnies) {
-
-        // classic way (using conditions, repetition)
+        // // classic way (using conditions, repetition)
+        // return bunnies*2;
 
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
+        if (bunnies < 1) return 0;
+        if (bunnies == 1) return 2;
         // 2. recursive-case
-        return 0;
+        return 2 + bunnyEars(bunnies - 1);
     }
 
     /**
@@ -85,12 +93,27 @@ public class Algorithm {
      */
     public static int fibonacci(int n) {
 
+        if (n == 0) return 0;
+        if (n == 1) return 1;
+        int a = 0;
+        int b = 1;
+        int sum;
         // classic way (using conditions, repetition)
+        for (int num = 2; num <= n; num++){
+            sum = a+b;
+            a=b;
+            b=sum;
 
-        // recursive way (divide-and-conquer, recursion)
-        // 1. base-case
-        // 2. recursive-case
-        return 0;
+        }
+
+        return b;
+
+        // // recursive way (divide-and-conquer, recursion)
+        // // 1. base-case
+        // if (n == 0) return 0;
+        // if (n == 1) return 1;
+        // // 2. recursive-case
+        // return fibonacci(n - 2) + fibonacci(n - 1);
     }
 
     /**
@@ -109,10 +132,20 @@ public class Algorithm {
     public static int sumDigits(int n) {
         // classic way (using conditions, repetition)
 
+        // int sum = 0;
+        
+        // while (n > 0) {
+        //     sum += n % 10; // Add the last digit to sum
+        //     n /= 10;       // Remove the last digit
+        // }
+        
+        // return sum;
+
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
+        if (n < 10) return n;
         // 2. recursive-case
-        return 0;
+        return (n % 10) + sumDigits(n / 10);
     }
 
     /**
@@ -132,11 +165,47 @@ public class Algorithm {
     public static int count8(int n) {
 
         // classic way (using conditions, repetition)
+        int count = 0;
+        boolean previousWasEight = false; // Track if the previous digit was 8
+    
+        while (n > 0) {
+            int lastDigit = n % 10; // Get the last digit, (%): remainder operator,  8818 -> 881(8)
+    
+            if (lastDigit == 8) {
+                if (previousWasEight) {
+                    count += 2; // Double count if the previous digit was also 8
+                } else {
+                    count += 1;
+                }
+                previousWasEight = true; // Mark that the last digit was 8
+            } else {
+                previousWasEight = false; // Reset tracking if the digit is not 8
+            }
+    
+            n /= 10; // compound operator, n = n / 10; (/): quotient operator,  8818 -> (881)8
+        }
+    
+        return count;
 
-        // recursive way (divide-and-conquer, recursion)
-        // 1. base-case
-        // 2. recursive-case
-        return 0;
+
+        // Base case: If n is 0, there are no more digits to check
+        if (n == 0) return 0;
+
+        // Check the last digit
+        int lastDigit = n % 10;
+        int secondLastDigit = (n / 10) % 10; // Get the second last digit
+
+        if (lastDigit == 8) {
+            // If the previous digit is also 8, count double
+            if (secondLastDigit == 8) {
+                return 2 + count8(n / 10);
+            }
+            // Otherwise, count normally
+            return 1 + count8(n / 10);
+        }
+
+        // Move to the next digit
+        return count8(n / 10);
     }
 
     /**
@@ -156,16 +225,22 @@ public class Algorithm {
     public static int powerN(int base, int n) {
 
         // classic way (using conditions, repetition)
-
+        // int result = 1;
+    
+        // for (int i = 0; i < n; i++) {
+        //     result *= base;
+        // }
+        
+        // return result;
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
+        if (n == 1) return base;
         // 2. recursive-case
-        return 0;
+        return base * powerN(base, n - 1);
     }
 
 
-
-
+    
 
 
 
@@ -180,6 +255,7 @@ public class Algorithm {
      */
     public static void main(String[] args) {
         System.out.println("factorial(5) = " + factorial(5));
+        
 
 
 
