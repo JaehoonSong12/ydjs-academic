@@ -112,10 +112,11 @@ public class Algorithm {
      * </p>
      */
     public static boolean scoresClump(int[] scores) {
-        if (scores[scores.length-1] - scores[1] > 2){
-            return true;
+        if (scores.length <= 2) return false; // early return for non-sense situations
+        for (int i = 0; i < scores.length - 2; i++){
+            if (scores[i + 2] - scores[i] <= 2) return true;  
         }
-        
+            
         return false;
         //
         // Case-1. If the question can be solved with 'iteration (for/while)',
@@ -336,27 +337,40 @@ public class Algorithm {
      */
     public static boolean hasOne(int n) {
         // [Your Implementation Here]
-        if (n <= 9) {
-            return true;
-            }
-            int total = 0;
-            int remains = n;
-            int answer = 0;
-            int iJustNeedToKeepTrakOfOneNumberSo = 0;
-            int n_int = (int) (Math.log10(n) + 1);
-            //if (n < )
-            total = remains % 10;
-            answer = total;
-            for (int i = 0; i < n_int+1; i++) {
-                total = remains % 10;
-                remains = remains / 10;
-                if (answer == total) {
-                    iJustNeedToKeepTrakOfOneNumberSo++;
-                }
-            }
-            if (iJustNeedToKeepTrakOfOneNumberSo == n_int){
+        if (n == 1) return true;
+        if (n <= 9) return false;
+        int remains = n;
+        int currentNumber = 0;
+        int n_length = (int) (Math.log10(n) + 1); // number of digits
+
+        for (int i = 0; i < n_length; i++){
+            currentNumber = remains % 10;
+            remains = remains / 10;
+            if (currentNumber == 1) {
                 return true;
             }
+        }
+
+        
+    
+        // int total = 0;
+        // int remains = n;
+        // int currentNumber = 0;
+        // int iJustNeedToKeepTrakeOfOneNumberSo = 0;
+        // int n_int = (int) (Math.log10(n) + 1); // number of digits
+        // //if (n < )
+        // total = remains % 10;
+        // answer = total;
+        // for (int i = 0; i < n_int+1; i++) {
+        //     total = remains % 10;
+        //     remains = remains / 10;
+        //     if (answer == total) {
+        //         iJustNeedToKeepTrakeOfOneNumberSo++;
+        //     }
+        // }
+        // if (iJustNeedToKeepTrakeOfOneNumberSo == n_int){
+        //     return true;
+        // }
         return false;
         // Case-1. If the question can be solved with 'iteration (for/while)',
         //         design the most efficient algorithm.
@@ -425,7 +439,7 @@ public class Algorithm {
      * the first {@code count} even numbers from the original array.
      * The original array will contain at least {@code count} even numbers.
      *
-     * @param nums  an array of positive integers
+     * @param nums  an array of positive integer
      * @param count the number of even integers to return
      * @return an array of the first {@code count} even integers from the original array
      *
@@ -449,9 +463,9 @@ public class Algorithm {
             }
 
         }
-        int[] result = new int[resultList.size()];
-        for (int i = 0; i < resultList.size(); i++) {
-            result[i] = resultList.get(i); // Convert Integer to int
+        int[] result = new int[count];
+        for (int i = 0; i < count; i++) {
+            result[i] = resultList.get(i);
         }
         // [Your Implementation Here]
         //
