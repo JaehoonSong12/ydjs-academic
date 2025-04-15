@@ -111,4 +111,90 @@ public class AlgorithmTest {
         assertEquals(100, Algorithm.powerN(10, 2), "powerN(10, 2) should return 100");
         assertEquals(1000, Algorithm.powerN(10, 3), "powerN(10, 3) should return 1000");
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Tests the scoresIncreasing method.
+     */
+    @Test
+    public void testScoresIncreasing() {
+        assertTrue(Algorithm.scoresIncreasing(new int[]{1, 3, 4}));            // -> True
+        assertFalse(Algorithm.scoresIncreasing(new int[]{1, 3, 2}));           // -> False
+        assertTrue(Algorithm.scoresIncreasing(new int[]{1, 1, 4}));            // -> True
+        assertTrue(Algorithm.scoresIncreasing(new int[]{1, 1, 2, 4, 4, 7}));   // -> True
+        assertFalse(Algorithm.scoresIncreasing(new int[]{1, 1, 2, 4, 3, 7}));  // -> False
+        assertTrue(Algorithm.scoresIncreasing(new int[]{-5, 4, 11}));          // -> True
+    }
+
+    /**
+     * Tests the scores100 method.
+     */
+    @Test
+    public void testScores100() {
+        assertTrue(Algorithm.scores100(new int[]{1, 100, 100}));           // -> True
+        assertFalse(Algorithm.scores100(new int[]{1, 100, 99, 100}));        // -> False
+        assertTrue(Algorithm.scores100(new int[]{100, 1, 100, 100}));        // -> True
+        assertFalse(Algorithm.scores100(new int[]{100, 1, 100, 1}));         // -> False
+        assertFalse(Algorithm.scores100(new int[]{1, 2, 3, 4, 5}));          // -> False
+        assertFalse(Algorithm.scores100(new int[]{1, 2, 100, 4, 5}));        // -> False
+    }
+
+    /**
+     * Tests the scoresClump method.
+     */
+    @Test
+    public void testScoresClump() {
+        assertTrue(Algorithm.scoresClump(new int[]{3, 4, 5}));           // -> True
+        assertFalse(Algorithm.scoresClump(new int[]{3, 4, 6}));          // -> False
+        assertTrue(Algorithm.scoresClump(new int[]{1, 3, 5, 5}));         // -> True
+        assertTrue(Algorithm.scoresClump(new int[]{2, 4, 5, 6}));         // -> True
+        assertFalse(Algorithm.scoresClump(new int[]{2, 4, 5, 7}));         // -> False
+        assertTrue(Algorithm.scoresClump(new int[]{2, 4, 4, 7}));          // -> True
+        assertFalse(Algorithm.scoresClump(new int[]{3, 3, 6, 7, 9}));       // -> False
+        assertTrue(Algorithm.scoresClump(new int[]{3, 3, 7, 7, 9}));        // -> True
+        assertFalse(Algorithm.scoresClump(new int[]{4, 5, 8}));             // -> False
+    }
+
+    /**
+     * Tests the scoresAverage method.
+     */
+    @Test
+    public void testScoresAverage() {
+        assertEquals(4, Algorithm.scoresAverage(new int[]{2, 2, 4, 4}));
+        assertEquals(4, Algorithm.scoresAverage(new int[]{4, 4, 4, 2, 2, 2}));
+        assertEquals(4, Algorithm.scoresAverage(new int[]{3, 4, 5, 1, 2, 3}));
+        assertEquals(6, Algorithm.scoresAverage(new int[]{5, 6}));
+        assertEquals(5, Algorithm.scoresAverage(new int[]{5, 4}));
+        assertEquals(5, Algorithm.scoresAverage(new int[]{5, 4, 5, 6, 2, 1, 2, 3}));
+    }
+
+
+    
+    /**
+     * Tests the wordsCount method.
+     */
+    @Test
+    public void testWordsCount() {
+        assertEquals(2, Algorithm.wordsCount(new String[]{"a", "bb", "b", "ccc"}, 1));
+        assertEquals(1, Algorithm.wordsCount(new String[]{"a", "bb", "b", "ccc"}, 3));
+        assertEquals(0, Algorithm.wordsCount(new String[]{"a", "bb", "b", "ccc"}, 4));
+        assertEquals(2, Algorithm.wordsCount(new String[]{"xx", "yyy", "x", "yy", "z"}, 1));
+        assertEquals(2, Algorithm.wordsCount(new String[]{"xx", "yyy", "x", "yy", "z"}, 2));
+        assertEquals(1, Algorithm.wordsCount(new String[]{"xx", "yyy", "x", "yy", "z"}, 3));
+    }
+
+
 }
