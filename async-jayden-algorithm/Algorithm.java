@@ -164,28 +164,28 @@ public class Algorithm {
      */
     public static int count8(int n) {
 
-        // classic way (using conditions, repetition)
-        int count = 0;
-        boolean previousWasEight = false; // Track if the previous digit was 8
+        // // classic way (using conditions, repetition)
+        // int count = 0;
+        // boolean previousWasEight = false; // Track if the previous digit was 8
     
-        while (n > 0) {
-            int lastDigit = n % 10; // Get the last digit, (%): remainder operator,  8818 -> 881(8)
+        // while (n > 0) {
+        //     int lastDigit = n % 10; // Get the last digit, (%): remainder operator,  8818 -> 881(8)
     
-            if (lastDigit == 8) {
-                if (previousWasEight) {
-                    count += 2; // Double count if the previous digit was also 8
-                } else {
-                    count += 1;
-                }
-                previousWasEight = true; // Mark that the last digit was 8
-            } else {
-                previousWasEight = false; // Reset tracking if the digit is not 8
-            }
+        //     if (lastDigit == 8) {
+        //         if (previousWasEight) {
+        //             count += 2; // Double count if the previous digit was also 8
+        //         } else {
+        //             count += 1;
+        //         }
+        //         previousWasEight = true; // Mark that the last digit was 8
+        //     } else {
+        //         previousWasEight = false; // Reset tracking if the digit is not 8
+        //     }
     
-            n /= 10; // compound operator, n = n / 10; (/): quotient operator,  8818 -> (881)8
-        }
+        //     n /= 10; // compound operator, n = n / 10; (/): quotient operator,  8818 -> (881)8
+        // }
     
-        return count;
+        // return count;
 
 
         // Base case: If n is 0, there are no more digits to check
@@ -241,6 +241,270 @@ public class Algorithm {
 
 
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * < Q01 >
+     * Given an array of scores (integers), return true if the scores are
+     * in non-decreasing order - that is, each score is equal to or 
+     * greater than the one before.
+     *
+     * @param scores an array of integers (length 2 or more)
+     * @return true if each score is equal or greater than the previous one, 
+     *         false otherwise
+     * <p>
+     * <ul>
+     *   <li>scores_increasing(new int[]{1, 3, 4}) returns true</li>
+     *   <li>scores_increasing(new int[]{1, 3, 2}) returns false</li>
+     *   <li>scores_increasing(new int[]{1, 1, 4}) returns true</li>
+     * </ul>
+     * </p>
+     */
+    public static boolean scoresIncreasing(int[] scores) {
+        
+        for (int i = 1; i < scores.length; i++) {
+            if (scores[i-1] <= scores[i]) {
+            }
+            else {
+                return false;
+            }
+
+        }
+        return true;
+    
+        // Case-1. If the question can be solved with 'iteration (for/while)', 
+        //         design the most efficient algorithm.
+    
+        // Case-2. If the question can be solved with 'recursion', design a 
+        //         correct algorithm. Since the recursion can be inefficient, 
+        //         use either 'tabulation' or 'memorization' to break it down 
+        //         into 'iteration'.
+    }
+
+    /**
+     * < Q02 >
+     * Given an array of scores, return true if there are scores of 100
+     * next to each other in the array.
+     *
+     * @param scores an array of integer scores (length at least 2)
+     * @return true if there is at least one occurrence of consecutive 100's, 
+     *         else false
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>scores100(new int[]{1, 100, 100}) returns true</li>
+     *   <li>scores100(new int[]{1, 100, 99, 100}) returns false</li>
+     *   <li>scores100(new int[]{100, 1, 100, 100}) returns true</li>
+     * </ul>
+     * </p>
+     */
+    public static boolean scores100(int[] scores) {
+        if (scores.length < 2) return false;
+        
+        for (int i = 1; i < scores.length; i++) {
+            if (scores[i] == 100) {
+                if (scores[i-1] == scores[i]) {
+                    return true;
+                }
+            }
+        }
+    
+        // Case-1. If the question can be solved with 'iteration (for/while)', 
+        //         design the most efficient algorithm.
+    
+        // Case-2. If the question can be solved with 'recursion', design a 
+        //         correct algorithm. Since the recursion can be inefficient, 
+        //         use either 'tabulation' or 'memorization' to break it down 
+        //         into 'iteration'.
+        return false;
+    }
+
+    /**
+     * < Q03 >
+     * Given an array of scores sorted in increasing order,
+     * return true if the array contains 3 adjacent scores that differ
+     * from each other by at most 2. In other words, if any consecutive
+     * triplet of scores has a maximum difference (between the highest and
+     * lowest) of 2 or less, the function returns true.
+     *
+     * @param scores an array of integer scores, sorted in increasing order
+     * @return true if there exists a triplet of adjacent scores with a max 
+     *         difference of 2 or less, otherwise false
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>scoresClump(new int[]{3, 4, 5}) returns true</li>
+     *   <li>scoresClump(new int[]{3, 4, 6}) returns false</li>
+     *   <li>scoresClump(new int[]{1, 3, 5, 5}) returns true</li>
+     * </ul>
+     * </p>
+     */
+    public static boolean scoresClump(int[] scores) {
+        // [Your Implementation Here]
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
+        return false;
+    }
+
+
+    /**
+     * < Q04 >
+     * Given an array of scores, compute the integer average of the
+     * first half and the second half, and return whichever is larger.
+     * The second half begins at index scores.length / 2.
+     *
+     * You must use a helper function that computes the average
+     * of the values between two indices.
+     *
+     * @param scores an array of integer scores (at least 2 elements long)
+     * @return the higher integer average between the first and second half of the list
+     *
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>scoresAverage(new int[]{2, 2, 4, 4}) returns 4</li>
+     *   <li>scoresAverage(new int[]{4, 4, 4, 2, 2, 2}) returns 4</li>
+     *   <li>scoresAverage(new int[]{3, 4, 5, 1, 2, 3}) returns 4</li>
+     * </ul>
+     * </p>
+     */
+    public static int scoresAverage(int[] scores) {
+        // [Your Implementation Here]
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
+        return 0;
+    }
+    /**
+     * Helper function to compute the integer average of elements in scores[start:end).
+     *
+     * @param scores the array of scores
+     * @param start the start index (inclusive)
+     * @param end the end index (exclusive)
+     * @return the integer average of the values between start and end
+     */
+    private static int average(int[] scores, int start, int end) {
+        // [Your Implementation Here]
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
+        return 0;
+    }
+
+
+
+    /**
+     * < Q05 >
+     * Given an array of strings, return the count of the number
+     * of strings that have the given length.
+     *
+     * @param words an array of strings
+     * @param length the target length to match
+     * @return the number of strings in the array that have the given length
+     *
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>wordsCount(new String[]{"a", "bb", "b", "ccc"}, 1) returns 2</li>
+     *   <li>wordsCount(new String[]{"a", "bb", "b", "ccc"}, 3) returns 1</li>
+     *   <li>wordsCount(new String[]{"a", "bb", "b", "ccc"}, 4) returns 0</li>
+     * </ul>
+     * </p>
+     */
+    public static int wordsCount(String[] words, int length) {
+        // [Your Implementation Here]
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
