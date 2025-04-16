@@ -379,7 +379,13 @@ public class Algorithm {
      * </p>
      */
     public static boolean scoresClump(int[] scores) {
-        // [Your Implementation Here]
+        for (int i = 2; i < scores.length; i++) {
+            if (scores[i]-scores[i-2] <= 2) {
+                return true;
+            }
+
+        }
+        return false;
         //
         // Case-1. If the question can be solved with 'iteration (for/while)',
         //         design the most efficient algorithm.
@@ -388,7 +394,6 @@ public class Algorithm {
         //         correct algorithm. Since the recursion can be inefficient,
         //         use either 'tabulation' or 'memorization' to break it down
         //         into 'iteration'.
-        return false;
     }
 
 
@@ -414,7 +419,32 @@ public class Algorithm {
      * </p>
      */
     public static int scoresAverage(int[] scores) {
-        // [Your Implementation Here]
+        int firstAvage = 0;
+        int secondAvage = 0;
+
+        
+        for (int i = 0; i < scores.length / 2; i++) {
+            firstAvage += scores[i];
+        }
+        firstAvage = firstAvage / (scores.length / 2);
+
+        for (int i = scores.length / 2; i < scores.length; i++) {
+            secondAvage += scores[i];
+        }
+        secondAvage = secondAvage / (scores.length / 2);
+
+
+
+
+        return (firstAvage < secondAvage) ? (secondAvage) : (firstAvage);
+
+        // if (firstAvage < secondAvage) {
+        //     return secondAvage;
+        // }
+        // return firstAvage
+
+
+
         //
         // Case-1. If the question can be solved with 'iteration (for/while)',
         //         design the most efficient algorithm.
@@ -423,7 +453,6 @@ public class Algorithm {
         //         correct algorithm. Since the recursion can be inefficient,
         //         use either 'tabulation' or 'memorization' to break it down
         //         into 'iteration'.
-        return 0;
     }
     /**
      * Helper function to compute the integer average of elements in scores[start:end).
@@ -467,7 +496,11 @@ public class Algorithm {
      * </p>
      */
     public static int wordsCount(String[] words, int length) {
-        // [Your Implementation Here]
+        int num = 0;
+
+        for (int i = 0; i < words.length; i++){
+            if (words[i].length() == length) num++;
+        }
         //
         // Case-1. If the question can be solved with 'iteration (for/while)',
         //         design the most efficient algorithm.
@@ -476,7 +509,7 @@ public class Algorithm {
         //         correct algorithm. Since the recursion can be inefficient,
         //         use either 'tabulation' or 'memorization' to break it down
         //         into 'iteration'.
-        return 0;
+        return num;
     }
 
 
@@ -530,5 +563,11 @@ public class Algorithm {
         System.out.println("sumDigits(126) = " + sumDigits(126));
         System.out.println("count8(8818) = " + count8(8818));
         System.out.println("powerN(3, 3) = " + powerN(3, 3));
+        
+        
+        
+        
+        Object[] stringArray = {"apple", 23213, "cherry", 23.3213};
+        for (int i=0; i<stringArray.length;i++) System.out.println(stringArray[i]);
     }
 }
