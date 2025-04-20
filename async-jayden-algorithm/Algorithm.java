@@ -533,6 +533,171 @@ public class Algorithm {
 
 
 
+    /**
+     * < Q06 >
+     * Given an array of strings, return a new array containing the first N strings.
+     * N will be in the range 1..length of the input array.
+     *
+     * @param words an array of strings
+     * @param n the number of strings to return from the start
+     * @return an array containing the first N strings
+     *
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 1) → ["a"]</li>
+     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 2) → ["a", "b"]</li>
+     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 3) → ["a", "b", "c"]</li>
+     * </ul>
+     * </p>
+     */
+    public static String[] wordsFront(String[] words, int n) {
+        // [Your Implementation Here]
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
+        return null;
+    }
+
+
+
+
+    /**
+     * < Q07 >
+     * Given an array of strings, return a new list where all the 
+     * strings of the given length are omitted.
+     *
+     * @param words an array of strings
+     * @param length the length of the strings to omit from the list
+     * @return a new list with all strings of the given length omitted
+     *
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>wordsWithoutList(new String[]{"a", "bb", "b", "ccc"}, 1) returns ["bb", "ccc"]</li>
+     *   <li>wordsWithoutList(new String[]{"a", "bb", "b", "ccc"}, 3) returns ["a", "bb", "b"]</li>
+     *   <li>wordsWithoutList(new String[]{"a", "bb", "b", "ccc"}, 4) returns ["a", "bb", "b", "ccc"]</li>
+     * </ul>
+     * </p>
+     */
+    public static List<String> wordsWithoutList(String[] words, int length) {
+        List<String> result = new ArrayList<>();
+        // [Your Implementation Here]
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
+        return result;
+    }
+
+    /**
+     * < Q08 >
+     * Given a positive integer n, return true if it contains a digit '1'.
+     * Note: Use % to get the rightmost digit, and / to discard the rightmost digit.
+     *
+     * @param n a positive integer
+     * @return true if the number contains at least one digit '1', false otherwise
+     *
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>hasOne(10) returns true</li>
+     *   <li>hasOne(22) returns false</li>
+     *   <li>hasOne(220) returns false</li>
+     * </ul>
+     * </p>
+     */
+    public static boolean hasOne(int n) {
+        // [Your Implementation Here]
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
+        return false;
+    }
+
+
+    /**
+     * < Q09 >
+     * A positive integer divides itself if every digit in the number divides into
+     * the number evenly. For example, 128 divides itself since 1, 2, and 8 all divide 
+     * into 128 evenly. A number with a 0 digit does not divide itself, as 0 does not 
+     * divide into any number.
+     *
+     * @param n a positive integer
+     * @return true if the number divides itself, false otherwise
+     *
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>dividesSelf(128) returns true</li>
+     *   <li>dividesSelf(12) returns true</li>
+     *   <li>dividesSelf(120) returns false</li>
+     * </ul>
+     * </p>
+     */
+    public static boolean dividesSelf(int n) {
+        // [Your Implementation Here]
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
+        return false;
+    }
+
+
+
+
+    /**
+     * < Q10 >
+     * Given an array of positive integers, return a new array containing 
+     * the first {@code count} even numbers from the original array.
+     * The original array will contain at least {@code count} even numbers.
+     *
+     * @param nums  an array of positive integers
+     * @param count the number of even integers to return
+     * @return an array of the first {@code count} even integers from the original array
+     *
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>copyEvens(new int[]{3, 2, 4, 5, 8}, 2) returns [2, 4]</li>
+     *   <li>copyEvens(new int[]{3, 2, 4, 5, 8}, 3) returns [2, 4, 8]</li>
+     *   <li>copyEvens(new int[]{6, 1, 2, 4, 5, 8}, 3) returns [6, 2, 4]</li>
+     * </ul>
+     * </p>
+     */
+    public static int[] copyEvens(int[] nums, int count) {
+        int[] result = new int[count];
+        // [Your Implementation Here]
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
+        return result;
+    }
+
 
 
 
