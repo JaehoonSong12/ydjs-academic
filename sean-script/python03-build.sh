@@ -6,8 +6,7 @@ EXECUTABLE="cli"                                #### YOUR DATA HERE
 ############################################
 ## python-env_setup
 pip install pipreqs
-pipreqs . --force
-pip install -r requirements.txt
+pipreqs . --force; pip install -r requirements.txt
 clear
 ## python-execution
 if command -v python &>/dev/null; then # Check for Python command (python3 or python)
