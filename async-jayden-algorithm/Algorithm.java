@@ -14,7 +14,13 @@
  *      `java -cp async-jayden-algorithm Algorithm`
  * 4. Clean: 
  *      `rm -rf async-jayden-algorithm/*.class`
+ * 5. To check for warnings, use the command:
+ *      `javac -Xlint:unchecked async-jayden-algorithm/Algorithm.java`
  */
+
+import java.util.*;
+
+
 public class Algorithm {
 
     /**
@@ -545,14 +551,19 @@ public class Algorithm {
      * <p>
      * Examples:
      * <ul>
-     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 1) → ["a"]</li>
-     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 2) → ["a", "b"]</li>
-     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 3) → ["a", "b", "c"]</li>
+     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 1) -> ["a"]</li>
+     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 2) -> ["a", "b"]</li>
+     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 3) -> ["a", "b", "c"]</li>
      * </ul>
      * </p>
      */
     public static String[] wordsFront(String[] words, int n) {
-        // [Your Implementation Here]
+        String[] newWord = new String[n];
+        for (int i = 0; i < n;i++) {
+
+            newWord[i] = words[i];
+        }
+        return newWord;
         //
         // Case-1. If the question can be solved with 'iteration (for/while)',
         //         design the most efficient algorithm.
@@ -561,7 +572,6 @@ public class Algorithm {
         //         correct algorithm. Since the recursion can be inefficient,
         //         use either 'tabulation' or 'memorization' to break it down
         //         into 'iteration'.
-        return null;
     }
 
 
@@ -587,6 +597,10 @@ public class Algorithm {
      */
     public static List<String> wordsWithoutList(String[] words, int length) {
         List<String> result = new ArrayList<>();
+
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() != length) result.add(words[i]);
+        }
         // [Your Implementation Here]
         //
         // Case-1. If the question can be solved with 'iteration (for/while)',
@@ -617,7 +631,12 @@ public class Algorithm {
      * </p>
      */
     public static boolean hasOne(int n) {
-        // [Your Implementation Here]
+        while (n > 0) {
+            if(n % 10 == 1) {
+                return true;
+            }
+            n = n/10;
+        }
         //
         // Case-1. If the question can be solved with 'iteration (for/while)',
         //         design the most efficient algorithm.
@@ -650,7 +669,7 @@ public class Algorithm {
      * </p>
      */
     public static boolean dividesSelf(int n) {
-        // [Your Implementation Here]
+        
         //
         // Case-1. If the question can be solved with 'iteration (for/while)',
         //         design the most efficient algorithm.
@@ -734,5 +753,114 @@ public class Algorithm {
         
         Object[] stringArray = {"apple", 23213, "cherry", 23.3213};
         for (int i=0; i<stringArray.length;i++) System.out.println(stringArray[i]);
+
+
+
+        
+        List<String> sample1 = new ArrayList<>();
+        // Adding elements to sample1
+        sample1.add("apple");
+        sample1.add("banana");
+        sample1.add("cherry");
+        System.out.println("Initial sample1: " + sample1);
+        System.out.println("Size of sample1: " + sample1.size());
+
+        // Removing an element from sample1
+        sample1.remove("banana");
+        System.out.println("After removing 'banana', sample1: " + sample1);
+        System.out.println("Size of sample1: " + sample1.size());
+
+        // Working with sample2
+        String[] sample2 = new String[]{"2dsgdsg", "safdsfdaf", "fafdsf"};
+        System.out.println("Initial sample2: " + Arrays.toString(sample2));
+        System.out.println("Size of sample2: " + sample2.length);
+
+        // Modifying an element in sample2
+        sample2[1] = "modifiedElement";
+        sample2[2] = null; // Setting the last element to null
+        System.out.println("After modification, sample2: " + Arrays.toString(sample2));
+        System.out.println("Size of sample2: " + sample2.length);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        MyArrayList<String> list = new MyArrayList<>();
+        list.add("hello");
+        list.add("world");
+
+        System.out.println(list.get(0)); // hello
+        System.out.println(list.size()); // 2
+
+        
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class MyArrayList<T> {
+    private T[] data;
+    private int size;
+
+    @SuppressWarnings("unchecked")
+    public MyArrayList() {
+        data = (T[]) new Object[10]; // start with size 10
+        size = 0;
+    }
+
+    public void add(T value) {
+        if (size == data.length) {
+            grow(); // double the size if full
+        }
+        data[size++] = value;
+    }
+    @SuppressWarnings("unchecked")
+    private void grow() {
+        T[] newData = (T[]) new Object[data.length * 2];
+        for (int i = 0; i < data.length; i++) {
+            newData[i] = data[i];
+        }
+        data = newData;
+    }
+
+    public T get(int index) {
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
+        return data[index];
+    }
+
+    public int size() {
+        return size;
+    }
+}
+
+
