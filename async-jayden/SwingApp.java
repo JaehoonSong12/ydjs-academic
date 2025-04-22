@@ -1,6 +1,7 @@
 /**
  * SwingApp.java
  * 
+import java.util.Random;
  * This is a Java Swing application that 
  * 
  * MVC Design Principle:

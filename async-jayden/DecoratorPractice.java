@@ -43,9 +43,9 @@ public abstract class Decorator implements Pizza {
         this.pizza = pizza;
     }
 
-    public string Decorator() {
-        return pizza.Decorator();
-    }
+    // public string Decorator() {
+    //     return pizza.Decorator();
+    // }
 
     public double cost() {
         return pizza.cost();
