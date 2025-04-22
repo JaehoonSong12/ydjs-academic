@@ -9,11 +9,11 @@
  * How to compile and run the application:
  * 1. Open a terminal or command prompt.
  * 2. Compile: 
- *      `javac async/*.java`
+ *      `javac async-anderson-app/*.java`
  * 3. Run: 
- *      `java -cp async SwingApp`
+ *      `java -cp async-anderson-app SwingApp`
  * 4. Clean: 
- *      `rm -rf async/*.class`
+ *      `rm -rf async-anderson-app/*.class`
  */
 
 
@@ -114,10 +114,14 @@ class MenuView extends JPanel {
         add(game2Button);
         add(game3Button);
     }
-
     // Getters for the components
     public String getUsername() {
         return usernameField.getText().trim();
+    }
+
+    // Setter for the username field
+    public void setUsername(String username) {
+        usernameField.setText(username);
     }
 
     public JButton getGame1Button() {
@@ -138,22 +142,34 @@ class MenuView extends JPanel {
 // -------------------------------
 
 class MenuController {
-    private MenuView view;
+    private MenuView menuView;
+    private FileIOManager fileManager;
+    private String rootPath = "C:/repo"; // Set the root path for file operations
+    private String relativePath = "anderson/game_output.txt"; // Relative path for file operations
 
-    public MenuController(MenuView view) {
-        this.view = view;
-        view.getGame1Button().addActionListener(e -> launchGame("Game 1"));
-        view.getGame2Button().addActionListener(e -> launchGame("Game 2"));
-        view.getGame3Button().addActionListener(e -> launchGame("Game 3"));
+    public MenuController(MenuView menuView) {
+        fileManager = new FileIOManager(rootPath); // Set the root path for file operations
+        this.menuView = menuView;
+        
+        // read the username if there is
+        String fileContent = fileManager.read(relativePath);
+        this.menuView.setUsername(fileContent);
+
+        menuView.getGame1Button().addActionListener(e -> launchGame("Game 1"));
+        menuView.getGame2Button().addActionListener(e -> launchGame("Game 2"));
+        menuView.getGame3Button().addActionListener(e -> launchGame("Game 3"));
     }
 
     private void launchGame(String gameName) {
-        String username = view.getUsername();
+        String username = menuView.getUsername();
         if (username.isEmpty()) {
-            JOptionPane.showMessageDialog(view, "Please enter a username.");
+            JOptionPane.showMessageDialog(menuView, "Please enter a username.");
             return;
         }
         User user = new User(username);
+
+        // saving username
+        fileManager.write(username, relativePath);
 
         switch (gameName) {
             case "Game 1": SwingApp.setView(new Game1Controller(user).getView()); break;
@@ -163,7 +179,7 @@ class MenuController {
     }
 
     public MenuView getView() {
-        return view;
+        return menuView;
     }
 }
 
@@ -385,15 +401,6 @@ class Game2Controller {
         return view;
     }
 }
-
-
-
-
-
-
-
-
-
 
 
 

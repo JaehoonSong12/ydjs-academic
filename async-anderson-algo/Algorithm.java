@@ -122,22 +122,22 @@ public class Algorithm {
      */
     public static int sumDigits(int n) {
         
-        // //classic way (using for-loop)
-        // if (n <= 9) {
-        //     return n;
-        //     }
-        //     int total = 0;
-        //     int remains = n;
-        //     int answer = 0;
-        //     int n_int = (int) (Math.log10(n) + 1);
-        //     //if (n < )
-        //     for (int i = 0; i < n_int; i++) {// n = 7
-        //         total = remains % 10; // total = 7
-        //         remains = remains - total; // remains = 7
-        //         remains = remains / 10; // remains = 0
-        //         answer = total + answer; // 0 + 3 + 7
-        //     }
-        // return answer;
+        //classic way (using for-loop)
+        if (n <= 9) {
+            return n;
+            }
+            int total = 0;
+            int remains = n;
+            int answer = 0;
+            int n_int = (int) (Math.log10(n) + 1);
+            //if (n < )
+            for (int i = 0; i < n_int; i++) {// n = 7
+                total = remains % 10; // total = 7
+                remains = remains - total; // remains = 7
+                remains = remains / 10; // remains = 0
+                answer = total + answer; // 0 + 3 + 7
+            }
+        return answer;
 
 
         // if (n < 10) return n;
