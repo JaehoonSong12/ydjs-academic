@@ -12,11 +12,11 @@ import java.util.List;
  * How to compile and run the application:
  * 1. Open a terminal or command prompt.
  * 2. Compile (Current Test Only): 
- *      `javac -cp async-anderson-algo2/junit-platform-console-standalone-1.9.3.jar async-anderson-algo2/AlgorithmAPXtra*.java`
+ *      `javac -cp std04-anderson-algo2/junit-platform-console-standalone-1.9.3.jar std04-anderson-algo2/AlgorithmAPXtra*.java`
  * 3. Compile (All Tests): 
- *      `javac -cp async-anderson-algo2/junit-platform-console-standalone-1.9.3.jar async-anderson-algo2/*.java`
+ *      `javac -cp std04-anderson-algo2/junit-platform-console-standalone-1.9.3.jar std04-anderson-algo2/*.java`
  * 4. Run & Clean: 
- *      `java -jar async-anderson-algo2/junit-platform-console-standalone-1.9.3.jar --class-path async-anderson-algo2 --scan-classpath; rm -rf async-anderson-algo2/*.class`
+ *      `java -jar std04-anderson-algo2/junit-platform-console-standalone-1.9.3.jar --class-path std04-anderson-algo2 --scan-classpath; rm -rf std04-anderson-algo2/*.class`
  */
 public class AlgorithmAPXtraTest {
     

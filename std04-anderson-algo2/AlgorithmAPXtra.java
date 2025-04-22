@@ -11,11 +11,11 @@ import java.util.List;
  * How to compile and run the application:
  * 1. Open a terminal or command prompt.
  * 2. Compile: 
- *      `javac async-anderson-algo2/AlgorithmAPXtra.java`
+ *      `javac std04-anderson-algo2/AlgorithmAPXtra.java`
  * 3. Run: 
- *      `java -cp async-anderson-algo2 AlgorithmAPXtra`
+ *      `java -cp std04-anderson-algo2 AlgorithmAPXtra`
  * 4. Clean: 
- *      `rm -rf async-anderson-algo2/*.class`
+ *      `rm -rf std04-anderson-algo2/*.class`
  */
 public class AlgorithmAPXtra {
     /**
