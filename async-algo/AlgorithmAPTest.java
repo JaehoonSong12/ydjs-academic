@@ -12,11 +12,11 @@ import java.util.List;
  * How to compile and run the application:
  * 1. Open a terminal or command prompt.
  * 2. Compile (Current Test Only): 
- *      `javac -cp async-algo/junit-platform-console-standalone-1.9.3.jar async-algo/AlgorithmAP*.java`
+ *      `javac -cp junit-1.9.3.jar async-algo/AlgorithmAP*.java`
  * 3. Compile (All Tests): 
- *      `javac -cp async-algo/junit-platform-console-standalone-1.9.3.jar async-algo/*.java`
+ *      `javac -cp junit-1.9.3.jar async-algo/*.java`
  * 4. Run & Clean: 
- *      `java -jar async-algo/junit-platform-console-standalone-1.9.3.jar --class-path async-algo --scan-classpath; rm -rf async-algo/*.class`
+ *      `java -jar junit-1.9.3.jar --class-path async-algo --scan-classpath; rm -rf async-algo/*.class`
  */
 public class AlgorithmAPTest {
     

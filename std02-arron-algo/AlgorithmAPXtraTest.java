@@ -12,11 +12,11 @@ import java.util.List;
  * How to compile and run the application:
  * 1. Open a terminal or command prompt.
  * 2. Compile (Current Test Only): 
- *      `javac -cp junit-1.9.3.jar async-algo/AlgorithmAPXtra*.java`
+ *      `javac -cp junit-1.9.3.jar std02-arron-algo/AlgorithmAPXtra*.java`
  * 3. Compile (All Tests): 
- *      `javac -cp junit-1.9.3.jar async-algo/*.java`
+ *      `javac -cp junit-1.9.3.jar std02-arron-algo/*.java`
  * 4. Run & Clean: 
- *      `java -jar junit-1.9.3.jar --class-path async-algo --scan-classpath; rm -rf async-algo/*.class`
+ *      `java -jar junit-1.9.3.jar --class-path std02-arron-algo --scan-classpath; rm -rf std02-arron-algo/*.class`
  */
 public class AlgorithmAPXtraTest {
     
