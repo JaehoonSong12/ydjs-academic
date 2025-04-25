@@ -1,3 +1,4 @@
+
 /**
  * The Algorithm class contains recursive methods for several algorithmic problems.
  * <p>
@@ -9,17 +10,49 @@
  * How to compile and run the application:
  * 1. Open a terminal or command prompt.
  * 2. Compile: 
- *      `javac async-anderson-algo2/Algorithm.java`
+ *      `javac async-algo/AlgorithmAP.java`
  * 3. Run: 
- *      `java -cp async-anderson-algo2 Algorithm`
+ *      `java -cp async-algo AlgorithmAP`
  * 4. Clean: 
- *      `rm -rf async-anderson-algo2/*.class`
+ *      `rm -rf async-algo/*.class`
  */
-
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Algorithm {
+
+public class AlgorithmAP {
+    /**
+     * < Q00 >
+     * This is a placeholder for the main method. It can be used to test the methods in this class.
+     * You can add your own test cases here.
+     *
+     * @param args command line arguments (not used).
+     */
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+
+
+        List<String> result = new ArrayList<>();
+        result.add("apple");
+        result.add("watermelon");
+        result.add("pineapple");
+        result.add("banana");
+
+        System.out.println("List of fruits: " + result);
+        System.out.println("Number of fruits: " + result.size());
+
+
+        String[] fruits = new String[10];
+        fruits[0] = "apple";
+        fruits[1] = "banana";
+        fruits[2] = "orange";
+        fruits[3] = "watermelon"; // ArrayIndexOutOfBoundsException
+
+        System.out.println("List of fruits: " + Arrays.toString(fruits));
+        System.out.println("Number of fruits: " + fruits.length);
+    }
+
     /**
      * < Q01 >
      * Given an array of scores (integers), return true if the scores are
@@ -31,14 +64,18 @@ public class Algorithm {
      *         false otherwise
      * <p>
      * <ul>
-     *   <li>scores_increasing(new int[]{1, 3, 4}) returns true</li>
-     *   <li>scores_increasing(new int[]{1, 3, 2}) returns false</li>
-     *   <li>scores_increasing(new int[]{1, 1, 4}) returns true</li>
+     *   <li>scoresIncreasing(new int[]{1, 3, 4}) returns true</li>
+     *   <li>scoresIncreasing(new int[]{1, 3, 2}) returns false</li>
+     *   <li>scoresIncreasing(new int[]{1, 1, 4}) returns true</li>
      * </ul>
      * </p>
      */
     public static boolean scoresIncreasing(int[] scores) {
         // [Your Implementation Here]
+        for (int i = 1; i < scores.length; i++) {
+            if (scores[i-1] > scores[i]) return false;
+        }
+        return true;
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
@@ -47,7 +84,7 @@ public class Algorithm {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        return false;
+        // return false;
     }
 
     /**
@@ -137,6 +174,29 @@ public class Algorithm {
      */
     public static int scoresAverage(int[] scores) {
         // [Your Implementation Here]
+        int midIndex = scores.length / 2;
+        int[] firstHalf = new int[midIndex];
+        int[] secondHalf = new int[scores.length - midIndex];
+        
+        for (int i=0; i < scores.length; i++) {
+            if (i < midIndex) firstHalf[i] = scores[i];
+            else secondHalf[i - midIndex] = scores[i];
+        }
+        int firstAvg = 0;
+        int secondAvg = 0;
+        for (int i=0; i < firstHalf.length; i++) {
+            firstAvg += firstHalf[i];
+        }
+        firstAvg /= firstHalf.length;
+        for (int i=0; i < secondHalf.length; i++) {
+            secondAvg += secondHalf[i];
+        }
+        secondAvg /= firstHalf.length;
+
+        return (firstAvg > secondAvg) ? (firstAvg) : (secondAvg);
+
+
+        
         //
         // Case-1. If the question can be solved with 'iteration (for/while)',
         //         design the most efficient algorithm.
@@ -145,7 +205,7 @@ public class Algorithm {
         //         correct algorithm. Since the recursion can be inefficient,
         //         use either 'tabulation' or 'memorization' to break it down
         //         into 'iteration'.
-        return 0;
+        // return 0;
     }
     /**
      * Helper function to compute the integer average of elements in scores[start:end).
@@ -189,6 +249,16 @@ public class Algorithm {
      * </p>
      */
     public static int wordsCount(String[] words, int length) {
+        int count = 0;
+        for (int i=0; i < words.length; i++){
+            if (words[i].length() == length) {
+                count++;
+            }
+        }
+        return count;
+
+
+
         // [Your Implementation Here]
         //
         // Case-1. If the question can be solved with 'iteration (for/while)',
@@ -198,7 +268,7 @@ public class Algorithm {
         //         correct algorithm. Since the recursion can be inefficient,
         //         use either 'tabulation' or 'memorization' to break it down
         //         into 'iteration'.
-        return 0;
+        // return 0;
     }
 
     /**
@@ -221,6 +291,20 @@ public class Algorithm {
      */
     public static String[] wordsFront(String[] words, int n) {
         // [Your Implementation Here]
+
+
+        // 1. array creation
+        String[] copy = new String[n];
+
+
+        // 2. array copy
+        for (int i=0; i < n; i++) {
+            copy[i] = words[i];
+        }
+
+        // 3. return the new array
+        return copy;
+        
         //
         // Case-1. If the question can be solved with 'iteration (for/while)',
         //         design the most efficient algorithm.
@@ -229,7 +313,7 @@ public class Algorithm {
         //         correct algorithm. Since the recursion can be inefficient,
         //         use either 'tabulation' or 'memorization' to break it down
         //         into 'iteration'.
-        return null;
+        // return null;
     }
 
 
@@ -256,6 +340,13 @@ public class Algorithm {
     public static List<String> wordsWithoutList(String[] words, int length) {
         List<String> result = new ArrayList<>();
         // [Your Implementation Here]
+        for(int i=0; i < words.length; i++){
+            if (words[i].length() != length) 
+            result.add(words[i]);
+        }
+        return result;
+            
+        // }
         //
         // Case-1. If the question can be solved with 'iteration (for/while)',
         //         design the most efficient algorithm.
@@ -264,7 +355,7 @@ public class Algorithm {
         //         correct algorithm. Since the recursion can be inefficient,
         //         use either 'tabulation' or 'memorization' to break it down
         //         into 'iteration'.
-        return result;
+        // return result;
     }
 
     /**
@@ -286,6 +377,9 @@ public class Algorithm {
      */
     public static boolean hasOne(int n) {
         // [Your Implementation Here]
+        for(int i = 0; n > 0; n /= 10){
+            if (n % 10 == 1) return true;
+        }
         //
         // Case-1. If the question can be solved with 'iteration (for/while)',
         //         design the most efficient algorithm.
@@ -370,18 +464,5 @@ public class Algorithm {
 
 
 
-
-
-
-
-
-    /**
-     * Main method to demonstrate sample outputs of the recursive algorithms.
-     *
-     * @param args command line arguments (not used).
-     */
-    public static void main(String[] args) {
-        // Test your code here!
-        System.out.println("Hello there, test your code here!");
-    }
+    // Q11 comming soon..!
 }

@@ -10,19 +10,20 @@ import java.util.List;
  * How to compile and run the application:
  * 1. Open a terminal or command prompt.
  * 2. Compile: 
- *      `javac -cp async-anderson-algo2/junit-platform-console-standalone-1.9.3.jar async-anderson-algo2/*.java`
+ *      `javac -cp std04-anderson-algo2/junit-platform-console-standalone-1.9.3.jar std04-anderson-algo2/*.java`
  * 3. Run: 
- *      `java -jar async-anderson-algo2/junit-platform-console-standalone-1.9.3.jar --class-path async-anderson-algo2 --scan-classpath`
+ *      `java -jar std04-anderson-algo2/junit-platform-console-standalone-1.9.3.jar --class-path std04-anderson-algo2 --scan-classpath`
  * 4. Clean: 
- *      `rm -rf async-anderson-algo2/*.class`
+ *      `rm -rf std04-anderson-algo2/*.class`
  */
 public class AlgorithmTest {
     
-    /**
+    /*
      * Tests the scoresIncreasing method.
      */
     @Test
     public void testScoresIncreasing() {
+        // int[] x = new int[]{1, 3, 4};
         assertTrue(Algorithm.scoresIncreasing(new int[]{1, 3, 4}));            // → True
         assertFalse(Algorithm.scoresIncreasing(new int[]{1, 3, 2}));           // → False
         assertTrue(Algorithm.scoresIncreasing(new int[]{1, 1, 4}));            // → True

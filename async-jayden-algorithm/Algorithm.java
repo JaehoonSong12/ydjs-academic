@@ -14,7 +14,13 @@
  *      `java -cp async-jayden-algorithm Algorithm`
  * 4. Clean: 
  *      `rm -rf async-jayden-algorithm/*.class`
+ * 5. To check for warnings, use the command:
+ *      `javac -Xlint:unchecked async-jayden-algorithm/Algorithm.java`
  */
+
+import java.util.*;
+
+
 public class Algorithm {
 
     /**
@@ -31,13 +37,19 @@ public class Algorithm {
      * </ul>
      */
     public static int factorial(int n) {
-
-        // classic way (using conditions, repetition)
+        // // classic way (using conditions, repetition)
+        // int product = 1;
+        // for (int num = n; num >= 1; num-- ){
+        //     product = product * num;
+        // }
+        // return product;
 
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
+        if (n == 0) return 1;
+        if (n == 1) return 1;
         // 2. recursive-case
-        return 0;
+        return n * factorial(n - 1); // recursive function call (self-call)
     }
 
 
@@ -60,13 +72,15 @@ public class Algorithm {
      * </ul>
      */
     public static int bunnyEars(int bunnies) {
-
-        // classic way (using conditions, repetition)
+        // // classic way (using conditions, repetition)
+        // return bunnies*2;
 
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
+        if (bunnies < 1) return 0;
+        if (bunnies == 1) return 2;
         // 2. recursive-case
-        return 0;
+        return 2 + bunnyEars(bunnies - 1);
     }
 
     /**
@@ -85,12 +99,27 @@ public class Algorithm {
      */
     public static int fibonacci(int n) {
 
+        if (n == 0) return 0;
+        if (n == 1) return 1;
+        int a = 0;
+        int b = 1;
+        int sum;
         // classic way (using conditions, repetition)
+        for (int num = 2; num <= n; num++){
+            sum = a+b;
+            a=b;
+            b=sum;
 
-        // recursive way (divide-and-conquer, recursion)
-        // 1. base-case
-        // 2. recursive-case
-        return 0;
+        }
+
+        return b;
+
+        // // recursive way (divide-and-conquer, recursion)
+        // // 1. base-case
+        // if (n == 0) return 0;
+        // if (n == 1) return 1;
+        // // 2. recursive-case
+        // return fibonacci(n - 2) + fibonacci(n - 1);
     }
 
     /**
@@ -109,10 +138,20 @@ public class Algorithm {
     public static int sumDigits(int n) {
         // classic way (using conditions, repetition)
 
+        // int sum = 0;
+        
+        // while (n > 0) {
+        //     sum += n % 10; // Add the last digit to sum
+        //     n /= 10;       // Remove the last digit
+        // }
+        
+        // return sum;
+
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
+        if (n < 10) return n;
         // 2. recursive-case
-        return 0;
+        return (n % 10) + sumDigits(n / 10);
     }
 
     /**
@@ -131,12 +170,48 @@ public class Algorithm {
      */
     public static int count8(int n) {
 
-        // classic way (using conditions, repetition)
+        // // classic way (using conditions, repetition)
+        // int count = 0;
+        // boolean previousWasEight = false; // Track if the previous digit was 8
+    
+        // while (n > 0) {
+        //     int lastDigit = n % 10; // Get the last digit, (%): remainder operator,  8818 -> 881(8)
+    
+        //     if (lastDigit == 8) {
+        //         if (previousWasEight) {
+        //             count += 2; // Double count if the previous digit was also 8
+        //         } else {
+        //             count += 1;
+        //         }
+        //         previousWasEight = true; // Mark that the last digit was 8
+        //     } else {
+        //         previousWasEight = false; // Reset tracking if the digit is not 8
+        //     }
+    
+        //     n /= 10; // compound operator, n = n / 10; (/): quotient operator,  8818 -> (881)8
+        // }
+    
+        // return count;
 
-        // recursive way (divide-and-conquer, recursion)
-        // 1. base-case
-        // 2. recursive-case
-        return 0;
+
+        // Base case: If n is 0, there are no more digits to check
+        if (n == 0) return 0;
+
+        // Check the last digit
+        int lastDigit = n % 10;
+        int secondLastDigit = (n / 10) % 10; // Get the second last digit
+
+        if (lastDigit == 8) {
+            // If the previous digit is also 8, count double
+            if (secondLastDigit == 8) {
+                return 2 + count8(n / 10);
+            }
+            // Otherwise, count normally
+            return 1 + count8(n / 10);
+        }
+
+        // Move to the next digit
+        return count8(n / 10);
     }
 
     /**
@@ -156,12 +231,493 @@ public class Algorithm {
     public static int powerN(int base, int n) {
 
         // classic way (using conditions, repetition)
-
+        // int result = 1;
+    
+        // for (int i = 0; i < n; i++) {
+        //     result *= base;
+        // }
+        
+        // return result;
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
+        if (n == 1) return base;
         // 2. recursive-case
+        return base * powerN(base, n - 1);
+    }
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * < Q01 >
+     * Given an array of scores (integers), return true if the scores are
+     * in non-decreasing order - that is, each score is equal to or 
+     * greater than the one before.
+     *
+     * @param scores an array of integers (length 2 or more)
+     * @return true if each score is equal or greater than the previous one, 
+     *         false otherwise
+     * <p>
+     * <ul>
+     *   <li>scores_increasing(new int[]{1, 3, 4}) returns true</li>
+     *   <li>scores_increasing(new int[]{1, 3, 2}) returns false</li>
+     *   <li>scores_increasing(new int[]{1, 1, 4}) returns true</li>
+     * </ul>
+     * </p>
+     */
+    public static boolean scoresIncreasing(int[] scores) {
+        
+        for (int i = 1; i < scores.length; i++) {
+            if (scores[i-1] <= scores[i]) {
+            }
+            else {
+                return false;
+            }
+
+        }
+        return true;
+    
+        // Case-1. If the question can be solved with 'iteration (for/while)', 
+        //         design the most efficient algorithm.
+    
+        // Case-2. If the question can be solved with 'recursion', design a 
+        //         correct algorithm. Since the recursion can be inefficient, 
+        //         use either 'tabulation' or 'memorization' to break it down 
+        //         into 'iteration'.
+    }
+
+    /**
+     * < Q02 >
+     * Given an array of scores, return true if there are scores of 100
+     * next to each other in the array.
+     *
+     * @param scores an array of integer scores (length at least 2)
+     * @return true if there is at least one occurrence of consecutive 100's, 
+     *         else false
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>scores100(new int[]{1, 100, 100}) returns true</li>
+     *   <li>scores100(new int[]{1, 100, 99, 100}) returns false</li>
+     *   <li>scores100(new int[]{100, 1, 100, 100}) returns true</li>
+     * </ul>
+     * </p>
+     */
+    public static boolean scores100(int[] scores) {
+        if (scores.length < 2) return false;
+        
+        for (int i = 1; i < scores.length; i++) {
+            if (scores[i] == 100) {
+                if (scores[i-1] == scores[i]) {
+                    return true;
+                }
+            }
+        }
+    
+        // Case-1. If the question can be solved with 'iteration (for/while)', 
+        //         design the most efficient algorithm.
+    
+        // Case-2. If the question can be solved with 'recursion', design a 
+        //         correct algorithm. Since the recursion can be inefficient, 
+        //         use either 'tabulation' or 'memorization' to break it down 
+        //         into 'iteration'.
+        return false;
+    }
+
+    /**
+     * < Q03 >
+     * Given an array of scores sorted in increasing order,
+     * return true if the array contains 3 adjacent scores that differ
+     * from each other by at most 2. In other words, if any consecutive
+     * triplet of scores has a maximum difference (between the highest and
+     * lowest) of 2 or less, the function returns true.
+     *
+     * @param scores an array of integer scores, sorted in increasing order
+     * @return true if there exists a triplet of adjacent scores with a max 
+     *         difference of 2 or less, otherwise false
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>scoresClump(new int[]{3, 4, 5}) returns true</li>
+     *   <li>scoresClump(new int[]{3, 4, 6}) returns false</li>
+     *   <li>scoresClump(new int[]{1, 3, 5, 5}) returns true</li>
+     * </ul>
+     * </p>
+     */
+    public static boolean scoresClump(int[] scores) {
+        for (int i = 2; i < scores.length; i++) {
+            if (scores[i]-scores[i-2] <= 2) {
+                return true;
+            }
+
+        }
+        return false;
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
+    }
+
+
+    /**
+     * < Q04 >
+     * Given an array of scores, compute the integer average of the
+     * first half and the second half, and return whichever is larger.
+     * The second half begins at index scores.length / 2.
+     *
+     * You must use a helper function that computes the average
+     * of the values between two indices.
+     *
+     * @param scores an array of integer scores (at least 2 elements long)
+     * @return the higher integer average between the first and second half of the list
+     *
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>scoresAverage(new int[]{2, 2, 4, 4}) returns 4</li>
+     *   <li>scoresAverage(new int[]{4, 4, 4, 2, 2, 2}) returns 4</li>
+     *   <li>scoresAverage(new int[]{3, 4, 5, 1, 2, 3}) returns 4</li>
+     * </ul>
+     * </p>
+     */
+    public static int scoresAverage(int[] scores) {
+        int firstAvage = 0;
+        int secondAvage = 0;
+
+        
+        for (int i = 0; i < scores.length / 2; i++) {
+            firstAvage += scores[i];
+        }
+        firstAvage = firstAvage / (scores.length / 2);
+
+        for (int i = scores.length / 2; i < scores.length; i++) {
+            secondAvage += scores[i];
+        }
+        secondAvage = secondAvage / (scores.length / 2);
+
+
+
+
+        return (firstAvage < secondAvage) ? (secondAvage) : (firstAvage);
+
+        // if (firstAvage < secondAvage) {
+        //     return secondAvage;
+        // }
+        // return firstAvage
+
+
+
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
+    }
+    /**
+     * Helper function to compute the integer average of elements in scores[start:end).
+     *
+     * @param scores the array of scores
+     * @param start the start index (inclusive)
+     * @param end the end index (exclusive)
+     * @return the integer average of the values between start and end
+     */
+    private static int average(int[] scores, int start, int end) {
+        // [Your Implementation Here]
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
         return 0;
     }
+
+
+
+    /**
+     * < Q05 >
+     * Given an array of strings, return the count of the number
+     * of strings that have the given length.
+     *
+     * @param words an array of strings
+     * @param length the target length to match
+     * @return the number of strings in the array that have the given length
+     *
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>wordsCount(new String[]{"a", "bb", "b", "ccc"}, 1) returns 2</li>
+     *   <li>wordsCount(new String[]{"a", "bb", "b", "ccc"}, 3) returns 1</li>
+     *   <li>wordsCount(new String[]{"a", "bb", "b", "ccc"}, 4) returns 0</li>
+     * </ul>
+     * </p>
+     */
+    public static int wordsCount(String[] words, int length) {
+        int num = 0;
+
+        for (int i = 0; i < words.length; i++){
+            if (words[i].length() == length) num++;
+        }
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
+        return num;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * < Q06 >
+     * Given an array of strings, return a new array containing the first N strings.
+     * N will be in the range 1..length of the input array.
+     *
+     * @param words an array of strings
+     * @param n the number of strings to return from the start
+     * @return an array containing the first N strings
+     *
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 1) -> ["a"]</li>
+     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 2) -> ["a", "b"]</li>
+     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 3) -> ["a", "b", "c"]</li>
+     * </ul>
+     * </p>
+     */
+    public static String[] wordsFront(String[] words, int n) {
+        String[] newWord = new String[n];
+        for (int i = 0; i < n;i++) {
+
+            newWord[i] = words[i];
+        }
+        return newWord;
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
+    }
+
+
+
+
+    /**
+     * < Q07 >
+     * Given an array of strings, return a new list where all the 
+     * strings of the given length are omitted.
+     *
+     * @param words an array of strings
+     * @param length the length of the strings to omit from the list
+     * @return a new list with all strings of the given length omitted
+     *
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>wordsWithoutList(new String[]{"a", "bb", "b", "ccc"}, 1) returns ["bb", "ccc"]</li>
+     *   <li>wordsWithoutList(new String[]{"a", "bb", "b", "ccc"}, 3) returns ["a", "bb", "b"]</li>
+     *   <li>wordsWithoutList(new String[]{"a", "bb", "b", "ccc"}, 4) returns ["a", "bb", "b", "ccc"]</li>
+     * </ul>
+     * </p>
+     */
+    public static List<String> wordsWithoutList(String[] words, int length) {
+        List<String> result = new ArrayList<>();
+
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() != length) result.add(words[i]);
+        }
+        // [Your Implementation Here]
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
+        return result;
+    }
+
+    /**
+     * < Q08 >
+     * Given a positive integer n, return true if it contains a digit '1'.
+     * Note: Use % to get the rightmost digit, and / to discard the rightmost digit.
+     *
+     * @param n a positive integer
+     * @return true if the number contains at least one digit '1', false otherwise
+     *
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>hasOne(10) returns true</li>
+     *   <li>hasOne(22) returns false</li>
+     *   <li>hasOne(220) returns false</li>
+     * </ul>
+     * </p>
+     */
+    public static boolean hasOne(int n) {
+        while (n > 0) {
+            if(n % 10 == 1) {
+                return true;
+            }
+            n = n/10;
+        }
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
+        return false;
+    }
+
+
+    /**
+     * < Q09 >
+     * A positive integer divides itself if every digit in the number divides into
+     * the number evenly. For example, 128 divides itself since 1, 2, and 8 all divide 
+     * into 128 evenly. A number with a 0 digit does not divide itself, as 0 does not 
+     * divide into any number.
+     *
+     * @param n a positive integer
+     * @return true if the number divides itself, false otherwise
+     *
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>dividesSelf(128) returns true</li>
+     *   <li>dividesSelf(12) returns true</li>
+     *   <li>dividesSelf(120) returns false</li>
+     * </ul>
+     * </p>
+     */
+    public static boolean dividesSelf(int n) {
+        
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
+        return false;
+    }
+
+
+
+
+    /**
+     * < Q10 >
+     * Given an array of positive integers, return a new array containing 
+     * the first {@code count} even numbers from the original array.
+     * The original array will contain at least {@code count} even numbers.
+     *
+     * @param nums  an array of positive integers
+     * @param count the number of even integers to return
+     * @return an array of the first {@code count} even integers from the original array
+     *
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>copyEvens(new int[]{3, 2, 4, 5, 8}, 2) returns [2, 4]</li>
+     *   <li>copyEvens(new int[]{3, 2, 4, 5, 8}, 3) returns [2, 4, 8]</li>
+     *   <li>copyEvens(new int[]{6, 1, 2, 4, 5, 8}, 3) returns [6, 2, 4]</li>
+     * </ul>
+     * </p>
+     */
+    public static int[] copyEvens(int[] nums, int count) {
+        int[] result = new int[count];
+        // [Your Implementation Here]
+        //
+        // Case-1. If the question can be solved with 'iteration (for/while)',
+        //         design the most efficient algorithm.
+        //
+        // Case-2. If the question can be solved with 'recursion', design a
+        //         correct algorithm. Since the recursion can be inefficient,
+        //         use either 'tabulation' or 'memorization' to break it down
+        //         into 'iteration'.
+        return result;
+    }
+
+
 
 
 
@@ -180,6 +736,7 @@ public class Algorithm {
      */
     public static void main(String[] args) {
         System.out.println("factorial(5) = " + factorial(5));
+        
 
 
 
@@ -190,5 +747,120 @@ public class Algorithm {
         System.out.println("sumDigits(126) = " + sumDigits(126));
         System.out.println("count8(8818) = " + count8(8818));
         System.out.println("powerN(3, 3) = " + powerN(3, 3));
+        
+        
+        
+        
+        Object[] stringArray = {"apple", 23213, "cherry", 23.3213};
+        for (int i=0; i<stringArray.length;i++) System.out.println(stringArray[i]);
+
+
+
+        
+        List<String> sample1 = new ArrayList<>();
+        // Adding elements to sample1
+        sample1.add("apple");
+        sample1.add("banana");
+        sample1.add("cherry");
+        System.out.println("Initial sample1: " + sample1);
+        System.out.println("Size of sample1: " + sample1.size());
+
+        // Removing an element from sample1
+        sample1.remove("banana");
+        System.out.println("After removing 'banana', sample1: " + sample1);
+        System.out.println("Size of sample1: " + sample1.size());
+
+        // Working with sample2
+        String[] sample2 = new String[]{"2dsgdsg", "safdsfdaf", "fafdsf"};
+        System.out.println("Initial sample2: " + Arrays.toString(sample2));
+        System.out.println("Size of sample2: " + sample2.length);
+
+        // Modifying an element in sample2
+        sample2[1] = "modifiedElement";
+        sample2[2] = null; // Setting the last element to null
+        System.out.println("After modification, sample2: " + Arrays.toString(sample2));
+        System.out.println("Size of sample2: " + sample2.length);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        MyArrayList<String> list = new MyArrayList<>();
+        list.add("hello");
+        list.add("world");
+
+        System.out.println(list.get(0)); // hello
+        System.out.println(list.size()); // 2
+
+        
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class MyArrayList<T> {
+    private T[] data;
+    private int size;
+
+    @SuppressWarnings("unchecked")
+    public MyArrayList() {
+        data = (T[]) new Object[10]; // start with size 10
+        size = 0;
+    }
+
+    public void add(T value) {
+        if (size == data.length) {
+            grow(); // double the size if full
+        }
+        data[size++] = value;
+    }
+    @SuppressWarnings("unchecked")
+    private void grow() {
+        T[] newData = (T[]) new Object[data.length * 2];
+        for (int i = 0; i < data.length; i++) {
+            newData[i] = data[i];
+        }
+        data = newData;
+    }
+
+    public T get(int index) {
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
+        return data[index];
+    }
+
+    public int size() {
+        return size;
+    }
+}
+
+

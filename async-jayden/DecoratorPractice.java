@@ -21,6 +21,38 @@ public class DecoratorPractice {
         print("Hello World");
     }
 
+public interface Pizza {
+    String Description();
+    double cost();
+}
+
+public class NormalPizza implements Pizza {
+    public String Description() {
+        return "Pizza";
+    }
+
+    public double cost() {
+        return 1.00;
+    }
+}
+
+public abstract class Decorator implements Pizza {
+    protected Pizza pizza;
+
+    public Decorator(Pizza pizza) {
+        this.pizza = pizza;
+    }
+
+    // public string Decorator() {
+    //     return pizza.Decorator();
+    // }
+
+    public double cost() {
+        return pizza.cost();
+    }
+}
+
+
 
 
 
