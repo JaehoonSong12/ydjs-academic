@@ -134,11 +134,12 @@ public class AlgorithmTest {
      ********************************************************************************/
 
     
-    /**
+    /*
      * Tests the scoresIncreasing method.
      */
     @Test
     public void testScoresIncreasing() {
+        // int[] x = new int[]{1, 3, 4};
         assertTrue(Algorithm.scoresIncreasing(new int[]{1, 3, 4}));            // → True
         assertFalse(Algorithm.scoresIncreasing(new int[]{1, 3, 2}));           // → False
         assertTrue(Algorithm.scoresIncreasing(new int[]{1, 1, 4}));            // → True
