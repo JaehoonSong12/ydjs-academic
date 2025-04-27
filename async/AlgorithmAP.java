@@ -283,9 +283,9 @@ public class AlgorithmAP {
      * <p>
      * Examples:
      * <ul>
-     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 1) → ["a"]</li>
-     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 2) → ["a", "b"]</li>
-     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 3) → ["a", "b", "c"]</li>
+     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 1) -> ["a"]</li>
+     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 2) -> ["a", "b"]</li>
+     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 3) -> ["a", "b", "c"]</li>
      * </ul>
      * </p>
      */

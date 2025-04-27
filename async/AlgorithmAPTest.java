@@ -25,12 +25,12 @@ public class AlgorithmAPTest {
      */
     @Test
     public void testScoresIncreasing() {
-        assertTrue(AlgorithmAP.scoresIncreasing(new int[]{1, 3, 4}));            // → True
-        assertFalse(AlgorithmAP.scoresIncreasing(new int[]{1, 3, 2}));           // → False
-        assertTrue(AlgorithmAP.scoresIncreasing(new int[]{1, 1, 4}));            // → True
-        assertTrue(AlgorithmAP.scoresIncreasing(new int[]{1, 1, 2, 4, 4, 7}));   // → True
-        assertFalse(AlgorithmAP.scoresIncreasing(new int[]{1, 1, 2, 4, 3, 7}));  // → False
-        assertTrue(AlgorithmAP.scoresIncreasing(new int[]{-5, 4, 11}));          // → True
+        assertTrue(AlgorithmAP.scoresIncreasing(new int[]{1, 3, 4}));            // -> True
+        assertFalse(AlgorithmAP.scoresIncreasing(new int[]{1, 3, 2}));           // -> False
+        assertTrue(AlgorithmAP.scoresIncreasing(new int[]{1, 1, 4}));            // -> True
+        assertTrue(AlgorithmAP.scoresIncreasing(new int[]{1, 1, 2, 4, 4, 7}));   // -> True
+        assertFalse(AlgorithmAP.scoresIncreasing(new int[]{1, 1, 2, 4, 3, 7}));  // -> False
+        assertTrue(AlgorithmAP.scoresIncreasing(new int[]{-5, 4, 11}));          // -> True
     }
 
     /**
@@ -38,12 +38,12 @@ public class AlgorithmAPTest {
      */
     @Test
     public void testScores100() {
-        assertTrue(AlgorithmAP.scores100(new int[]{1, 100, 100}));           // → True
-        assertFalse(AlgorithmAP.scores100(new int[]{1, 100, 99, 100}));        // → False
-        assertTrue(AlgorithmAP.scores100(new int[]{100, 1, 100, 100}));        // → True
-        assertFalse(AlgorithmAP.scores100(new int[]{100, 1, 100, 1}));         // → False
-        assertFalse(AlgorithmAP.scores100(new int[]{1, 2, 3, 4, 5}));          // → False
-        assertFalse(AlgorithmAP.scores100(new int[]{1, 2, 100, 4, 5}));        // → False
+        assertTrue(AlgorithmAP.scores100(new int[]{1, 100, 100}));           // -> True
+        assertFalse(AlgorithmAP.scores100(new int[]{1, 100, 99, 100}));        // -> False
+        assertTrue(AlgorithmAP.scores100(new int[]{100, 1, 100, 100}));        // -> True
+        assertFalse(AlgorithmAP.scores100(new int[]{100, 1, 100, 1}));         // -> False
+        assertFalse(AlgorithmAP.scores100(new int[]{1, 2, 3, 4, 5}));          // -> False
+        assertFalse(AlgorithmAP.scores100(new int[]{1, 2, 100, 4, 5}));        // -> False
     }
 
     /**
@@ -51,15 +51,15 @@ public class AlgorithmAPTest {
      */
     @Test
     public void testScoresClump() {
-        assertTrue(AlgorithmAP.scoresClump(new int[]{3, 4, 5}));           // → True
-        assertFalse(AlgorithmAP.scoresClump(new int[]{3, 4, 6}));          // → False
-        assertTrue(AlgorithmAP.scoresClump(new int[]{1, 3, 5, 5}));         // → True
-        assertTrue(AlgorithmAP.scoresClump(new int[]{2, 4, 5, 6}));         // → True
-        assertFalse(AlgorithmAP.scoresClump(new int[]{2, 4, 5, 7}));         // → False
-        assertTrue(AlgorithmAP.scoresClump(new int[]{2, 4, 4, 7}));          // → True
-        assertFalse(AlgorithmAP.scoresClump(new int[]{3, 3, 6, 7, 9}));       // → False
-        assertTrue(AlgorithmAP.scoresClump(new int[]{3, 3, 7, 7, 9}));        // → True
-        assertFalse(AlgorithmAP.scoresClump(new int[]{4, 5, 8}));             // → False
+        assertTrue(AlgorithmAP.scoresClump(new int[]{3, 4, 5}));           // -> True
+        assertFalse(AlgorithmAP.scoresClump(new int[]{3, 4, 6}));          // -> False
+        assertTrue(AlgorithmAP.scoresClump(new int[]{1, 3, 5, 5}));         // -> True
+        assertTrue(AlgorithmAP.scoresClump(new int[]{2, 4, 5, 6}));         // -> True
+        assertFalse(AlgorithmAP.scoresClump(new int[]{2, 4, 5, 7}));         // -> False
+        assertTrue(AlgorithmAP.scoresClump(new int[]{2, 4, 4, 7}));          // -> True
+        assertFalse(AlgorithmAP.scoresClump(new int[]{3, 3, 6, 7, 9}));       // -> False
+        assertTrue(AlgorithmAP.scoresClump(new int[]{3, 3, 7, 7, 9}));        // -> True
+        assertFalse(AlgorithmAP.scoresClump(new int[]{4, 5, 8}));             // -> False
     }
 
     /**
