@@ -27,6 +27,11 @@ public class AlgorithmAPXtra {
      */
     public static void main(String[] args) {
         System.out.println("Hello, World!");
+
+
+        System.out.println(countYZ("!!day--yaz!!"));
+        System.out.println(countYZ("yak zak"));
+        System.out.println(countYZ("DAY abc XYZ"));
     }
 
 
@@ -96,13 +101,17 @@ public class AlgorithmAPXtra {
      */
     public static int countYZ(String s) {
         // [Your Implementation Here]
-        int count = 0
-        for (int i = 0; i < s.length(); i++) {
+        s = s.toLowerCase();
+        int count = 0;
+        for (int i = 0; i < s.length()-1; i++) {
             if (s.charAt(i) == 'y' || s.charAt(i) == 'z') {
-                if (s.charAt(i+1) == ' ') {
-                    count++
+                if (Character.isLetter(s.charAt(i+1)) == false) {
+                    count++;
                 }
             }
+        }
+        if (s.charAt(s.length()-1) == 'y' || s.charAt(s.length()-1) == 'z'){
+            count++;
         }
         return count;
     
@@ -133,24 +142,19 @@ public class AlgorithmAPXtra {
      * </p>
      */
     public static int maxSpan(int[] nums) {
-        // [Your Implementation Here]
-
-        int max = 0;
-
-
+        int maxspan = 0;
         for (int i = 0; i < nums.length; i++) {
-            int first = i;
-            int last = i;
-            for (int j = i + 1; j < nums.length; j++) {
-                if (nums[j] == nums[i]) {
-                    lastIndex = j; 
+            for (int s = nums.length-1; s >= i; s--) {
+                if (nums[i] == nums[s]) {
+                    int span = s-i+1;
+                    if (span > maxspan) {
+                        maxspan = span;
+                    }
+                    
                 }
             }
-            int span = last - first + 1;
-            max = Math.max(max, span);
-        }   
-        return max;
-    
+        }
+        return maxspan;
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
