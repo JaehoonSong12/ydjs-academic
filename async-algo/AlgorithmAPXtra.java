@@ -69,8 +69,8 @@ public class AlgorithmAPXtra {
     /**
      * < Q28 >
      * Given a string, count the number of words ending in 'y' or 'z'.
-     * The character must appear at the end of a word — that is, it must not be
-     * immediately followed by another alphabetic letter. Comparison is case-insensitive.
+     * The character must appear at the end of a word that is, it must not be
+     * immediately followed by another alphabetic letter. Comparison is case insensitive.
      *
      * @param s The input string.
      * @return The number of words ending in 'y' or 'z'.

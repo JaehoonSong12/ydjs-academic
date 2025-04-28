@@ -12,11 +12,11 @@ import java.util.List;
  * How to compile and run the application:
  * 1. Open a terminal or command prompt.
  * 2. Compile (Current Test Only): 
- *      `javac -cp async-algo/junit-platform-console-standalone-1.9.3.jar async-algo/AlgorithmAPXtra*.java`
+ *      `javac -cp async-jayden-algorithm/junit-platform-console-standalone-1.9.3.jar async-jayden-algorithm/AlgorithmAPXtra*.java`
  * 3. Compile (All Tests): 
- *      `javac -cp async-algo/junit-platform-console-standalone-1.9.3.jar async-algo/*.java`
+ *      `javac -cp async-jayden-algorithm/junit-platform-console-standalone-1.9.3.jar async-jayden-algorithm/*.java`
  * 4. Run & Clean: 
- *      `java -jar async-algo/junit-platform-console-standalone-1.9.3.jar --class-path async-algo --scan-classpath; rm -rf async-algo/*.class`
+ *      `java -jar async-jayden-algorithm/junit-platform-console-standalone-1.9.3.jar --class-path async-jayden-algorithm --scan-classpath; rm -rf async-jayden-algorithm/*.class`
  */
 public class AlgorithmAPXtraTest {
     
