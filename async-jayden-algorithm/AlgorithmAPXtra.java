@@ -54,6 +54,18 @@ public class AlgorithmAPXtra {
      */
     public static boolean makeBricks(int small, int big, int goal) {
         // [Your Implementation Here]
+        for (int i = 0; i < big; i++) {
+            goal -= 5;
+            if (goal < 0) {
+                goal += 5;
+                break;
+            }
+
+
+        }
+
+        return (small >= goal);
+
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
@@ -62,7 +74,7 @@ public class AlgorithmAPXtra {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        return false;
+        // return false;
     }
 
     
@@ -84,6 +96,15 @@ public class AlgorithmAPXtra {
      */
     public static int countYZ(String s) {
         // [Your Implementation Here]
+        int count = 0
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == 'y' || s.charAt(i) == 'z') {
+                if (s.charAt(i+1) == ' ') {
+                    count++
+                }
+            }
+        }
+        return count;
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
@@ -92,7 +113,7 @@ public class AlgorithmAPXtra {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        return 0;
+        // return 0;
     }
 
     /**
@@ -113,6 +134,23 @@ public class AlgorithmAPXtra {
      */
     public static int maxSpan(int[] nums) {
         // [Your Implementation Here]
+
+        int max = 0;
+
+
+        for (int i = 0; i < nums.length; i++) {
+            int first = i;
+            int last = i;
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[j] == nums[i]) {
+                    lastIndex = j; 
+                }
+            }
+            int span = last - first + 1;
+            max = Math.max(max, span);
+        }   
+        return max;
+    
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
@@ -121,7 +159,7 @@ public class AlgorithmAPXtra {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        return 0;
+        // return 0;
     }
 
     // Q30 coming soon..!
