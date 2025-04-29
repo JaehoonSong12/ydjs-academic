@@ -52,11 +52,15 @@ public class AlgorithmRecur {
      */
     public static int factorial(int n) {
         // classic way (using for-loop)
+        
+
+
 
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
+        if (n < 2) return 1;
         // 2. recursive-case
-        return 0;
+        return n * factorial(n-1);
     }
 
 
@@ -83,8 +87,9 @@ public class AlgorithmRecur {
         
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
+        if (bunnies < 1) return 0;
         // 2. recursive-case
-        return 0;
+        return 2 + bunnyEars(bunnies-1);
     }
 
     /**
@@ -102,12 +107,22 @@ public class AlgorithmRecur {
      * </ul>
      */
     public static int fibonacci(int n) {
-        // classic way (using for-loop)
+        // // classic way (using for-loop)
+        // if (n < 2) return n;
+        // int[] fib = new int[n + 1];
+        // fib[0] = 0;
+        // fib[1] = 1;
+        // for(int i = 2; i < fib.length; i++){
+        //     fib[i] = fib[i - 1] + fib[i - 2];
+        // }
+        // return fib[n];
+        
         
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
+        if (n < 2) return n;
         // 2. recursive-case
-        return 0;
+        return fibonacci(n-1) + fibonacci(n-2);
     }
 
     /**
@@ -125,11 +140,12 @@ public class AlgorithmRecur {
      */
     public static int sumDigits(int n) {
         // classic way (using for-loop)
-        
+
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
+        if(n < 10) return n;
         // 2. recursive-case
-        return 0;
+        return sumDigits(n / 10) + n % 10;
     }
 
     /**
@@ -147,12 +163,36 @@ public class AlgorithmRecur {
      * </ul>
      */
     public static int count8(int n) {
-        // classic way (using for-loop)
-        
+        // // classic way (using for-loop)
+        // String str = String.valueOf(n);
+        // int[] digits = new int[str.length()];
+        // for(int i = digits.length - 1; i >= 0; i--){
+        //     digits[i] = n % 10;
+        //     n = n / 10;
+        // }
+        // int count = 0;
+        // for (int i = 0; i < digits.length; i++){
+        //     if (digits[i] == 8) {
+        //         count++;
+        //         if (i == digits.length - 1) break;
+        //         if (digits[i + 1] == 8) {
+        //             count++;
+        //         }
+        //     }
+        // }
+        // return count;
+
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
+        if(n == 8) return 1;
+        if(n < 10) return 0;
         // 2. recursive-case
-        return 0;
+        int quotient = n / 10; 
+        int digit = n % 10;
+        int nextDigit = quotient % 10;
+        if(digit == 8 && nextDigit == 8) return 2 + count8(quotient);
+        if(digit == 8) return 1 + count8(quotient);
+        return count8(quotient);
     }
 
     /**
@@ -174,7 +214,8 @@ public class AlgorithmRecur {
         
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
+        if(n == 0) return 1;
         // 2. recursive-case
-        return 0;
+        return base * powerN(base, n-1);
     }
 }
