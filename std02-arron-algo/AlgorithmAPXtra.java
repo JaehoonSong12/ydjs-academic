@@ -54,6 +54,12 @@ public class AlgorithmAPXtra {
      */
     public static boolean makeBricks(int small, int big, int goal) {
         // [Your Implementation Here]
+        for(int i = 0; i < big; i++){
+            if(goal < 5) break;
+            goal -= 5;
+        }
+
+        return small >= goal;
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
@@ -62,7 +68,7 @@ public class AlgorithmAPXtra {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        return false;
+        // return false;
     }
 
     
