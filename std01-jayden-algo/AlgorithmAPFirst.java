@@ -10,11 +10,11 @@
  * How to compile and run the application:
  * 1. Open a terminal or command prompt.
  * 2. Compile: 
- *      `javac async-jayden-algorithm/AlgorithmAPFirst.java`
+ *      `javac std01-jayden-algo/AlgorithmAPFirst.java`
  * 3. Run: 
- *      `java -cp async-jayden-algorithm AlgorithmAPFirst`
+ *      `java -cp std01-jayden-algo AlgorithmAPFirst`
  * 4. Clean: 
- *      `rm -rf async-jayden-algorithm/*.class`
+ *      `rm -rf std01-jayden-algo/*.class`
  */
 import java.util.Arrays;
 import java.util.ArrayList;

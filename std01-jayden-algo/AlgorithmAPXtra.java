@@ -11,11 +11,11 @@ import java.util.List;
  * How to compile and run the application:
  * 1. Open a terminal or command prompt.
  * 2. Compile: 
- *      `javac async-jayden-algorithm/AlgorithmAPXtra.java`
+ *      `javac std01-jayden-algo/AlgorithmAPXtra.java`
  * 3. Run: 
- *      `java -cp async-jayden-algorithm AlgorithmAPXtra`
+ *      `java -cp std01-jayden-algo AlgorithmAPXtra`
  * 4. Clean: 
- *      `rm -rf async-jayden-algorithm/*.class`
+ *      `rm -rf std01-jayden-algo/*.class`
  */
 public class AlgorithmAPXtra {
     /**
