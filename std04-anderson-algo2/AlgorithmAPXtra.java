@@ -53,6 +53,20 @@ public class AlgorithmAPXtra {
      * </p>
      */
     public static boolean makeBricks(int small, int big, int goal) {
+        int bigTotal = big * 5; 
+        int TotalTotal = bigTotal + small;
+        if (TotalTotal == goal ){
+            return true;
+        }
+        for (int s = 0; s <= small; s++){
+            for (int b = 0; b <= big; b++){
+                TotalTotal = (b * 5) + s;
+                if (TotalTotal == goal ){
+                    return true;
+                }
+            }
+        }
+
         // [Your Implementation Here]
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
@@ -83,6 +97,24 @@ public class AlgorithmAPXtra {
      * </p>
      */
     public static int countYZ(String s) {
+        int firstSpacePlaces = s.indexOf(" ");
+        int answer = 0;
+        if (firstSpacePlaces == -1){
+            if (s.charAt(s.length()-1) == 'z') { answer++; }
+            if (s.charAt(s.length()-1) == 'y') { answer++; }
+        } else {
+            int secondSpacePlaces = s.indexOf(" ", firstSpacePlaces + 1);
+            if (s.charAt(firstSpacePlaces-1) == 'z') { answer++; }
+            if (s.charAt(firstSpacePlaces-1) == 'y') { answer++; }
+            if (secondSpacePlaces != -1){
+            if (s.charAt(secondSpacePlaces-1) == 'z') { answer++; }
+            if (s.charAt(secondSpacePlaces-1) == 'y') { answer++; }
+            }
+            if (s.charAt(s.length()-1) == 'z') { answer++; }
+            if (s.charAt(s.length()-1) == 'y') { answer++; }
+        }
+        return answer;
+            
         // [Your Implementation Here]
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
@@ -92,7 +124,6 @@ public class AlgorithmAPXtra {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        return 0;
     }
 
     /**
@@ -112,6 +143,21 @@ public class AlgorithmAPXtra {
      * </p>
      */
     public static int maxSpan(int[] nums) {
+        int number = 0;
+        int numbersSpan = 0;
+        int maxSpan = 0;
+        for (int i = 0; i != nums.length; i++ ){
+            number = nums[i];
+            for (int brainHurt = nums.length - 1; brainHurt >= 0; brainHurt--){
+                if(nums[brainHurt] == number){
+                    numbersSpan = brainHurt - i + 1;
+                    break;
+                }
+            }
+            if (numbersSpan > maxSpan){
+                maxSpan = numbersSpan;
+            }
+        }
         // [Your Implementation Here]
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
@@ -121,7 +167,7 @@ public class AlgorithmAPXtra {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        return 0;
+        return maxSpan;
     }
 
 
