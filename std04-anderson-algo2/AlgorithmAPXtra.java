@@ -27,6 +27,7 @@ public class AlgorithmAPXtra {
      */
     public static void main(String[] args) {
         System.out.println("Hello, World!");
+
     }
 
 
@@ -97,22 +98,34 @@ public class AlgorithmAPXtra {
      * </p>
      */
     public static int countYZ(String s) {
-        int firstSpacePlaces = s.indexOf(" ");
+        s = s.toLowerCase();
+        int lastLetterOfWord = 0;
         int answer = 0;
-        if (firstSpacePlaces == -1){
-            if (s.charAt(s.length()-1) == 'z') { answer++; }
-            if (s.charAt(s.length()-1) == 'y') { answer++; }
-        } else {
-            int secondSpacePlaces = s.indexOf(" ", firstSpacePlaces + 1);
-            if (s.charAt(firstSpacePlaces-1) == 'z') { answer++; }
-            if (s.charAt(firstSpacePlaces-1) == 'y') { answer++; }
-            if (secondSpacePlaces != -1){
-            if (s.charAt(secondSpacePlaces-1) == 'z') { answer++; }
-            if (s.charAt(secondSpacePlaces-1) == 'y') { answer++; }
-            }
-            if (s.charAt(s.length()-1) == 'z') { answer++; }
-            if (s.charAt(s.length()-1) == 'y') { answer++; }
+        for(int i = 0; i < s.length(); i++){
+            if (!Character.isLetter(s.charAt(i)) && i != 0){
+                if (s.charAt(i-1) == 'z') { answer++; }
+                if (s.charAt(i-1) == 'y') { answer++; }
+            } 
         }
+        if (s.charAt(s.length()-1) == 'z') { answer++; }
+        if (s.charAt(s.length()-1) == 'y') { answer++; }
+
+
+        //        int firstSpacePlaces = s.indexOf(" ");
+        // if (firstSpacePlaces == -1){
+        //     if (s.charAt(s.length()-1) == 'z') { answer++; }
+        //     if (s.charAt(s.length()-1) == 'y') { answer++; }
+        // } else {
+        //     int secondSpacePlaces = s.indexOf(" ", firstSpacePlaces + 1);
+        //     if (s.charAt(firstSpacePlaces-1) == 'z') { answer++; }
+        //     if (s.charAt(firstSpacePlaces-1) == 'y') { answer++; }
+        //     if (secondSpacePlaces != -1){
+        //     if (s.charAt(secondSpacePlaces-1) == 'z') { answer++; }
+        //     if (s.charAt(secondSpacePlaces-1) == 'y') { answer++; }
+        //     }
+        //     if (s.charAt(s.length()-1) == 'z') { answer++; }
+        //     if (s.charAt(s.length()-1) == 'y') { answer++; }
+        // }
         return answer;
             
         // [Your Implementation Here]
@@ -204,6 +217,16 @@ public class AlgorithmAPXtra {
      * </p>
      */
     public static boolean catDog(String s) {
+        int timesDog = 0;
+        int timesCat = 0;
+        for (int i = 0; i < s.length() - 2; i++){
+            if(s.charAt(i) == 'c' && s.charAt(i + 1) == 'a' && s.charAt(i + 2) == 't'){
+                timesCat++; 
+            } else if(s.charAt(i) == 'd' && s.charAt(i + 1) == 'o' && s.charAt(i + 2) == 'g'){
+                timesDog++; 
+            }
+        }
+        return timesCat == timesDog;
         // [Your Implementation Here]
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
@@ -213,7 +236,7 @@ public class AlgorithmAPXtra {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        return false;
+        // return false;
     }
 
     /**
@@ -261,6 +284,15 @@ public class AlgorithmAPXtra {
      * </p>
      */
     public static int sum13(int[] nums) {
+        int total = 0;
+        for (int i = 0; i < nums.length; i++){
+            if (nums[i] == 13){ 
+                i++;
+            } else {
+                total = total + nums[i];
+            }
+        }
+
         // [Your Implementation Here]
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
@@ -270,7 +302,7 @@ public class AlgorithmAPXtra {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        return 0;
+        return total;
     }
 
     /**
@@ -288,6 +320,12 @@ public class AlgorithmAPXtra {
      * </p>
      */
     public static boolean has22(int[] nums) {
+        for (int i = 0; i < nums.length - 1; i++){
+            if (nums[i] == 2 && nums[i + 1] == 2){
+                return true;
+            }
+        }
+
         // [Your Implementation Here]
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
