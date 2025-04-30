@@ -9,11 +9,11 @@
  * How to compile and run the application:
  * 1. Open a terminal or command prompt.
  * 2. Compile: 
- *      `javac async-jayden-algorithm/AlgorithmRecur.java`
+ *      `javac std01-jayden-algo/AlgorithmRecur.java`
  * 3. Run: 
- *      `java -cp async-jayden-algorithm AlgorithmRecur`
+ *      `java -cp std01-jayden-algo AlgorithmRecur`
  * 4. Clean: 
- *      `rm -rf async-jayden-algorithm/*.class`
+ *      `rm -rf std01-jayden-algo/*.class`
  */
 
 import java.util.ArrayList;
