@@ -315,4 +315,47 @@ public class AlgorithmAPXtra {
         return null;
     }
 
+
+
+
+
+
+
+
+    
+    /**
+     * < Q36 >
+     * Return a list containing exactly the same numbers as the given array,
+     * but rearranged so that every 3 is immediately followed by a 4.
+     * Do not move the 3's themselves, but every other number may move.
+     * You may assume:
+     *   - The array contains the same number of 3's and 4's.
+     *   - Every 3 has a non-3 immediately after it.
+     *   - No 4 appears before the first 3.
+     *
+     * @param nums The input array of integers containing matching numbers of 3's and 4's.
+     * @return A new array where each 3 is immediately followed by a 4.
+     * <p>
+     * <ul>
+     *   <li>fix34(new int[]{1,3,1,4}) returns [1,3,4,1]</li>
+     *   <li>fix34(new int[]{1,3,1,4,4,3,1}) returns [1,3,4,1,1,3,4]</li>
+     *   <li>fix34(new int[]{3,2,2,4}) returns [3,4,2,2]</li>
+     * </ul>
+     * </p>
+     */
+    public static int[] fix34(int[] nums) {
+        // [Your Implementation Here]
+    
+        // Case-1. If the question can be solved with 'iteration (for/while)', 
+        //         design the most efficient algorithm.
+    
+        // Case-2. If the question can be solved with 'recursion', design a 
+        //         correct algorithm. Since the recursion can be inefficient, 
+        //         use either 'tabulation' or 'memorization' to break it down 
+        //         into 'iteration'.
+        return null;
+    }
+
+    // Q37 coming soon..!
+
 }
