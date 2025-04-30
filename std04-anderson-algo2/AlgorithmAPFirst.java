@@ -9,17 +9,38 @@
  * How to compile and run the application:
  * 1. Open a terminal or command prompt.
  * 2. Compile: 
- *      `javac std04-anderson-algo2/Algorithm.java`
- * 3. Run: 
- *      `java -cp std04-anderson-algo2 Algorithm`
- * 4. Clean: 
- *      `rm -rf std04-anderson-algo2/*.class`
+ *      ```
+ *      javac std04-anderson-algo2/AlgorithmAPFirst.java
+ *      ```
+ * 3. Run & Clean: 
+ *      ```
+ *      java -cp std04-anderson-algo2 AlgorithmAPFirst; rm -rf std04-anderson-algo2/*.class
+ *      ```
  */
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class Algorithm {
+public class AlgorithmAPFirst {
+    /**
+     * < Q00 >
+     * This is a placeholder for the main method. It can be used to test the methods in this class.
+     * You can add your own test cases here.
+     *
+     * @param args command line arguments (not used).
+     */
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+
+
+
+
+
+
+
+
+
+    
     /**
      * < Q01 >
      * Given an array of scores (integers), return true if the scores are
@@ -31,28 +52,22 @@ public class Algorithm {
      *         false otherwise
      * <p>
      * <ul>
-     *   <li>scores_increasing(new int[]{1, 3, 4}) returns true</li>
-     *   <li>scores_increasing(new int[]{1, 3, 2}) returns false</li>
-     *   <li>scores_increasing(new int[]{1, 1, 4}) returns true</li>
+     *   <li>scoresIncreasing(new int[]{1, 3, 4}) returns true</li>
+     *   <li>scoresIncreasing(new int[]{1, 3, 2}) returns false</li>
+     *   <li>scoresIncreasing(new int[]{1, 1, 4}) returns true</li>
      * </ul>
      * </p>
      */
     public static boolean scoresIncreasing(int[] scores) {
-        for (int i = 1; i < scores.length; i++) {
-            if (scores[i] < scores[i - 1]) {
-                return false;
-            }
-        }
-        return true;
-        
-    
+        // [Your Implementation Here]    
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
-    
+
         // Case-2. If the question can be solved with 'recursion', design a 
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
+        return false;
     }
 
     /**
@@ -73,15 +88,8 @@ public class Algorithm {
      * </p>
      */
     public static boolean scores100(int[] scores) {
-        for (int i = 1; i < scores.length; i++) {
-            if (scores[i] == 100) {
-                if ( i + 1 != scores.length && scores[i + 1 ] == 100) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    
+        // [Your Implementation Here]
+        // 
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
     
@@ -89,6 +97,7 @@ public class Algorithm {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
+        return false;
     }
 
     /**
@@ -112,11 +121,7 @@ public class Algorithm {
      * </p>
      */
     public static boolean scoresClump(int[] scores) {
-        if (scores.length <= 2) return false; // early return for non-sense situations
-        for (int i = 0; i < scores.length - 2; i++){
-            if (scores[i + 2] - scores[i] <= 2) return true;  
-        }
-        return false;
+        // [Your Implementation Here]
         //
         // Case-1. If the question can be solved with 'iteration (for/while)',
         //         design the most efficient algorithm.
@@ -125,6 +130,7 @@ public class Algorithm {
         //         correct algorithm. Since the recursion can be inefficient,
         //         use either 'tabulation' or 'memorization' to break it down
         //         into 'iteration'.
+        return false;
     }
 
 
@@ -150,27 +156,8 @@ public class Algorithm {
      * </p>
      */
     public static int scoresAverage(int[] scores) {
-        int total = 0;
-        int counter = 0;
-        int answer =0;
-        for (int i = 0; i < scores.length / 2; i++){
-            total = total + scores[i];
-            counter++;
-        }
-        answer = total / counter;
-        total = 0;
-        counter = 0;      
-        for (int i = scores.length / 2; i < scores.length; i++){
-            total = total + scores[i];
-            counter++;
-        }
-        total = total / counter;
-        if (total > answer){
-            return total;
-        } else {
-            return answer;
-        }
-
+        // [Your Implementation Here]
+        //
         // Case-1. If the question can be solved with 'iteration (for/while)',
         //         design the most efficient algorithm.
         //
@@ -178,6 +165,7 @@ public class Algorithm {
         //         correct algorithm. Since the recursion can be inefficient,
         //         use either 'tabulation' or 'memorization' to break it down
         //         into 'iteration'.
+        // return 0;
     }
     /**
      * Helper function to compute the integer average of elements in scores[start:end).
@@ -221,13 +209,6 @@ public class Algorithm {
      * </p>
      */
     public static int wordsCount(String[] words, int length) {
-        int counter = 0;
-        for (int i = 0; i < words.length; i++){ 
-            if (words[i].length() == length) {
-                counter++;
-            }
-        }
-        return counter;
         // [Your Implementation Here]
         //
         // Case-1. If the question can be solved with 'iteration (for/while)',
@@ -237,6 +218,7 @@ public class Algorithm {
         //         correct algorithm. Since the recursion can be inefficient,
         //         use either 'tabulation' or 'memorization' to break it down
         //         into 'iteration'.
+        return 0;
     }
 
     /**
@@ -251,17 +233,13 @@ public class Algorithm {
      * <p>
      * Examples:
      * <ul>
-     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 1) → ["a"]</li>
-     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 2) → ["a", "b"]</li>
-     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 3) → ["a", "b", "c"]</li>
+     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 1) -> ["a"]</li>
+     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 2) -> ["a", "b"]</li>
+     *   <li>wordsFront(new String[]{"a", "b", "c", "d"}, 3) -> ["a", "b", "c"]</li>
      * </ul>
      * </p>
      */
     public static String[] wordsFront(String[] words, int n) {
-        String[] answer = new String[n];
-        for (int i = 0; i < n; i++) {
-            answer[i] = words[i];
-        }        
         // [Your Implementation Here]
         //
         // Case-1. If the question can be solved with 'iteration (for/while)',
@@ -271,7 +249,7 @@ public class Algorithm {
         //         correct algorithm. Since the recursion can be inefficient,
         //         use either 'tabulation' or 'memorization' to break it down
         //         into 'iteration'.
-        return answer;
+        return null;
     }
 
 
@@ -297,14 +275,6 @@ public class Algorithm {
      */
     public static List<String> wordsWithoutList(String[] words, int length) {
         List<String> result = new ArrayList<>();
-    
-        for (int i = 0; i < words.length; i++) {
-            if (words[i].length() != length) {
-                result.add(words[i]);
-            }
-        }
-    
-    
         // [Your Implementation Here]
         //
         // Case-1. If the question can be solved with 'iteration (for/while)',
@@ -336,41 +306,7 @@ public class Algorithm {
      */
     public static boolean hasOne(int n) {
         // [Your Implementation Here]
-        if (n == 1) return true;
-        if (n <= 9) return false;
-        int remains = n;
-        int currentNumber = 0;
-        int n_length = (int) (Math.log10(n) + 1); // number of digits
-
-        for (int i = 0; i < n_length; i++){
-            currentNumber = remains % 10;
-            remains = remains / 10;
-            if (currentNumber == 1) {
-                return true;
-            }
-        }
-
-        
-    
-        // int total = 0;
-        // int remains = n;
-        // int currentNumber = 0;
-        // int iJustNeedToKeepTrakeOfOneNumberSo = 0;
-        // int n_int = (int) (Math.log10(n) + 1); // number of digits
-        // //if (n < )
-        // total = remains % 10;
-        // answer = total;
-        // for (int i = 0; i < n_int+1; i++) {
-        //     total = remains % 10;
-        //     remains = remains / 10;
-        //     if (answer == total) {
-        //         iJustNeedToKeepTrakeOfOneNumberSo++;
-        //     }
-        // }
-        // if (iJustNeedToKeepTrakeOfOneNumberSo == n_int){
-        //     return true;
-        // }
-        return false;
+        //
         // Case-1. If the question can be solved with 'iteration (for/while)',
         //         design the most efficient algorithm.
         //
@@ -378,6 +314,7 @@ public class Algorithm {
         //         correct algorithm. Since the recursion can be inefficient,
         //         use either 'tabulation' or 'memorization' to break it down
         //         into 'iteration'.
+        return false;
     }
 
 
@@ -401,22 +338,6 @@ public class Algorithm {
      * </p>
      */
     public static boolean dividesSelf(int n) {
-            int total = 0;
-            int remains = n;
-            int answer = 0;
-            int n_int = (int) (Math.log10(n) + 1);
-            for (int i = 0; i < n_int; i++) {
-                total = remains % 10;
-                remains = remains / 10;
-                if (total == 0) {
-
-                } else if (n % total == 0) {
-                    answer++;
-                }
-            }
-            if (n_int == answer){
-                return true;
-            }
         // [Your Implementation Here]
         //
         // Case-1. If the question can be solved with 'iteration (for/while)',
@@ -438,7 +359,7 @@ public class Algorithm {
      * the first {@code count} even numbers from the original array.
      * The original array will contain at least {@code count} even numbers.
      *
-     * @param nums  an array of positive integer
+     * @param nums  an array of positive integers
      * @param count the number of even integers to return
      * @return an array of the first {@code count} even integers from the original array
      *
@@ -452,20 +373,7 @@ public class Algorithm {
      * </p>
      */
     public static int[] copyEvens(int[] nums, int count) {
-        ArrayList<Integer> resultList = new ArrayList<>();
-        int total = 0;
-        int counter = 0;
-        int answer =0;
-        for (int i = 0; i < nums.length ; i++){
-            if (nums[i] % 2 == 0){
-                resultList.add(nums[i]);
-            }
-
-        }
         int[] result = new int[count];
-        for (int i = 0; i < count; i++) {
-            result[i] = resultList.get(i);
-        }
         // [Your Implementation Here]
         //
         // Case-1. If the question can be solved with 'iteration (for/while)',
@@ -482,18 +390,5 @@ public class Algorithm {
 
 
 
-
-
-
-
-
-    /**
-     * Main method to demonstrate sample outputs of the recursive algorithms.
-     *
-     * @param args command line arguments (not used).
-     */
-    public static void main(String[] args) {
-        // Test your code here!
-        System.out.println("Hello there, test your code here!");
-    }
+    // Q11 comming soon..!
 }
