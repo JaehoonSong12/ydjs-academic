@@ -439,7 +439,4 @@ public class AlgorithmAPXtra {
         //         into 'iteration'.
         return null;
     }
-
-    // Q37 coming soon..!
-
 }
