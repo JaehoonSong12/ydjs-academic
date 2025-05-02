@@ -76,7 +76,8 @@ public class AlgorithmAPXtra {
      * < Q28 >
      * Given a string, count the number of words ending in 'y' or 'z'.
      * The character must appear at the end of a word - that is, it must not be
-     * immediately followed by another alphabetic letter. Comparison is case-insensitive.
+     * immediately followed by another alphabetic letter. 
+     * [Note: Comparison is case-insensitive.]
      *
      * @param s The input string.
      * @return The number of words ending in 'y' or 'z'.
@@ -90,6 +91,17 @@ public class AlgorithmAPXtra {
      */
     public static int countYZ(String s) {
         // [Your Implementation Here]
+        s = s.toLowerCase();
+        int count = 0;
+        for(int i = 1; i < s.length(); i++) {
+            if (Character.isLetter(s.charAt(i)) == false) {
+                if (s.charAt(i-1) == 'y' || s.charAt(i-1) == 'z') count++;
+            }
+        }
+        if (s.charAt(s.length()-1) == 'y' || s.charAt(s.length()-1) == 'z') count++;
+        
+        return count;
+
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
@@ -98,7 +110,7 @@ public class AlgorithmAPXtra {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        return 0;
+        // return 0;
     }
 
     /**
@@ -119,6 +131,16 @@ public class AlgorithmAPXtra {
      */
     public static int maxSpan(int[] nums) {
         // [Your Implementation Here]
+        int maxSpan = 0;
+        for(int i = 0; i < nums.length; i++){
+            for(int j = nums.length - 1; j >= 0; j--){
+                if (nums[i] == nums[j]) {
+                    int span = j - i + 1;
+                    if (span > maxSpan) maxSpan = span;
+                }
+            }
+        }
+        return maxSpan;
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
@@ -127,7 +149,7 @@ public class AlgorithmAPXtra {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        return 0;
+        // return 0;
     }
 
     
@@ -164,6 +186,13 @@ public class AlgorithmAPXtra {
      */
     public static boolean catDog(String s) {
         // [Your Implementation Here]
+        int catCount = 0;
+        int dogCount = 0;
+        for(int i = 0; i < s.length() - 2; i++){
+            if (s.charAt(i) == 'c' && s.charAt(i+1) == 'a' && s.charAt(i+2) == 't') catCount++;
+            if (s.charAt(i) == 'd' && s.charAt(i+1) == 'o' && s.charAt(i+2) == 'g') dogCount++;
+        }
+        return dogCount == catCount;
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
@@ -172,7 +201,7 @@ public class AlgorithmAPXtra {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        return false;
+        // return false;
     }
 
     /**
@@ -191,6 +220,11 @@ public class AlgorithmAPXtra {
      * </p>
      */
     public static int countCode(String s) {
+        int coxeCount = 0;
+        for(int i = 0; i < s.length() - 3; i++){
+            if (s.charAt(i) == 'c' && s.charAt(i+1) == 'o' && s.charAt(i+3) == 'e') coxeCount++;
+        }
+        return coxeCount;
         // [Your Implementation Here]
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
@@ -200,7 +234,6 @@ public class AlgorithmAPXtra {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        return 0;
     }
 
     /**
@@ -221,6 +254,13 @@ public class AlgorithmAPXtra {
      */
     public static int sum13(int[] nums) {
         // [Your Implementation Here]
+        if (nums.length < 1) return 0;
+        int sum = (nums[0] == 13) ? (0) : (nums[0]);
+        for(int i = 1; i < nums.length; i++){
+            if (nums[i-1] == 13) continue;
+            if (nums[i] == 13) continue;
+            sum += nums[i];
+        }
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
@@ -229,7 +269,7 @@ public class AlgorithmAPXtra {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        return 0;
+        return sum;
     }
 
     /**
@@ -247,6 +287,9 @@ public class AlgorithmAPXtra {
      * </p>
      */
     public static boolean has22(int[] nums) {
+        for(int i = 1; i < nums.length; i++){
+            if(nums[i] == 2) if(nums[i] == nums[i-1]) return true;
+        }
         // [Your Implementation Here]
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
@@ -308,6 +351,40 @@ public class AlgorithmAPXtra {
      * </p>
      */
     public static String withoutString(String base, String remove) {
+        // [Your Implementation Here]
+    
+        // Case-1. If the question can be solved with 'iteration (for/while)', 
+        //         design the most efficient algorithm.
+    
+        // Case-2. If the question can be solved with 'recursion', design a 
+        //         correct algorithm. Since the recursion can be inefficient, 
+        //         use either 'tabulation' or 'memorization' to break it down 
+        //         into 'iteration'.
+        return null;
+    }
+
+    
+    /**
+     * < Q36 >
+     * Return a list containing exactly the same numbers as the given array,
+     * but rearranged so that every 3 is immediately followed by a 4.
+     * Do not move the 3's themselves, but every other number may move.
+     * You may assume:
+     *   - The array contains the same number of 3's and 4's.
+     *   - Every 3 has a non-3 immediately after it.
+     *   - No 4 appears before the first 3.
+     *
+     * @param nums The input array of integers containing matching numbers of 3's and 4's.
+     * @return A new array where each 3 is immediately followed by a 4.
+     * <p>
+     * <ul>
+     *   <li>fix34(new int[]{1,3,1,4}) returns [1,3,4,1]</li>
+     *   <li>fix34(new int[]{1,3,1,4,4,3,1}) returns [1,3,4,1,1,3,4]</li>
+     *   <li>fix34(new int[]{3,2,2,4}) returns [3,4,2,2]</li>
+     * </ul>
+     * </p>
+     */
+    public static int[] fix34(int[] nums) {
         // [Your Implementation Here]
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
