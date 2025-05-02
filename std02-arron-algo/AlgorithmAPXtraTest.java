@@ -284,4 +284,26 @@ public class AlgorithmAPXtraTest {
         assertArrayEquals(new int[]{3,4,1,3,4,1},
             AlgorithmAPXtra.fix34(new int[]{3,1,1,3,4,4}));
     }
+        
+    /**
+     * < Q37 >
+     * Tests the endOther method.
+     */
+    @Test
+    public void testEndOther() {
+        assertTrue(AlgorithmAPXtra.endOther("Hiabc", "abc"));
+        assertTrue(AlgorithmAPXtra.endOther("AbC", "HiaBc"));
+        assertTrue(AlgorithmAPXtra.endOther("abc", "abXabc"));
+        assertFalse(AlgorithmAPXtra.endOther("Hiabc", "abcd"));
+        assertTrue(AlgorithmAPXtra.endOther("Hiabc", "bc"));
+        assertFalse(AlgorithmAPXtra.endOther("Hiabcx", "bc"));
+        assertTrue(AlgorithmAPXtra.endOther("abc", "abc"));
+        assertTrue(AlgorithmAPXtra.endOther("xyz", "12xyz"));
+        assertFalse(AlgorithmAPXtra.endOther("yz", "12xz"));
+        assertTrue(AlgorithmAPXtra.endOther("Z", "12xz"));
+        assertTrue(AlgorithmAPXtra.endOther("12", "12"));
+        assertFalse(AlgorithmAPXtra.endOther("abcXYZ", "abcDEF"));
+        assertFalse(AlgorithmAPXtra.endOther("ab", "ab12"));
+        assertTrue(AlgorithmAPXtra.endOther("ab", "12ab"));
+    }
 }

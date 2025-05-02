@@ -397,4 +397,33 @@ public class AlgorithmAPXtra {
         return null;
     }
 
+
+    /**
+     * < Q37 >
+     * Given two strings, return true if either of the strings appears at the very end
+     * of the other string, ignoring upper/lower case differences.
+     *
+     * @param a First input string.
+     * @param b Second input string.
+     * @return true if one string appears at the end of the other (case-insensitive), else false.
+     * <p>
+     * <ul>
+     *   <li>endOther("Hiabc", "abc") returns true</li>
+     *   <li>endOther("AbC", "HiaBc") returns true</li>
+     *   <li>endOther("abc", "abXabc") returns true</li>
+     * </ul>
+     * </p>
+     */
+    public static boolean endOther(String a, String b) {
+        // [Your Implementation Here]
+    
+        // Case-1. If the question can be solved with 'iteration (for/while)', 
+        //         design the most efficient algorithm.
+    
+        // Case-2. If the question can be solved with 'recursion', design a 
+        //         correct algorithm. Since the recursion can be inefficient, 
+        //         use either 'tabulation' or 'memorization' to break it down 
+        //         into 'iteration'.
+        return false;
+    }
 }
