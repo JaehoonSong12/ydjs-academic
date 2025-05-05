@@ -55,6 +55,9 @@ public class AlgorithmAPXXXtra {
      */
     public static String repeatFront(String s, int n) {
         // [Your Implementation Here]
+        // for(int i = 0; i < n.length(); i++){
+        //     n.charAt(i);
+        // }
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
@@ -84,6 +87,11 @@ public class AlgorithmAPXXXtra {
      */
     public static int[] fizzArray(int n) {
         // [Your Implementation Here]
+
+        // for(int i = 0; i < n.length; i++){
+        //     [n] = [n-1]
+        //     if([n] == 0) 
+        // }
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
@@ -114,6 +122,9 @@ public class AlgorithmAPXXXtra {
      */
     public static boolean only14(int[] nums) {
         // [Your Implementation Here]
+        // for(int i = 0; i < nums.length; i++){
+        //     if(nums[i] == 1 || nums[i = 4]) return true;
+        // }
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
@@ -145,6 +156,7 @@ public class AlgorithmAPXXXtra {
      */
     public static String[] fizzArray2(int n) {
         // [Your Implementation Here]
+
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
@@ -186,7 +198,7 @@ public class AlgorithmAPXXXtra {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        return null;
+        return 0;
     }
     /**
      * Adjusts a single value according to the teen rules: returns 0 if n is in [13..19]
