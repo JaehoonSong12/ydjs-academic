@@ -29,6 +29,22 @@ public class AlgorithmAPXXtra {
      */
     public static void main(String[] args) {
         System.out.println("Hello, World!");
+
+        int[] arr = {99, 820, 23, 43};
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println(arr[i]);
+        }
+
+        String str = "here is a string!";
+        for (int i = 0; i < str.length(); i++) {
+            System.out.println(str.charAt(i));
+        }
+
+        ArrayList<String> list = new ArrayList<>(Arrays.asList("Apple", "Banana", "Cherry"));
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
+
     }
 
 
@@ -49,7 +65,47 @@ public class AlgorithmAPXXtra {
      * </p>
      */
     public static boolean xyzThere(String s) {
-        // [Your Implementation Here]
+        s = s.toLowerCase();
+        int check = 0;
+        for (int i = 0; i < s.length()-2; i++) {
+            if (s.charAt(i) == 'x') {
+                check = 1;
+            }
+            else {
+                check = 0;
+            }
+
+
+            if (check == 1) {
+                if (s.charAt(i+1) == 'y') {
+                    check = 1;
+                }
+                else {
+                    check = 0;
+                }
+            }
+
+            if (check == 1) {
+                if (s.charAt(i+2) == 'z') {
+                    check = 1;
+                }
+                else {
+                    check = 0;
+                }
+            }
+            if (check == 1) {
+                if (i != 0) {
+                    if (s.charAt(i-1) != '.') {
+                    return true;
+                    }
+                }
+                else {
+                    return true;
+                }
+            }   
+
+
+        }
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
@@ -77,7 +133,14 @@ public class AlgorithmAPXXtra {
      * </p>
      */
     public static boolean lucky13(int[] nums) {
-        // [Your Implementation Here]
+        for (int i = 0; i < nums.length; i++) {
+            if (!(nums[i] != 1 && nums[i] != 3)) {
+                return false;
+            }
+
+
+        }
+        
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
@@ -86,7 +149,7 @@ public class AlgorithmAPXXtra {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        return false;
+        return true;
     }
 
     
@@ -108,7 +171,16 @@ public class AlgorithmAPXXtra {
      * </p>
      */
     public static boolean sum28(int[] nums) {
-        // [Your Implementation Here]
+        int count = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 2) {
+                count += 2;
+                
+            }
+        }
+        if (count == 8) {
+            return true;
+        }
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
@@ -137,7 +209,27 @@ public class AlgorithmAPXXtra {
      * </p>
      */
     public static boolean more14(int[] nums) {
-        // [Your Implementation Here]
+        int count1 = 0;
+        int count4 = 0;
+    
+        for (int i = 0; i < nums.length; i++) {
+
+            if (nums[i] == 1) {
+
+                count1++;
+
+
+            } 
+            else if (nums[i] == 4) {
+
+
+                count4++;
+            }
+        }
+
+
+    
+        return count1 > count4;
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
@@ -146,7 +238,6 @@ public class AlgorithmAPXXtra {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        return false;
     }
 
     
