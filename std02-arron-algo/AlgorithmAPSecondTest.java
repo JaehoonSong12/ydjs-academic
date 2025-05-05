@@ -78,13 +78,13 @@ public class AlgorithmAPSecondTest {
         @Test
         public void testBubbleSort() {
             assertArrayEquals(new int[]{1, 2, 4, 5, 8}, 
-                SortAlgorithms.bubbleSort(new int[]{5, 1, 4, 2, 8}));
+                AlgorithmAPSecond.bubbleSort(new int[]{5, 1, 4, 2, 8}));
 
             assertArrayEquals(new int[]{}, 
-                SortAlgorithms.bubbleSort(new int[]{}));
+                AlgorithmAPSecond.bubbleSort(new int[]{}));
 
             assertArrayEquals(new int[]{3}, 
-                SortAlgorithms.bubbleSort(new int[]{3}));
+                AlgorithmAPSecond.bubbleSort(new int[]{3}));
         }
 
         /**
@@ -94,10 +94,10 @@ public class AlgorithmAPSecondTest {
         @Test
         public void testSelectionSort() {
             assertArrayEquals(new int[]{11, 12, 22, 25, 64}, 
-                SortAlgorithms.selectionSort(new int[]{64, 25, 12, 22, 11}));
+                AlgorithmAPSecond.selectionSort(new int[]{64, 25, 12, 22, 11}));
 
             assertArrayEquals(new int[]{1, 2}, 
-                SortAlgorithms.selectionSort(new int[]{2, 1}));
+                AlgorithmAPSecond.selectionSort(new int[]{2, 1}));
         }
 
         /**
@@ -107,10 +107,10 @@ public class AlgorithmAPSecondTest {
         @Test
         public void testInsertionSort() {
             assertArrayEquals(new int[]{5, 6, 11, 12, 13}, 
-                SortAlgorithms.insertionSort(new int[]{12, 11, 13, 5, 6}));
+                AlgorithmAPSecond.insertionSort(new int[]{12, 11, 13, 5, 6}));
 
             assertArrayEquals(new int[]{1, 2, 3}, 
-                SortAlgorithms.insertionSort(new int[]{1, 2, 3}));
+                AlgorithmAPSecond.insertionSort(new int[]{1, 2, 3}));
         }
 
         /**
@@ -120,10 +120,10 @@ public class AlgorithmAPSecondTest {
         @Test
         public void testMergeSort() {
             assertArrayEquals(new int[]{3, 9, 10, 27, 38, 43, 82}, 
-                SortAlgorithms.mergeSort(new int[]{38, 27, 43, 3, 9, 82, 10}));
+                AlgorithmAPSecond.mergeSort(new int[]{38, 27, 43, 3, 9, 82, 10}));
 
             assertArrayEquals(new int[]{}, 
-                SortAlgorithms.mergeSort(new int[]{}));
+                AlgorithmAPSecond.mergeSort(new int[]{}));
         }
 
         /**
@@ -133,10 +133,10 @@ public class AlgorithmAPSecondTest {
         @Test
         public void testQuickSort() {
             assertArrayEquals(new int[]{1, 5, 7, 8, 9, 10}, 
-                SortAlgorithms.quickSort(new int[]{10, 7, 8, 9, 1, 5}));
+                AlgorithmAPSecond.quickSort(new int[]{10, 7, 8, 9, 1, 5}));
 
             assertArrayEquals(new int[]{}, 
-                SortAlgorithms.quickSort(new int[]{}));
+                AlgorithmAPSecond.quickSort(new int[]{}));
         }
 
         /**
@@ -146,10 +146,10 @@ public class AlgorithmAPSecondTest {
         @Test
         public void testHeapSort() {
             assertArrayEquals(new int[]{5, 6, 7, 11, 12, 13}, 
-                SortAlgorithms.heapSort(new int[]{12, 11, 13, 5, 6, 7}));
+                AlgorithmAPSecond.heapSort(new int[]{12, 11, 13, 5, 6, 7}));
 
             assertArrayEquals(new int[]{}, 
-                SortAlgorithms.heapSort(new int[]{}));
+                AlgorithmAPSecond.heapSort(new int[]{}));
         }
 
         /**
@@ -166,14 +166,14 @@ public class AlgorithmAPSecondTest {
             int[] b1 = base.clone(), b2 = base.clone(), b3 = base.clone();
 
             // time O(n²) sorts
-            long tBubble = time(() -> SortAlgorithms.bubbleSort(a1));
-            long tSelection = time(() -> SortAlgorithms.selectionSort(a2));
-            long tInsertion = time(() -> SortAlgorithms.insertionSort(a3));
+            long tBubble = time(() -> AlgorithmAPSecond.bubbleSort(a1));
+            long tSelection = time(() -> AlgorithmAPSecond.selectionSort(a2));
+            long tInsertion = time(() -> AlgorithmAPSecond.insertionSort(a3));
 
             // time O(n log n) sorts
-            long tMerge = time(() -> SortAlgorithms.mergeSort(b1));
-            long tQuick = time(() -> SortAlgorithms.quickSort(b2));
-            long tHeap = time(() -> SortAlgorithms.heapSort(b3));
+            long tMerge = time(() -> AlgorithmAPSecond.mergeSort(b1));
+            long tQuick = time(() -> AlgorithmAPSecond.quickSort(b2));
+            long tHeap = time(() -> AlgorithmAPSecond.heapSort(b3));
 
             // on large n, each O(n²) should be noticeably slower than each O(n log n)
             assertTrue(tBubble > tMerge, "bubble should be slower than merge");

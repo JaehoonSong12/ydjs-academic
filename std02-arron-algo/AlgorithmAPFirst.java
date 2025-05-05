@@ -166,7 +166,7 @@ public class AlgorithmAPFirst {
         //         correct algorithm. Since the recursion can be inefficient,
         //         use either 'tabulation' or 'memorization' to break it down
         //         into 'iteration'.
-        // return 0;
+        return 0;
     }
     /**
      * Helper function to compute the integer average of elements in scores[start:end).

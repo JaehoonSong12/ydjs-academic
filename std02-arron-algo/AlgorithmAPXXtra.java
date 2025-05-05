@@ -50,6 +50,14 @@ public class AlgorithmAPXXtra {
      */
     public static boolean xyzThere(String s) {
         // [Your Implementation Here]
+        
+        for(int i = 0; i < s.length() - 2; i++) {
+            boolean flag = false;
+            if(s.charAt(i) == 'x' && s.charAt(i+1) == 'y' && s.charAt(i+2) == 'z') flag = true;
+            if(i == 0 && flag) return true;
+            if(flag && s.charAt(i-1) != '.') return true;
+        }
+       
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
@@ -60,7 +68,7 @@ public class AlgorithmAPXXtra {
         //         into 'iteration'.
         return false;
     }
-
+    
 
     /**
      * < Q39 >
@@ -76,8 +84,11 @@ public class AlgorithmAPXXtra {
      * </ul>
      * </p>
      */
-    public static boolean lucky13(int[] nums) {
+        public static boolean lucky13(int[] nums) {
         // [Your Implementation Here]
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 1 || nums[i] == 3) return false;
+        }
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
@@ -86,7 +97,7 @@ public class AlgorithmAPXXtra {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        return false;
+        return true;
     }
 
     
@@ -109,6 +120,14 @@ public class AlgorithmAPXXtra {
      */
     public static boolean sum28(int[] nums) {
         // [Your Implementation Here]
+        int counTwo = 0;
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i] == 2){
+            counTwo++;
+            counTwo++;
+            }
+        }
+        if(counTwo == 8) return true; 
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
@@ -138,6 +157,14 @@ public class AlgorithmAPXXtra {
      */
     public static boolean more14(int[] nums) {
         // [Your Implementation Here]
+        int countOne = 0;
+        int countFour = 0;
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i] == 1) countOne++;
+            if(nums[i] == 4) countFour++;
+            }
+            if(countOne > countFour) return true;
+        
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
@@ -146,6 +173,7 @@ public class AlgorithmAPXXtra {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
+     
         return false;
     }
 
