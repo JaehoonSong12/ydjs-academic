@@ -35,6 +35,11 @@ public class AlgorithmRecur {
         System.out.println("sumDigits(126) = " + sumDigits(126));
         System.out.println("count8(8818) = " + count8(8818));
         System.out.println("powerN(3, 3) = " + powerN(3, 3));
+
+
+        int[] arr = new int[] {1,2,3};
+        System.out.println(arr[2]);
+
     }
 
     /**
@@ -51,12 +56,19 @@ public class AlgorithmRecur {
      * </ul>
      */
     public static int factorial(int n) {
-        // classic way (using for-loop)
+
+        // // classic way (using for-loop)
+        // int lastNum = 1;
+        // for (int i = 1; i < n+1; i++ ){
+        //     lastNum *= i;
+        // }
+        // return lastNum;
 
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
+        if(n<2) return 1;
         // 2. recursive-case
-        return 0;
+        return n * factorial(n-1);
     }
 
 
@@ -102,8 +114,12 @@ public class AlgorithmRecur {
      * </ul>
      */
     public static int fibonacci(int n) {
+        int last = 0
         // classic way (using for-loop)
-        
+        for (int i = 0; i < n; i++) {
+
+
+        }
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
         // 2. recursive-case
