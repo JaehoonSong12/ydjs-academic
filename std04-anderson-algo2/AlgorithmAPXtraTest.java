@@ -12,11 +12,15 @@ import java.util.List;
  * How to compile and run the application:
  * 1. Open a terminal or command prompt.
  * 2. Compile (Current Test Only): 
- *      `javac -cp std04-anderson-algo2/junit-platform-console-standalone-1.9.3.jar std04-anderson-algo2/AlgorithmAPXtra*.java`
+ *      ```
+ *      javac -cp junit-1.9.3.jar std04-anderson-algo2/AlgorithmAPXtra*.java
+ *      ```
  * 3. Compile (All Tests): 
- *      `javac -cp std04-anderson-algo2/junit-platform-console-standalone-1.9.3.jar std04-anderson-algo2/*.java`
+ *      `javac -cp junit-1.9.3.jar std04-anderson-algo2/*.java`
  * 4. Run & Clean: 
- *      `java -jar std04-anderson-algo2/junit-platform-console-standalone-1.9.3.jar --class-path std04-anderson-algo2 --scan-classpath; rm -rf std04-anderson-algo2/*.class`
+ *      ```
+ *      java -jar junit-1.9.3.jar --class-path std04-anderson-algo2 --scan-classpath; rm -rf std04-anderson-algo2/*.class
+ *      ```
  */
 public class AlgorithmAPXtraTest {
     
@@ -97,6 +101,7 @@ public class AlgorithmAPXtraTest {
     }
 
 
+    
 
 
 
@@ -250,6 +255,17 @@ public class AlgorithmAPXtraTest {
 
 
 
+
+
+
+
+
+
+
+
+
+    
+
     
     /**
      * < Q36 >
@@ -285,5 +301,27 @@ public class AlgorithmAPXtraTest {
             AlgorithmAPXtra.fix34(new int[]{3,1,4,3,1,4}));
         assertArrayEquals(new int[]{3,4,1,3,4,1},
             AlgorithmAPXtra.fix34(new int[]{3,1,1,3,4,4}));
+    }
+        
+    /**
+     * < Q37 >
+     * Tests the endOther method.
+     */
+    @Test
+    public void testEndOther() {
+        assertTrue(AlgorithmAPXtra.endOther("Hiabc", "abc"));
+        assertTrue(AlgorithmAPXtra.endOther("AbC", "HiaBc"));
+        assertTrue(AlgorithmAPXtra.endOther("abc", "abXabc"));
+        assertFalse(AlgorithmAPXtra.endOther("Hiabc", "abcd"));
+        assertTrue(AlgorithmAPXtra.endOther("Hiabc", "bc"));
+        assertFalse(AlgorithmAPXtra.endOther("Hiabcx", "bc"));
+        assertTrue(AlgorithmAPXtra.endOther("abc", "abc"));
+        assertTrue(AlgorithmAPXtra.endOther("xyz", "12xyz"));
+        assertFalse(AlgorithmAPXtra.endOther("yz", "12xz"));
+        assertTrue(AlgorithmAPXtra.endOther("Z", "12xz"));
+        assertTrue(AlgorithmAPXtra.endOther("12", "12"));
+        assertFalse(AlgorithmAPXtra.endOther("abcXYZ", "abcDEF"));
+        assertFalse(AlgorithmAPXtra.endOther("ab", "ab12"));
+        assertTrue(AlgorithmAPXtra.endOther("ab", "12ab"));
     }
 }
