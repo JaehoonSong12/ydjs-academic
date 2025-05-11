@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 /**
  * The Algorithm class contains recursive methods for several algorithmic problems.
  * <p>
@@ -9,16 +11,12 @@
  * How to compile and run the application:
  * 1. Open a terminal or command prompt.
  * 2. Compile: 
- *      ```
- *      javac std04-anderson-algo2/AlgorithmAPXtra.java
- *      ```
- * 3. Run & Clean: 
- *      ```
- *      java -cp std04-anderson-algo2 AlgorithmAPXtra; rm -rf std04-anderson-algo2/*.class
- *      ```
+ *      `javac std04-anderson-algo2/AlgorithmAPXtra.java`
+ * 3. Run: 
+ *      `java -cp std04-anderson-algo2 AlgorithmAPXtra`
+ * 4. Clean: 
+ *      `rm -rf std04-anderson-algo2/*.class`
  */
-import java.util.*;
-
 public class AlgorithmAPXtra {
     /**
      * < Q00 >
@@ -29,6 +27,7 @@ public class AlgorithmAPXtra {
      */
     public static void main(String[] args) {
         System.out.println("Hello, World!");
+
     }
 
 
@@ -85,7 +84,7 @@ public class AlgorithmAPXtra {
     /**
      * < Q28 >
      * Given a string, count the number of words ending in 'y' or 'z'.
-     * The character must appear at the end of a word - that is, it must not be
+     * The character must appear at the end of a word — that is, it must not be
      * immediately followed by another alphabetic letter. Comparison is case-insensitive.
      *
      * @param s The input string.
@@ -137,7 +136,6 @@ public class AlgorithmAPXtra {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        // return 0;
     }
 
     /**
@@ -193,7 +191,15 @@ public class AlgorithmAPXtra {
 
 
 
+
+
+
+
+
+
+
     
+
     /**
      * < Q30 >
      * Return true if the strings "cat" and "dog" appear the same number of times
@@ -265,7 +271,6 @@ public class AlgorithmAPXtra {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        // return 0;
     }
 
     /**
@@ -293,7 +298,8 @@ public class AlgorithmAPXtra {
                 total = total + nums[i];
             }
         }
-                // [Your Implementation Here]
+
+        // [Your Implementation Here]
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
         //         design the most efficient algorithm.
@@ -417,40 +423,48 @@ public class AlgorithmAPXtra {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
+    /**
+     * < Q36 >
+     * Return a list containing exactly the same numbers as the given array,
+     * but rearranged so that every 3 is immediately followed by a 4.
+     * Do not move the 3's themselves, but every other number may move.
+     * You may assume:
+     *   - The array contains the same number of 3's and 4's.
+     *   - Every 3 has a non-3 immediately after it.
+     *   - No 4 appears before the first 3.
+     *
+     * @param nums The input array of integers containing matching numbers of 3's and 4's.
+     * @return A new array where each 3 is immediately followed by a 4.
+     * <p>
+     * <ul>
+     *   <li>fix34(new int[]{1,3,1,4}) returns [1,3,4,1]</li>
+     *   <li>fix34(new int[]{1,3,1,4,4,3,1}) returns [1,3,4,1,1,3,4]</li>
+     *   <li>fix34(new int[]{3,2,2,4}) returns [3,4,2,2]</li>
+     * </ul>
+     * </p>
+     */
+    public static int[] fix34(int[] nums) {
+
+        for (int i = 0; i < nums.length -1 ; i++){
+            if (nums[i] == 3){
+                nums[i + 1] = 4;
+            }else if (nums[i] == 4){
+                nums[i] = null;
+            }
+        }
+        // [Your Implementation Here]
+    
+        // Case-1. If the question can be solved with 'iteration (for/while)', 
+        //         design the most efficient algorithm.
+    
+        // Case-2. If the question can be solved with 'recursion', design a 
+        //         correct algorithm. Since the recursion can be inefficient, 
+        //         use either 'tabulation' or 'memorization' to break it down 
+        //         into 'iteration'.
+        return null;
+    }
+
+    // Q37 coming soon..!
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
