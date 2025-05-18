@@ -9,9 +9,9 @@ application { // entry-points
     // Define the main class for the application.
     // mainClass.set("eugene.app.Cli")      // entry-point for `Eugene`
     // mainClass.set("jayden.app.Cli")         // entry-point for `Jayden`
-    mainClass.set("jayden.app.Gui")         // entry-point for `Jayden`
+    // mainClass.set("jayden.app.Gui")         // entry-point for `Jayden`
     // mainClass.set("noah.app.Cli")           // entry-point for `Noah`
-    // mainClass.set("anderson.app.Cli")         // entry-point for `Anderson`
+    mainClass.set("anderson.app.Cli")         // entry-point for `Anderson`
 
 
 
@@ -78,6 +78,15 @@ javafx {
     )
 }
 
+
+
+val lwjglVersion = "3.3.1"
+// change this depending on your platform:
+// "natives-windows" / "natives-macos" / "natives-linux"
+val lwjglNatives = "natives-windows"
+
+
+
 dependencies {
     // [Gradle] 'init' generated
     implementation("org.apache.commons:commons-text")
@@ -90,6 +99,15 @@ dependencies {
     implementation("org.openjfx:javafx-base:21.0.5")
     implementation("org.openjfx:javafx-controls:21.0.5")
     implementation("org.openjfx:javafx-fxml:21.0.5")
+
+    // [3] LWJGL  (Lightweight Java Game Library)
+    implementation("org.lwjgl:lwjgl:$lwjglVersion")
+    implementation("org.lwjgl:lwjgl-glfw:$lwjglVersion")
+    implementation("org.lwjgl:lwjgl-opengl:$lwjglVersion")
+
+    runtimeOnly("org.lwjgl:lwjgl:$lwjglVersion:$lwjglNatives")
+    runtimeOnly("org.lwjgl:lwjgl-glfw:$lwjglVersion:$lwjglNatives")
+    runtimeOnly("org.lwjgl:lwjgl-opengl:$lwjglVersion:$lwjglNatives")
 }
 
 

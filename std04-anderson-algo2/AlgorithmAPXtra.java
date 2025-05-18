@@ -10,7 +10,7 @@
  * 1. Open a terminal or command prompt.
  * 2. Compile: 
  *      ```
- *      javac std04-anderson-algo2/AlgorithmAPXtra.java
+ *      javac std04-anderson-algo2/java
  *      ```
  * 3. Run & Clean: 
  *      ```
@@ -29,6 +29,23 @@ public class AlgorithmAPXtra {
      */
     public static void main(String[] args) {
         System.out.println("Hello, World!");
+        testFix34();
+    }
+    public static void testFix34() {
+        // System.out.println(Arrays.toString(fix34(new int[]{1,3,1,4})));         // [1, 3, 4, 1]
+        //System.out.println(Arrays.toString(fix34(new int[]{1,3,1,4,4,3,1})));   // [1, 3, 4, 1, 1, 3, 4]
+        // System.out.println(Arrays.toString(fix34(new int[]{3,2,2,4})));         // [3, 4, 2, 2]
+        // System.out.println(Arrays.toString(fix34(new int[]{3,2,3,2,4,4})));     // [3, 4, 3, 4, 2, 2]
+        // System.out.println(Arrays.toString(fix34(new int[]{2,3,2,3,2,4,4})));   // [2, 3, 4, 3, 4, 2, 2]
+        // System.out.println(Arrays.toString(fix34(new int[]{5,3,5,4,5,4,5,4,3,5,3,5}))); // [5, 3, 4, 5, 5, 5, 5, 5, 3, 4, 3, 4]
+        // System.out.println(Arrays.toString(fix34(new int[]{3,1,4})));           // [3, 4, 1]
+        // System.out.println(Arrays.toString(fix34(new int[]{3,4,1})));           // [3, 4, 1]
+        // System.out.println(Arrays.toString(fix34(new int[]{1,1,1})));           // [1, 1, 1]
+        // System.out.println(Arrays.toString(fix34(new int[]{1})));               // [1]
+        // System.out.println(Arrays.toString(fix34(new int[]{})));                // []
+        // System.out.println(Arrays.toString(fix34(new int[]{7,3,7,7,4})));        // [7, 3, 4, 7, 7]
+        // System.out.println(Arrays.toString(fix34(new int[]{3,1,4,3,1,4})));      // [3, 4, 1, 3, 4, 1]
+        // System.out.println(Arrays.toString(fix34(new int[]{3,1,1,3,4,4})));      // [3, 4, 1, 3, 4, 1]
     }
 
 
@@ -397,7 +414,15 @@ public class AlgorithmAPXtra {
      * </p>
      */
     public static String withoutString(String base, String remove) {
-        String result = base.replace(remove, "");
+        String result = base.replaceAll(remove, "");
+        base = base.toLowerCase();
+        remove = remove.toLowerCase();
+        result = result.replaceAll(remove, "");
+        //result = result.trim().replaceAll("\\s+", " ");
+
+
+
+
         // [Your Implementation Here]
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
@@ -439,12 +464,21 @@ public class AlgorithmAPXtra {
      * </p>
      */
     public static int[] fix34(int[] nums) {
-
-        for (int i = 0; i < nums.length -1 ; i++){
-            if (nums[i] == 3){
-                nums[i + 1] = 4;
-            }else if (nums[i] == 4){
-                nums[i] = null;
+        int replaceNumber = 0;
+        // 1,3,1,4,4,3,1
+        for (int i = 0; i < nums.length; i++){
+            if (nums[i] == 4){
+                for (int l = 0; l < nums.length - 1; l++){
+                    if (nums[i] != 4){
+                        break;
+                    }
+                    if (nums[l] == 3){
+                        replaceNumber = nums[l + 1];
+                        nums[l + 1] = 4;
+                        nums[i] = replaceNumber;
+                        // System.out.println(Arrays.toString(nums));
+                    }
+                }
             }
         }
         // [Your Implementation Here]
@@ -456,7 +490,7 @@ public class AlgorithmAPXtra {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        return null;
+        return nums;
     }
 
 
@@ -477,6 +511,30 @@ public class AlgorithmAPXtra {
      * </p>
      */
     public static boolean endOther(String a, String b) {
+        a = a.toLowerCase();
+        b = b.toLowerCase();
+        if (a.length() >= b.length()) {
+            boolean match = true;
+            for (int i = 0; i < b.length(); i++) {
+                if (a.charAt(a.length() - b.length() + i) != b.charAt(i)) {
+                    match = false;
+                    break;
+                }
+            }
+            if (match) return true;
+        }
+        if (b.length() >= a.length()) {
+            boolean match = true;
+            for (int i = 0; i < a.length(); i++) {
+                if (b.charAt(b.length() - a.length() + i) != a.charAt(i)) {
+                    match = false;
+                    break;
+                }
+            }
+            if (match) return true;
+        }
+
+        return false;
         // [Your Implementation Here]
     
         // Case-1. If the question can be solved with 'iteration (for/while)', 
@@ -486,7 +544,6 @@ public class AlgorithmAPXtra {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        return false;
     }
 
 

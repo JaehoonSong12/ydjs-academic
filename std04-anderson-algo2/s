@@ -1,0 +1,410 @@
+/**
+ * The DataStructure class demonstrates the implementation of a dynamic array (ArrayListX)
+ * and a set (ArraySet) with custom behaviors.
+ * <p>
+ * It includes methods to perform basic list operations such as add, get, remove, and contains,
+ * as well as set-specific operations like union and intersection. The ArraySet class extends
+ * ArrayListX to enforce set semantics by preventing duplicate elements.
+ * </p>
+ * 
+ * How to compile and run the application:
+ * 1. Open a terminal or command prompt.
+ * 2. Compile: 
+ *      ```
+ *      javac _instructor/DataStructure.java
+ *      ```
+ * 3. Run & Clean: 
+ *      ```
+ *      java -cp _instructor DataStructure; rm -rf _instructor/*.class
+ *      ```
+ */
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+import java.util.HashSet;
+import java.util.TreeSet;
+import java.util.LinkedHashSet;
+
+public class DataStructure {
+    /**
+     * < Q00 >
+     * This is a placeholder for the main method. It can be used to 
+     * test the methods in this class.
+     * You can add your own test cases here. 
+     * It demonstrates ArrayListX and ArraySet usage.
+     *
+     * @param args command line arguments (not used).
+     */
+    public static void main(String[] args) {
+        // Polymorphism: can hold an ArraySet in an ArrayListX reference
+        ArrayListX<String> list = new ArraySet<>();
+        list.add("apple");
+        list.add("banana");
+        list.add("apple");  // duplicate: ArraySet will prevent this
+        
+        // list.get(6);
+        
+        // list.get(-1);
+
+        System.out.println("After adding (set behavior): " + list);
+
+        // Downcast to ArraySet to call set‑specific methods:
+        ArraySet<String> set = (ArraySet<String>) list;
+        ArraySet<String> other = new ArraySet<>();
+        other.add("banana");
+        other.add("cherry");
+
+        System.out.println("Union: " + set.union(other));
+        System.out.println("Intersection: " + set.intersection(other));
+
+
+
+        setExample();
+    }
+    public static void listExample() {
+        // 1. Create
+        ArrayList<String> fruits = new ArrayList<>();
+
+        // 2. Add
+        fruits.add("Apple");
+        fruits.add("Banana");
+        fruits.add("Cherry");
+
+        // 3. Insert at index
+        fruits.add(1, "Orange");  // ["Apple","Orange","Banana","Cherry"]
+
+        // 4. Get & set
+        String first = fruits.get(0);      // "Apple"
+        fruits.set(2, "Blueberry");        // replaces "Banana"
+
+        // 5. Remove
+        fruits.remove("Cherry");
+        fruits.remove(0);                  // removes "Apple"
+
+        // 6. Iterate
+        for (String f : fruits) {
+            System.out.println(f);
+        }
+
+        // 7. Sort
+        Collections.sort(fruits);
+
+        // 8. Search
+        int idx = Collections.binarySearch(fruits, "Orange");
+        System.out.println("Orange at index: " + idx);
+    }
+    
+    public static void setExample() {
+        // HashSet: fastest, no order
+        HashSet<Integer> primes = new HashSet<>();
+        primes.add(2);
+        primes.add(3);
+        primes.add(5);
+        primes.add(3);           // duplicate ignored
+
+        // LinkedHashSet: insertion‑order iteration
+        LinkedHashSet<String> linked = new LinkedHashSet<>();
+        linked.add("A");
+        linked.add("C");
+        linked.add("B");
+
+        // TreeSet: sorted order
+        TreeSet<String> sorted = new TreeSet<>(linked);
+
+        // Core ops:
+        if (primes.contains(5)) { System.out.println("Found"); }
+        primes.remove(2);
+
+        // Iterate
+        for (String s : sorted) {
+            System.out.println(s);   // A, B, C
+        }
+        for (Integer s : primes) {
+            System.out.println(s);   // A, B, C
+        }
+    }
+
+    public static void exampleExcludeDuplicates() {
+        List<String> withDups = Arrays.asList("A","B","A","C","B");
+        Set<String> noDups = new HashSet<>(withDups);
+        List<String> result = new ArrayList<>(noDups);
+        System.println(withDups);
+        System.println(result);
+        return;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * A simplified generic dynamic array implementation that mimics {@link java.util.ArrayList}.
+ * <p>
+ * This class provides basic list operations: add, get, remove, contains, and supports
+ * iteration via {@link Iterable}. It automatically resizes when capacity is exceeded.
+ * </p>
+ *
+ * @param <T> the type of elements stored in this list
+ */
+class ArrayListX<T> implements Iterable<T> {
+    /** Storage for list elements (as Object[] due to Java generic array limitations). */
+    private Object[] elements;
+    /** The number of elements currently in the list. */
+    private int size = 0;
+    /** Default initial capacity of the list. */
+    private static final int DEFAULT_CAPACITY = 16;
+
+    /**
+     * Constructs an empty list with an initial capacity of {@value #DEFAULT_CAPACITY}.
+     */
+    public ArrayListX() {
+        elements = new Object[DEFAULT_CAPACITY];
+    }
+
+    /**
+     * Constructs a list containing the elements of the specified array, in the order they appear.
+     * The initial capacity is set to the array's length.
+     *
+     * @param arr the array whose elements are to be placed into this list
+     */
+    public ArrayListX(T[] arr) {
+        elements = new Object[arr.length];
+        for (int i = 0; i < arr.length; i++) elements[i] = arr[i];
+        size = arr.length;
+    }
+
+    /**
+     * Returns the number of elements in this list.
+     *
+     * @return the number of elements in this list
+     */
+    public int size() { return size; }
+
+    /**
+     * Returns {@code true} if this list contains no elements.
+     *
+     * @return {@code true} if this list contains no elements
+     */
+    public boolean isEmpty() { return size == 0; }
+
+    /**
+     * Returns the element at the specified position in this list.
+     *
+     * @param index index of the element to return (0-based)
+     * @return the element at the specified position
+     * @throws IndexOutOfBoundsException if the index is out of range (< 0 or >= size)
+     */
+    @SuppressWarnings("unchecked")
+    public T get(int index) {
+        if (index >= size) throw new IndexOutOfBoundsException(String.format("Error: %d {@link index} >= %d {@link size}}", index, size));
+        if (index < 0) throw new IndexOutOfBoundsException(String.format("Error: %d {@link index} is invalid", index));
+        return (T) elements[index];
+    }
+
+    /**
+     * Appends the specified element to the end of this list, resizing if necessary.
+     *
+     * @param element element to be appended to this list
+     * @return {@code true} (as specified by {@link java.util.Collection#add})
+     */
+    public boolean add(T element) {
+        if (size == elements.length) {
+            Object[] newArr = new Object[elements.length * 2];
+            for (int i = 0; i < size; i++) {
+                newArr[i] = elements[i];
+            }
+            elements = newArr;
+        }
+        elements[size++] = element;
+        return true;
+    }
+
+    /**
+     * Inserts the specified element at the specified position in this list.
+     * Shifts the element currently at that position (if any) and any subsequent elements to the right.
+     *
+     * @param index   index at which the specified element is to be inserted (0-based)
+     * @param element element to be inserted
+     * @throws IndexOutOfBoundsException if the index is out of range (< 0 or > size)
+     */
+    public void add(int index, T element) {
+        if (index < 0 || index > size) {
+            String custom = String.format("Error: Attempted to insert at index %d with size %d", index, size);
+            String normal = String.format("Index: %d, Size: %d", index, size);
+            throw new IndexOutOfBoundsException(custom + ". " + normal);
+        }
+        if (size == elements.length) {
+            Object[] newArr = new Object[elements.length * 2];
+            for (int i = 0; i < size; i++) newArr[i] = elements[i];
+            elements = newArr;
+        }
+        for (int i = size; i > index; i--) elements[i] = elements[i - 1];
+        elements[index] = element;
+        size++;
+    }
+
+    /**
+     * Removes the element at the specified position in this list. Shifts any subsequent elements to the left.
+     *
+     * @param index the index of the element to be removed (0-based)
+     * @return the element that was removed from the list
+     * @throws IndexOutOfBoundsException if the index is out of range (< 0 or >= size)
+     */
+    @SuppressWarnings("unchecked")
+    public T remove(int index) {
+        if (index < 0 || index >= size) {
+            String custom = String.format("Error: Attempted to remove index %d with size %d", index, size);
+            String normal = String.format("Index: %d, Size: %d", index, size);
+            throw new IndexOutOfBoundsException(custom + ". " + normal);
+        }
+        T removed = (T) elements[index];
+        for (int i = index; i < size - 1; i++) elements[i] = elements[i + 1];
+        elements[--size] = null;
+        return removed;
+    }
+
+    /**
+     * Returns {@code true} if this list contains the specified element.
+     * More formally, returns {@code true} if and only if this list contains
+     * at least one element {@code e} such that
+     * {@code (o==null ? e==null : o.equals(e))}.
+     *
+     * @param o element whose presence in this list is to be tested
+     * @return {@code true} if this list contains the specified element
+     */
+    public boolean contains(Object o) {
+        for (int i = 0; i < size; i++)
+            if (o == null ? elements[i] == null : o.equals(elements[i])) return true;
+        return false;
+    }
+
+    /**
+     * Returns an iterator over the elements in this list in proper sequence.
+     *
+     * @return an iterator over the elements in this list
+     */
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private int cursor = 0;
+            public boolean hasNext() { return cursor < size; }
+            @SuppressWarnings("unchecked")
+            public T next() {
+                if (!hasNext()) throw new NoSuchElementException();
+                return (T) elements[cursor++];
+            }
+            public void remove() { throw new UnsupportedOperationException(); }
+        };
+    }
+
+    /**
+     * Returns a string representation of this list. The string representation
+     * consists of a list of the list's elements in the order they are returned by its iterator,
+     * enclosed in square brackets ("[]").
+     *
+     * @return a string representation of this list
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("[");
+        for (int i = 0; i < size; i++) {
+            sb.append(elements[i]);
+            if (i < size - 1) sb.append(", ");
+        }
+        return sb.append("]").toString();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * ArraySet<T> — a subclass of ArrayListX<T> that enforces set semantics:
+ *  no duplicate elements.  Demonstrates inheritance + polymorphism.
+ */
+class ArraySet<T> extends ArrayListX<T> {
+
+    /**
+     * Override add to prevent duplicates.
+     */
+    @Override
+    public boolean add(T element) {
+        if (!contains(element)) {
+            return super.add(element);
+        }
+        return false;
+    }
+
+    /**
+     * Override add(index, element) likewise.
+     */
+    @Override
+    public void add(int index, T element) {
+        if (!contains(element)) {
+            super.add(index, element);
+        }
+        // else ignore silently
+    }
+
+    /**
+     * Add all elements from another, skipping duplicates.
+     */
+    public boolean addAll(ArrayListX<? extends T> c) {
+        boolean changed = false;
+        for (T e : c) {
+            if (add(e)) {
+                changed = true;
+            }
+        }
+        return changed;
+    }
+
+    /**
+     * Return a new ArraySet that is the union of this and other.
+     */
+    public ArraySet<T> union(ArraySet<T> other) {
+        ArraySet<T> result = new ArraySet<>();
+        // add all from this
+        for (T e : this) result.add(e);
+        // addAll from other (will skip duplicates)
+        result.addAll(other);
+        for (T e : other) {
+            result.add(e);
+        }
+        return result;
+    }
+
+    /**
+     * Return a new ArraySet that is the intersection of this and other.
+     */
+    public ArraySet<T> intersection(ArraySet<T> other) {
+    }
+}
+
