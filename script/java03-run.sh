@@ -31,6 +31,6 @@ fi
 ########## Shell Script (Scripts) ##########
 ############################################
 gradle clean
-gradle build
+# gradle build
 clear
 gradle run
