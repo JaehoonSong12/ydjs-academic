@@ -55,8 +55,9 @@ public class AlgorithmRecur {
 
         // recursive way (divide-and-conquer, recursion)
         // 1. base-case
+        if(n == 0 || n == 1) return 1;
         // 2. recursive-case
-        return 0;
+        return n * factorial(n-1);
     }
 
 
