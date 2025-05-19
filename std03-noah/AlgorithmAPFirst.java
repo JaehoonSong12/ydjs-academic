@@ -32,25 +32,21 @@ public class AlgorithmAPFirst {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
 
+        System.out.println(scoresIncreasing(new int[]{1, 3, 2}));
+
 
         System.out.println("\\* This is not\t a comment *\\");
         int result = 13 - 3 * 6 / 4 % 3;
         System.out.println(result);
 
         double x = 4.53214314;
+        int statX = 6;
         int localX = 4;
         System.out.println(Math.pow(x,0.5));
         System.out.println(Math.sqrt(x));
         System.out.println(Math.pow(x,0.5) - Math.sqrt(x));
         System.out.println(statX);
         System.out.println(localX);
-        checkStatic();
-    }
-    public static void checkStatic() {
-        System.out.println(statX);
-        System.out.println(localX);
-
-        return;
     }
 
 
@@ -88,7 +84,10 @@ public class AlgorithmAPFirst {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        return false;
+        for (int i = 0; i < scores.length - 1; i++) {
+            if(scores[i] > scores[i+1]) return false;
+        }
+        return true;
     }
 
     /**
