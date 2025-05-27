@@ -6,16 +6,34 @@ package anderson.app.lwjgl;
 
 
 
+import java.net.URL;
 
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.stb.STBImage.*;
+import org.lwjgl.system.MemoryStack;
+
 import java.util.*;
+
+
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+import java.io.InputStream;
+import java.nio.channels.Channels;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.io.File;
+
+
 
 public class Game {
     private long window;
     private final int width = 800, height = 600;
+
+    // Texture cache for digits
+    private int[] digitTextures = null;
 
     // world & camera
     private final float worldWidth = width * 3f, worldHeight = height;
@@ -121,8 +139,10 @@ public class Game {
         // input
         if (GLFW.glfwGetKey(window, keyMap.get("LEFT")) == GLFW.GLFW_PRESS) player.moveHoriz(-1);
         if (GLFW.glfwGetKey(window, keyMap.get("RIGHT")) == GLFW.GLFW_PRESS) player.moveHoriz(1);
-        if (GLFW.glfwGetKey(window, keyMap.get("UP")) == GLFW.GLFW_PRESS) player.chargejump();
+        
+        if (GLFW.glfwGetKey(window, keyMap.get("UP")) == GLFW.GLFW_PRESS) player.jCharge();
         if (GLFW.glfwGetKey(window, keyMap.get("UP")) == GLFW.GLFW_RELEASE) player.jump();
+
         if (GLFW.glfwGetKey(window, keyMap.get("DOWN")) == GLFW.GLFW_PRESS) player.fall();
         
 
@@ -185,18 +205,90 @@ public class Game {
             glVertex2f(10 + i*25, height - 25);
             glEnd();
         }
-        // Score indicator
-        glColor3f(1,1,0);
-        for (int i = 0; i < score; i++) {
-            glBegin(GL_QUADS);
-            glVertex2f(width/2 - 10 + i*15, height - 10);
-            glVertex2f(width/2 + 10 + i*15, height - 10);
-            glVertex2f(width/2 + 10 + i*15, height - 25);
-            glVertex2f(width/2 - 10 + i*15, height - 25);
-            glEnd();
+        // Score indicator using digit textures
+        if (digitTextures == null) {
+            digitTextures = new int[10];
+            for (int i = 0; i < 10; i++) {
+                String path = "/anderson/number_" + i + ".png";
+                digitTextures[i] = loadTexture(path);
+            }
         }
+
+        String scoreStr = Integer.toString(score);
+        float sx = width / 2f - (scoreStr.length() * 20) / 2f;
+        float sy = height - 30;
+        float dx = 0;
+
+        glEnable(GL_TEXTURE_2D);
+        for (char c : scoreStr.toCharArray()) {
+            int digit = c - '0';
+            if (digit < 0 || digit > 9) continue;
+            glBindTexture(GL_TEXTURE_2D, digitTextures[digit]);
+            glColor3f(1, 1, 1);
+            glBegin(GL_QUADS);
+            glTexCoord2f(0, 0); glVertex2f(sx + dx, sy);
+            glTexCoord2f(1, 0); glVertex2f(sx + dx + 20, sy);
+            glTexCoord2f(1, 1); glVertex2f(sx + dx + 20, sy + 20);
+            glTexCoord2f(0, 1); glVertex2f(sx + dx, sy + 20);
+            glEnd();
+            dx += 20;
+        }
+        glBindTexture(GL_TEXTURE_2D, 0);
+        glDisable(GL_TEXTURE_2D);
+        // glColor3f(1,1,0);
+        // for (int i = 0; i < score; i++) {
+        //     glBegin(GL_QUADS);
+        //     glVertex2f(width/2 - 10 + i*15, height - 10);
+        //     glVertex2f(width/2 + 10 + i*15, height - 10);
+        //     glVertex2f(width/2 + 10 + i*15, height - 25);
+        //     glVertex2f(width/2 - 10 + i*15, height - 25);
+        //     glEnd();
+        // }
         // Controls under player
         // Could draw small quads below player, omitted for brevity
+    }
+
+
+
+    // Texture loading utility
+    private int loadTexture(String resourcePath) {
+        int textureID;
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            IntBuffer width = stack.mallocInt(1);
+            IntBuffer height = stack.mallocInt(1);
+            IntBuffer channels = stack.mallocInt(1);
+
+            // Load image from resource
+            InputStream in = getClass().getResourceAsStream(resourcePath);
+            if (in == null) throw new RuntimeException("Image not found: " + resourcePath);
+
+            // Copy resource to a temp file
+            File tempFile = File.createTempFile("texture", ".png");
+            tempFile.deleteOnExit();
+            Files.copy(in, tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+            // Flip image vertically on load
+            stbi_set_flip_vertically_on_load(true);
+
+            // Load image data
+            ByteBuffer image = stbi_load(tempFile.getAbsolutePath(), width, height, channels, 4);
+            if (image == null) throw new RuntimeException("Failed to load texture: " + stbi_failure_reason());
+
+            // Generate OpenGL texture
+            textureID = glGenTextures();
+            glBindTexture(GL_TEXTURE_2D, textureID);
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width.get(), height.get(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+
+            // Set texture parameters
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+            stbi_image_free(image);
+        } catch (Exception e) {
+            throw new RuntimeException("Error loading texture: " + resourcePath, e);
+        }
+
+        return textureID;
     }
 
     private void cleanup() {
@@ -233,20 +325,24 @@ class Camera {
 
 // Simple player with gravity and collision
 class Player {
+    private final int width = 800, height = 600;
+    private final float worldWidth = width * 3f, worldHeight = height;
     public float x, y;
     private float vx, vy;
     private final float speed = 200, jumpSpeed = 400, higherJumpAdditionalSpeed = 300, additionalJumpSpeed = 400;
     private boolean onGround;
-    private boolean isHigherJump;
     private int counter;
-    private int additionalJumpinfo = 0;
-    private int allowedJump = 2;
+    private boolean enableAdditionalJump;
     private int numberOfJump;
+    private final int MAX_ADDITIONAL_JUMP = 2;
+    private final int MAX_COUNTER = 300;
 
     // For additional jump oval rendering
     private boolean showAdditionalJumpOval = false;
-    private float jumpOvalTimer = 0f;  // Timer for how long to show the oval
-    private final float jumpOvalDuration = 0.3f; // duration to show oval in seconds
+    private float jumpOvalTimer = 0f;
+    private final float jumpOvalDuration = 0.3f;
+    private float jumpOvalX = 0f, jumpOvalY = 0f;
+    private float jumpOvalAlpha = 0f;
 
     public Player(float x, float y) {
         this.x = x;
@@ -257,41 +353,39 @@ class Player {
         vx = dir * speed;
     }
 
-    public void chargejump() {
-        if (!onGround && numberOfJump < allowedJump) {
-            additionalJumpinfo++;
-        }
-        if (onGround) {
+    public void jCharge() {
+        enableAdditionalJump = (!onGround && numberOfJump < MAX_ADDITIONAL_JUMP);
+
+        if (onGround && counter < MAX_COUNTER) {
             counter = counter + 5;
-            additionalJumpinfo = 0;
         }
         if (counter >= higherJumpAdditionalSpeed) {
-            counter = 300;
-            jump();
+            
+            counter = MAX_COUNTER;
         }
-        if (additionalJumpinfo >= 20) {
+    }
+
+    public void jump() {
+        if (counter > 5 && onGround) {
+            vy = jumpSpeed + counter;
+            counter = 0;
+        }
+        if (enableAdditionalJump && !onGround) {
             vy = additionalJumpSpeed;
-            additionalJumpinfo = 5;
+            this.enableAdditionalJump = false;
             numberOfJump++;
 
             // Show oval only when additional jump occurs
             showAdditionalJumpOval = true;
             jumpOvalTimer = jumpOvalDuration;
-        }
-    }
-
-    public void jump() {
-        if (counter > 5 && onGround) { // normal jump only on ground
-            vy = jumpSpeed + counter;
-            counter = 0;
+            jumpOvalX = x + 10;
+            jumpOvalY = y - 5;
+            jumpOvalAlpha = 0.5f;
         }
     }
 
     public void fall() {
-        if (!onGround) {
-            vy -= speed;
             y = y - 20;
-        }
     }
 
     public void applyGravity(float dt) {
@@ -303,25 +397,41 @@ class Player {
         y += vy * dt;
         onGround = false;
 
+        if (x > worldWidth - 20) x = worldWidth - 20;
+        if (x < 0) x = 0;
+        if (y > worldHeight - 20) y = worldHeight - 20;
+        if (y < 20) y = 20;
         for (Platform p : plats) {
             if (x + 20 > p.x && x < p.x + p.w && y <= p.y + p.h && y >= p.y) {
                 y = p.y + p.h;
                 vy = 0;
                 onGround = true;
-                additionalJumpinfo = 0;
                 numberOfJump = 0;
             }
         }
 
         // Countdown timer for additional jump oval
-        if (showAdditionalJumpOval) {
-            jumpOvalTimer -= dt;
-            if (jumpOvalTimer <= 0) {
+                if (showAdditionalJumpOval) {
+            jumpOvalTimer += dt;
+
+            // Fade in for first 0.2s, then fade out for next 0.8s
+            if (jumpOvalTimer <= 0.2f) {
+                jumpOvalAlpha = jumpOvalTimer / 0.2f; // 0 to 1
+            } else if (jumpOvalTimer <= 1.0f) {
+                jumpOvalAlpha = 1f - (jumpOvalTimer - 0.2f) / 0.8f; // 1 to 0
+            } else {
                 showAdditionalJumpOval = false;
-                jumpOvalTimer = 0;
+                jumpOvalAlpha = 0f;
+                jumpOvalTimer = 0f;
             }
         }
 
+        // System.out.println("Player{x=" + x + 
+        // ", y=" + y + ", vx=" + vx + ", vy=" + vy + 
+        // ", onGround=" + onGround + /* ",  isHigherJump=" + isHigherJump + */ 
+        // ",  counter=" + counter + /* ",   additionalJumpinfo=" + additionalJumpinfo + */
+        // ", numberOfJump=" + numberOfJump +
+        // "}");
         if (y < 20) {
             y = 0;
             onGround = true;
@@ -329,14 +439,6 @@ class Player {
         }
 
         vx = 0;
-        if (y<20) { y=0; onGround=true; vy=0; }
-        System.out.println("Player{x=" + x + 
-        ", y=" + y + ", vx=" + vx + ", vy=" + vy + 
-        ", onGround=" + onGround + 
-        ", counter=" + counter + ", additionalJumpinfo=" + additionalJumpinfo +
-        ", numberOfJump=" + numberOfJump +
-        ", showJumpOval=" + showJumpOval +
-        "}");
     }
 
     public boolean collides(Star s) {
@@ -348,12 +450,12 @@ class Player {
     }
 
     public void renderJumpOval() {
-        if (!showAdditionalJumpOval) return;
+        if (!showAdditionalJumpOval || jumpOvalAlpha <= 0f) return;
 
         glPushMatrix();
-        glTranslatef(x + 10, y - 5, 0); // position oval just under player center
+        glTranslatef(jumpOvalX, jumpOvalY, 0);
 
-        glColor4f(1f, 1f, 1f, 0.5f); // semi-transparent white
+        glColor4f(1f, 1f, 1f, jumpOvalAlpha); // fading opacity
 
         int segments = 40;
         float radiusX = 15f;
