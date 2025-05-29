@@ -80,10 +80,12 @@ javafx {
 
 
 
-val lwjglVersion = "3.3.1"
 // change this depending on your platform:
 // "natives-windows" / "natives-macos" / "natives-linux"
-val lwjglNatives = "natives-windows"
+
+val lwjglVersion = "3.3.2"
+val lwjglNatives = "natives-windows" // use "natives-linux" or "natives-macos" for other OS
+
 
 
 
@@ -102,10 +104,12 @@ dependencies {
 
     // [3] LWJGL  (Lightweight Java Game Library)
     implementation("org.lwjgl:lwjgl:$lwjglVersion")
+    implementation("org.lwjgl:lwjgl-stb:$lwjglVersion")
     implementation("org.lwjgl:lwjgl-glfw:$lwjglVersion")
     implementation("org.lwjgl:lwjgl-opengl:$lwjglVersion")
 
     runtimeOnly("org.lwjgl:lwjgl:$lwjglVersion:$lwjglNatives")
+    runtimeOnly("org.lwjgl:lwjgl-stb::$lwjglNatives")
     runtimeOnly("org.lwjgl:lwjgl-glfw:$lwjglVersion:$lwjglNatives")
     runtimeOnly("org.lwjgl:lwjgl-opengl:$lwjglVersion:$lwjglNatives")
 }
