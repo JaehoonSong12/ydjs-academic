@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 # ----------------------------------------
 TICKERS   = ["AAPL", "MSFT", "GOOG"]   # ← Customize this list
 PERIOD    = "5y"                       # ← How far back to pull data
-INTERVAL  = "1d"                       # ← Daily bars
+INTERVAL  = "1m"                       # ← Daily bars
 TEST_SIZE = 0.80                       # ← 20% of data used for testing
 OUTPUT_DIR = Path("std01-jayden-stockpredict/plots")  # ← Where PNGs will be saved
 
