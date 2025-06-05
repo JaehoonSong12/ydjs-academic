@@ -78,12 +78,17 @@ public class Game {
 
     private void randomizeControls() {
         List<Character> keys = new ArrayList<>(Arrays.asList('W','A','D','S','Q','E'));
-        // Collections.shuffle(keys);
+        Collections.shuffle(keys);
         keyMap = new HashMap<>();
         keyMap.put("UP",    getKeyCode(keys.get(0)));
         keyMap.put("LEFT",  getKeyCode(keys.get(1)));
         keyMap.put("RIGHT", getKeyCode(keys.get(2)));
         keyMap.put("DOWN",  getKeyCode(keys.get(3)));
+        System.out.println("Key Mapping:");
+        System.out.println("UP    = " + keys.get(0));
+        System.out.println("LEFT  = " + keys.get(1));
+        System.out.println("RIGHT = " + keys.get(2));
+        System.out.println("DOWN  = " + keys.get(3));
     }
 
     // Map character to GLFW key code
@@ -327,16 +332,17 @@ class Camera {
 class Player {
     private final int width = 800, height = 600;
     private final float worldWidth = width * 3f, worldHeight = height;
+    private final float speed = 200, jumpSpeed = 400, higherJumpAdditionalSpeed = 300, additionalJumpSpeed = 400;
+    private final int MAX_ADDITIONAL_JUMP = 2;
+    private final int MAX_COUNTER = 300;
+    private final int _COUNTER_INCREMENT = 10;
+
     public float x, y;
     private float vx, vy;
-    private final float speed = 200, jumpSpeed = 400, higherJumpAdditionalSpeed = 300, additionalJumpSpeed = 400;
     private boolean onGround;
     private int counter;
     private boolean enableAdditionalJump;
     private int numberOfJump;
-    private final int MAX_ADDITIONAL_JUMP = 2;
-    private final int MAX_COUNTER = 300;
-
     // For additional jump oval rendering
     private boolean showAdditionalJumpOval = false;
     private float jumpOvalTimer = 0f;
@@ -357,7 +363,7 @@ class Player {
         enableAdditionalJump = (!onGround && numberOfJump < MAX_ADDITIONAL_JUMP);
 
         if (onGround && counter < MAX_COUNTER) {
-            counter = counter + 5;
+            counter = counter + _COUNTER_INCREMENT;
         }
         if (counter >= higherJumpAdditionalSpeed) {
             
@@ -366,7 +372,7 @@ class Player {
     }
 
     public void jump() {
-        if (counter > 5 && onGround) {
+        if (counter > _COUNTER_INCREMENT && onGround) {
             vy = jumpSpeed + counter;
             counter = 0;
         }
@@ -402,11 +408,15 @@ class Player {
         if (y > worldHeight - 20) y = worldHeight - 20;
         if (y < 20) y = 20;
         for (Platform p : plats) {
-            if (x + 20 > p.x && x < p.x + p.w && y <= p.y + p.h && y >= p.y) {
-                y = p.y + p.h;
-                vy = 0;
-                onGround = true;
-                numberOfJump = 0;
+            if (p.x - 20 < x && x < p.x + p.w 
+                && 
+                p.y + p.h - 5 < y && y < p.y + p.h + 5) { // on the platform
+                if(vy < 0) { // only when falling (comming from top)
+                    y = p.y + p.h;
+                    onGround = true;
+                    numberOfJump = 0;
+                    vy = 0;
+                }
             }
         }
 
@@ -432,8 +442,9 @@ class Player {
         // ",  counter=" + counter + /* ",   additionalJumpinfo=" + additionalJumpinfo + */
         // ", numberOfJump=" + numberOfJump +
         // "}");
-        if (y < 20) {
-            y = 0;
+
+        if (y <= 20) {
+            y = 20;
             onGround = true;
             vy = 0;
         }
