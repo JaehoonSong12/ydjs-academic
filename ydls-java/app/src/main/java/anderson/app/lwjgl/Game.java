@@ -84,11 +84,13 @@ public class Game {
         keyMap.put("LEFT",  getKeyCode(keys.get(1)));
         keyMap.put("RIGHT", getKeyCode(keys.get(2)));
         keyMap.put("DOWN",  getKeyCode(keys.get(3)));
+        keyMap.put("CHARATER SKILL",  getKeyCode(keys.get(4)));
         System.out.println("Key Mapping:");
         System.out.println("UP    = " + keys.get(0));
         System.out.println("LEFT  = " + keys.get(1));
         System.out.println("RIGHT = " + keys.get(2));
         System.out.println("DOWN  = " + keys.get(3));
+        System.out.println("CHARATER SKILL  = " + keys.get(4));
     }
 
     // Map character to GLFW key code
@@ -142,8 +144,9 @@ public class Game {
     private void update(float dt) {
         
         // input
-        if (GLFW.glfwGetKey(window, keyMap.get("LEFT")) == GLFW.GLFW_PRESS) player.moveHoriz(-1);
-        if (GLFW.glfwGetKey(window, keyMap.get("RIGHT")) == GLFW.GLFW_PRESS) player.moveHoriz(1);
+        if (GLFW.glfwGetKey(window, keyMap.get("LEFT")) == GLFW.GLFW_PRESS) player.moveHoriz(-1, true);
+        if (GLFW.glfwGetKey(window, keyMap.get("RIGHT")) == GLFW.GLFW_PRESS) player.moveHoriz(1, false);
+        if (GLFW.glfwGetKey(window, keyMap.get("CHARATER SKILL")) == GLFW.GLFW_PRESS) player.dash();
         
         if (GLFW.glfwGetKey(window, keyMap.get("UP")) == GLFW.GLFW_PRESS) player.jCharge();
         if (GLFW.glfwGetKey(window, keyMap.get("UP")) == GLFW.GLFW_RELEASE) player.jump();
@@ -342,6 +345,7 @@ class Player {
     private boolean onGround;
     private int counter;
     private boolean enableAdditionalJump;
+    private boolean dashLeftOrRight = false;
     private int numberOfJump;
     // For additional jump oval rendering
     private boolean showAdditionalJumpOval = false;
@@ -355,8 +359,12 @@ class Player {
         this.y = y;
     }
 
-    public void moveHoriz(int dir) {
+    public void moveHoriz(int dir,boolean leftOrRight ) {
         vx = dir * speed;
+    }
+
+    public void dash(){
+
     }
 
     public void jCharge() {
