@@ -118,20 +118,33 @@ public class DataStructure { // executable file (class)
 
 
 
+        // ArrayList<String> // generics
+
+
+
 
 
         ArrayListX set = new ArraySet();
+        // statical typing (static binding)
+        // statically typed data vs dynamically typed data (polymorphism)
         set.add(2.5);
         System.out.println(set);
         set.add(10.5);
         System.out.println(set);
-        set.add(9.99);
+        set.add(9.99); // (dynamic binding)
         System.out.println(set);
         set.add(9.99);
         System.out.println(set);
 
-        ArrayListX newArr = set.get();
-        System.out.println(newArr);
+        if (set instanceof ArraySet) {
+            System.out.println("you are ArraySet data type! (Dynamically decided)");
+            ArrayListX newArr = ((ArraySet) set).get(); // (down casting)
+            System.out.println(newArr);
+        }
+
+        double d = -4.67;
+        System.out.println((int) d);
+        for (int i = 0; i < 50; i++) System.out.println(Math.random());
     }
 }
 
