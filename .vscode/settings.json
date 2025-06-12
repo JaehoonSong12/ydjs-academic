@@ -1,0 +1,7 @@
+{
+  "liveshare.allowGuestAccessToAllFiles": true,
+  "files.exclude": {
+    "**/build": true
+  }
+}
+
