@@ -70,7 +70,7 @@ The **Java Development Kit (JDK)** provides the essential tools for developing J
 **Purpose:** Runs compiled Java programs (`.class` files).
 
 #### **Usage Example:**
-After compiling, run the program with:
+After compiling, run the program with: 
 ```
 java HelloWorld
 ```
