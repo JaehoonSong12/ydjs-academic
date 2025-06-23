@@ -1,4 +1,3 @@
-
 # Check for Python command (python3 or python)
 if command -v python &>/dev/null; then
     PYTHON_CMD=python
