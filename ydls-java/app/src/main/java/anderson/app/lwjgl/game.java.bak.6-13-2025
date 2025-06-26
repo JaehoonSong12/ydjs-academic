@@ -31,22 +31,12 @@ import java.io.File;
 public class Game {
     private long window;
     private final int width = 800, height = 600;
-    private boolean keyShuffing = false;
 
     // Texture cache for digits
     private int[] digitTextures = null;
 
     // world & camera
-    private final float worldWidth = 2400f, worldHeight = 600f;
-    private final float mapCenterX = worldWidth / 2.0f, mapCenterY = worldHeight / 2.0f;
-    private final float pctWidth = worldWidth*0.8f, pctHeight = worldHeight*0.8f;
-
-    private float[] starRectSpawnArea = {mapCenterX,mapCenterY,2.0f,2.0f}; // {centerX, centerY, }
-    //first 1 is the lowest y, second 1 is the leftmost x, third 1 is the highest y, fourth 1 is the rightmost x
-    // normal starRectSpawnArea = {25,100,550,2300};
-    //or testing is {20,50,20,200};     {mapCenterX,mapCenterY,pctWidth,pctHeight}
-    //or clumped {20,50,20,50};         {mapCenterX,mapCenterY,0,0};
-
+    private final float worldWidth = width * 3f, worldHeight = height;
     private Camera camera;
     private Player player;
     private List<Platform> platforms;
@@ -59,7 +49,7 @@ public class Game {
 
     // controls mapping
     private Map<String, Integer> keyMap;
-    //private final String[] possibleKeys = {"Q","A","W","S","E","D"};
+    private final String[] possibleKeys = {"Q","A","W","S","E","D"};
 
     public void run() {
         init();
@@ -88,19 +78,17 @@ public class Game {
 
     private void randomizeControls() {
         List<Character> keys = new ArrayList<>(Arrays.asList('W','A','D','S','Q','E'));
-        if (keyShuffing){Collections.shuffle(keys);}
+        Collections.shuffle(keys);
         keyMap = new HashMap<>();
         keyMap.put("UP",    getKeyCode(keys.get(0)));
         keyMap.put("LEFT",  getKeyCode(keys.get(1)));
         keyMap.put("RIGHT", getKeyCode(keys.get(2)));
         keyMap.put("DOWN",  getKeyCode(keys.get(3)));
-        keyMap.put("CHARATER SKILL",  getKeyCode(keys.get(4)));
         System.out.println("Key Mapping:");
         System.out.println("UP    = " + keys.get(0));
         System.out.println("LEFT  = " + keys.get(1));
         System.out.println("RIGHT = " + keys.get(2));
         System.out.println("DOWN  = " + keys.get(3));
-        System.out.println("CHARATER SKILL = " + keys.get(4));
     }
 
     // Map character to GLFW key code
@@ -131,13 +119,8 @@ public class Game {
         stars = new ArrayList<>();
         Random rnd = new Random();
         for (int i = 0; i < count; i++) {
-            // Use starRectSpawnArea to define spawn boundaries
-            // 
-            // [0] = lowest y, [1] = leftmost x, [2] = highest y, [3] = rightmost x
-
-            // private int[] starRectSpawnArea = {mapCenterX,mapCenterY,pctWidth,pctHeight}; // {centerX, centerY, }
-            float x = starRectSpawnArea[0] - starRectSpawnArea[2] / 2.0f + rnd.nextFloat() * starRectSpawnArea[2];
-            float y = starRectSpawnArea[1] - starRectSpawnArea[3] / 2.0f + rnd.nextFloat() * starRectSpawnArea[3];
+            float x = 50 + rnd.nextFloat() * (worldWidth - 100);
+            float y = 50 + rnd.nextFloat() * (worldHeight - 200);
             stars.add(new Star(x, y));
         }
     }
@@ -159,9 +142,8 @@ public class Game {
     private void update(float dt) {
         
         // input
-        if (GLFW.glfwGetKey(window, keyMap.get("LEFT")) == GLFW.GLFW_PRESS) player.moveHoriz(-1, false);
-        if (GLFW.glfwGetKey(window, keyMap.get("RIGHT")) == GLFW.GLFW_PRESS) player.moveHoriz(1, true);
-        if (GLFW.glfwGetKey(window, keyMap.get("CHARATER SKILL")) == GLFW.GLFW_PRESS) player.dash();
+        if (GLFW.glfwGetKey(window, keyMap.get("LEFT")) == GLFW.GLFW_PRESS) player.moveHoriz(-1);
+        if (GLFW.glfwGetKey(window, keyMap.get("RIGHT")) == GLFW.GLFW_PRESS) player.moveHoriz(1);
         
         if (GLFW.glfwGetKey(window, keyMap.get("UP")) == GLFW.GLFW_PRESS) player.jCharge();
         if (GLFW.glfwGetKey(window, keyMap.get("UP")) == GLFW.GLFW_RELEASE) player.jump();
@@ -175,7 +157,7 @@ public class Game {
 
         // collect stars
         stars.removeIf(s -> {
-            if (player.collides(s) || player.isStarInDashTriangle(s)) {
+            if (player.collides(s)) {
                 score++;
                 return true;
             }
@@ -242,25 +224,12 @@ public class Game {
         float sy = height - 30;
         float dx = 0;
 
-        // Draw background for score
-        glColor3f(0.5f, 0.8f, 1f);
-        glBegin(GL_QUADS);
-        glVertex2f(sx - 10, sy - 5);
-        glVertex2f(sx + scoreStr.length() * 20 + 10, sy - 5);
-        glVertex2f(sx + scoreStr.length() * 20 + 10, sy + 25);
-        glVertex2f(sx - 10, sy - 5);
-        glEnd();
-
-        // Enable blending for transparency
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_TEXTURE_2D);
-        
         for (char c : scoreStr.toCharArray()) {
             int digit = c - '0';
             if (digit < 0 || digit > 9) continue;
             glBindTexture(GL_TEXTURE_2D, digitTextures[digit]);
-            glColor4f(1, 1, 1, 1); // Use alpha channel
+            glColor3f(1, 1, 1);
             glBegin(GL_QUADS);
             glTexCoord2f(0, 0); glVertex2f(sx + dx, sy);
             glTexCoord2f(1, 0); glVertex2f(sx + dx + 20, sy);
@@ -271,7 +240,6 @@ public class Game {
         }
         glBindTexture(GL_TEXTURE_2D, 0);
         glDisable(GL_TEXTURE_2D);
-        glDisable(GL_BLEND);
         // glColor3f(1,1,0);
         // for (int i = 0; i < score; i++) {
         //     glBegin(GL_QUADS);
@@ -307,15 +275,13 @@ public class Game {
             // Flip image vertically on load
             stbi_set_flip_vertically_on_load(true);
 
-            // Load image data with alpha channel
+            // Load image data
             ByteBuffer image = stbi_load(tempFile.getAbsolutePath(), width, height, channels, 4);
             if (image == null) throw new RuntimeException("Failed to load texture: " + stbi_failure_reason());
 
             // Generate OpenGL texture
             textureID = glGenTextures();
             glBindTexture(GL_TEXTURE_2D, textureID);
-            
-            // Enable alpha channel
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width.get(), height.get(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 
             // Set texture parameters
@@ -370,25 +336,13 @@ class Player {
     private final int MAX_ADDITIONAL_JUMP = 2;
     private final int MAX_COUNTER = 300;
     private final int _COUNTER_INCREMENT = 10;
-    public boolean testing = false;
 
     public float x, y;
     private float vx, vy;
     private boolean onGround;
     private int counter;
     private boolean enableAdditionalJump;
-    private boolean dashLeftOrRight = false;
-    private float dashCooldownTime = 1.0f;
-    private float dashCooldown = dashCooldownTime;
     private int numberOfJump;
-    
-    // Dash effect variables
-    private boolean showDashEffect = false;
-    private float dashEffectTimer = 0f;
-    private final float dashEffectDuration = 0.2f; // Much faster fade out
-    private float dashEffectAlpha = 0f;
-    private float dashStartX = 0f; // Track where dash started
-
     // For additional jump oval rendering
     private boolean showAdditionalJumpOval = false;
     private float jumpOvalTimer = 0f;
@@ -401,36 +355,15 @@ class Player {
         this.y = y;
     }
 
-    public void moveHoriz(int dir,boolean leftOrRight ) {
+    public void moveHoriz(int dir) {
         vx = dir * speed;
-        dashLeftOrRight = leftOrRight;
-    }
-
-    public void dash(){
-        if (dashCooldown <= 0.0f){
-            dashStartX = x; // Record starting position
-            if (dashLeftOrRight == true){
-                x += 200;
-                dashCooldown = dashCooldownTime;
-                dashEffectTimer = dashEffectDuration;
-                dashEffectAlpha = dashCooldownTime;
-                showDashEffect = true;
-            }
-            if (dashLeftOrRight == false){
-                x += -200;
-                dashCooldown = dashCooldownTime;
-                dashEffectTimer = dashEffectDuration;
-                dashEffectAlpha = dashCooldownTime;
-                showDashEffect = true;
-            }
-        } 
     }
 
     public void jCharge() {
         enableAdditionalJump = (!onGround && numberOfJump < MAX_ADDITIONAL_JUMP);
 
         if (onGround && counter < MAX_COUNTER) {
-            counter += _COUNTER_INCREMENT;
+            counter = counter + _COUNTER_INCREMENT;
         }
         if (counter >= higherJumpAdditionalSpeed) {
             
@@ -458,8 +391,7 @@ class Player {
     }
 
     public void fall() {
-            y += - 20;
-            testing = true;
+            y = y - 20;
     }
 
     public void applyGravity(float dt) {
@@ -470,7 +402,6 @@ class Player {
         x += vx * dt;
         y += vy * dt;
         onGround = false;
-        testing = false;
 
         if (x > worldWidth - 20) x = worldWidth - 20;
         if (x < 0) x = 0;
@@ -488,13 +419,6 @@ class Player {
                 }
             }
         }
-        // In Player class or wherever you manage dashCooldown
-        if (dashCooldown > 0.0f) {
-            dashCooldown -= 1.0f * dt;
-             if (dashCooldown < 0.0f){
-                dashCooldown = 0.0f;
-             }
-        }
 
         // Countdown timer for additional jump oval
                 if (showAdditionalJumpOval) {
@@ -511,29 +435,13 @@ class Player {
                 jumpOvalTimer = 0f;
             }
         }
-        
-        // Update dash effect
-        if (showDashEffect) {
-            dashEffectTimer -= dt;
-            if (dashEffectTimer <= 0) {
-                showDashEffect = false;
-                dashEffectTimer = 0;
-                dashEffectAlpha = 0;
-            } else {
-                // Fade out effect
-                dashEffectAlpha = dashEffectTimer / dashEffectDuration;
-            }
-        }
-        
-        if (testing) {
-            System.out.println("Player{x = " + x + 
-            ", y = " + y + ", vx = " + vx + ", vy = " + vy + 
-            ", onGround = " + onGround + ", dashLeftOrRight = " + dashLeftOrRight +
-            ",  counter = " + counter + ", numberOfJump = " + numberOfJump +
-            ", dashCooldown = " + dashCooldown +
-            "}");
-        }
 
+        // System.out.println("Player{x=" + x + 
+        // ", y=" + y + ", vx=" + vx + ", vy=" + vy + 
+        // ", onGround=" + onGround + /* ",  isHigherJump=" + isHigherJump + */ 
+        // ",  counter=" + counter + /* ",   additionalJumpinfo=" + additionalJumpinfo + */
+        // ", numberOfJump=" + numberOfJump +
+        // "}");
 
         if (y <= 20) {
             y = 20;
@@ -550,12 +458,6 @@ class Player {
 
     public boolean collides(Mob m) {
         return x < m.x + m.size && x + 20 > m.x && y < m.y + m.size && y + 20 > m.y;
-    }
-
-    public boolean isStarInDashTriangle(Star s) {// s.x = 10 && x = 50 --> x = -150 && s.x = 10 --> -10 (-150 - 200) = 340 == not within 50
-        if (!showDashEffect) return false; 
-        
-        return Math.abs((dashLeftOrRight ? x - 200 : x + 200) - s.x) <= 201 && Math.abs((y + 10) - s.y) < 15;
     }
 
     public void renderJumpOval() {
@@ -583,40 +485,8 @@ class Player {
         glPopMatrix();
     }
 
-    public void renderDashEffect() {
-        if (!showDashEffect || dashEffectAlpha <= 0f) return;
-
-        glPushMatrix();
-        glTranslatef(x, y, 0); // Position at current player position
-
-        // Use same color as player
-        if (counter == 0) {
-            glColor4f(0, 0, 1, dashEffectAlpha); // Blue when on ground
-        } else {
-            float red = Math.min(1.0f, counter / 300f); // Scale red based on charge
-            glColor4f(red, 0, 1 - red, dashEffectAlpha); // Transition from blue to red
-        }
-
-        glBegin(GL_TRIANGLES);
-        if (dashLeftOrRight) {
-            // Triangle pointing left (base on right side of player)
-            glVertex2f(0, 0); // Base point
-            glVertex2f(0, 20); // Base point
-            glVertex2f(-200, 10); // Point back to start
-        } else {
-            // Triangle pointing right (base on left side of player)
-            glVertex2f(0, 0); // Base point
-            glVertex2f(0, 20); // Base point
-            glVertex2f(200, 10); // Point back to start
-        }
-        glEnd();
-
-        glPopMatrix();
-    }
-
     public void render() {
         renderJumpOval(); // draw oval if needed
-        renderDashEffect(); // draw dash effect if needed
 
         if (counter == 0) {
             glColor3f(0, 0, 1); // Blue when on ground
