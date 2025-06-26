@@ -32,7 +32,7 @@ public class Game {
     private long window;
     private final int width = 800, height = 600;
     private boolean keyShuffing = false;
-    private int[] starPosableSpawmingRange = {25,100,550,2300};
+    private int[] starPosableSpawmingRange = {20,50,20,50};
     //first 1 is the lowest y, second 1 is the leftmost x, third 1 is the highest y, fourth 1 is the rightmost x
     // normal starPosableSpawmingRange = {25,100,550,2300};
     //or testing is {20,50,20,200};
