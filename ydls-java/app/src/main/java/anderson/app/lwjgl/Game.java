@@ -32,17 +32,21 @@ public class Game {
     private long window;
     private final int width = 800, height = 600;
     private boolean keyShuffing = false;
-    private int[] starPosableSpawmingRange = {25,100,550,2300};
-    //first 1 is the lowest y, second 1 is the leftmost x, third 1 is the highest y, fourth 1 is the rightmost x
-    // normal starPosableSpawmingRange = {25,100,550,2300};
-    //or testing is {20,50,20,200};
-    //or clumped {20,50,20,50};
 
     // Texture cache for digits
     private int[] digitTextures = null;
 
     // world & camera
     private final float worldWidth = 2400f, worldHeight = 600f;
+    private final float mapCenterX = worldWidth / 2.0f, mapCenterY = worldHeight / 2.0f;
+    private final float pctWidth = worldWidth*0.8f, pctHeight = worldHeight*0.8f;
+
+    private float[] starRectSpawnArea = {mapCenterX,mapCenterY,2.0f,2.0f}; // {centerX, centerY, }
+    //first 1 is the lowest y, second 1 is the leftmost x, third 1 is the highest y, fourth 1 is the rightmost x
+    // normal starRectSpawnArea = {25,100,550,2300};
+    //or testing is {20,50,20,200};     {mapCenterX,mapCenterY,pctWidth,pctHeight}
+    //or clumped {20,50,20,50};         {mapCenterX,mapCenterY,0,0};
+
     private Camera camera;
     private Player player;
     private List<Platform> platforms;
@@ -127,10 +131,13 @@ public class Game {
         stars = new ArrayList<>();
         Random rnd = new Random();
         for (int i = 0; i < count; i++) {
-            // Use starPosableSpawmingRange to define spawn boundaries
+            // Use starRectSpawnArea to define spawn boundaries
+            // 
             // [0] = lowest y, [1] = leftmost x, [2] = highest y, [3] = rightmost x
-            float x = starPosableSpawmingRange[1] + rnd.nextFloat() * (starPosableSpawmingRange[3] - starPosableSpawmingRange[1]);
-            float y = starPosableSpawmingRange[0] + rnd.nextFloat() * (starPosableSpawmingRange[2] - starPosableSpawmingRange[0]);
+
+            // private int[] starRectSpawnArea = {mapCenterX,mapCenterY,pctWidth,pctHeight}; // {centerX, centerY, }
+            float x = starRectSpawnArea[0] - starRectSpawnArea[2] / 2.0f + rnd.nextFloat() * starRectSpawnArea[2];
+            float y = starRectSpawnArea[1] - starRectSpawnArea[3] / 2.0f + rnd.nextFloat() * starRectSpawnArea[3];
             stars.add(new Star(x, y));
         }
     }
@@ -406,14 +413,14 @@ class Player {
                 x += 200;
                 dashCooldown = dashCooldownTime;
                 dashEffectTimer = dashEffectDuration;
-                dashEffectAlpha = 1.0f;
+                dashEffectAlpha = dashCooldownTime;
                 showDashEffect = true;
             }
             if (dashLeftOrRight == false){
                 x += -200;
                 dashCooldown = dashCooldownTime;
                 dashEffectTimer = dashEffectDuration;
-                dashEffectAlpha = 1.0f;
+                dashEffectAlpha = dashCooldownTime;
                 showDashEffect = true;
             }
         } 
