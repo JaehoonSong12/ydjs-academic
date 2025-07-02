@@ -16,7 +16,7 @@ her_name = input('what is your name')
 print("Hi,", her_name, ", my age is", her_age)
 
 print("Hi,", his_name, ", my age is", his_age)
-
+print ()
 
 
 
