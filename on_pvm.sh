@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 #
-# Python Version Manager Setup Script 
+# Python Version Manager Setup Script
 # 
 # This script installs and configures Python versions via Homebrew, handling
 # macOS version compatibility issues. It automatically detects the appropriate
-# Python version based on your macOS version.
+# Python version based on your macOS version and system architecture.
 #
 # Usage: ./on_pvm.sh [python_version]
 #        ./on_pvm.sh 3.11    # Install specific version
@@ -18,6 +18,12 @@
 # License: MIT
 
 set -euo pipefail
+
+# Source system detection if available
+if [[ -f "./system_detect.sh" ]]; then
+    source "./system_detect.sh"
+    detect_system
+fi
 
 # Colors for output (only if terminal supports it)
 if [[ -t 1 ]]; then
@@ -67,16 +73,22 @@ check_homebrew() {
 
 # Get macOS version information
 get_macos_version() {
-    local macos_version
-    local macos_build
-    
-    # Get macOS version (e.g., "14.7.6")
-    macos_version=$(sw_vers -productVersion)
-    
-    # Get macOS build number (e.g., "23G93")
-    macos_build=$(sw_vers -buildVersion)
-    
-    echo "${macos_version}:${macos_build}"
+    # Use system detection if available
+    if [[ -n "${MACOS_VERSION:-}" ]] && [[ -n "${MACOS_BUILD:-}" ]]; then
+        echo "${MACOS_VERSION}:${MACOS_BUILD}"
+    else
+        # Fallback detection
+        local macos_version
+        local macos_build
+        
+        # Get macOS version (e.g., "14.7.6")
+        macos_version=$(sw_vers -productVersion)
+        
+        # Get macOS build number (e.g., "23G93")
+        macos_build=$(sw_vers -buildVersion)
+        
+        echo "${macos_version}:${macos_build}"
+    fi
 }
 
 # Determine compatible Python version based on macOS
@@ -177,7 +189,26 @@ link_python() {
 configure_shell() {
     local python_version="$1"
     local rc_file
-    local export_line="export PATH=\"/opt/homebrew/opt/python@${python_version}/bin:/opt/homebrew/bin:\$PATH\""
+    local homebrew_prefix
+    local export_line
+    
+    # Use system detection if available, otherwise fallback
+    if [[ -n "${HOMEBREW_PREFIX:-}" ]]; then
+        homebrew_prefix="${HOMEBREW_PREFIX}"
+        log_info "Using detected Homebrew prefix: ${homebrew_prefix}"
+    else
+        # Fallback detection
+        if [[ -d "/opt/homebrew" ]]; then
+            homebrew_prefix="/opt/homebrew"
+        elif [[ -d "/usr/local" ]]; then
+            homebrew_prefix="/usr/local"
+        else
+            error_exit "Homebrew installation not found in expected locations"
+        fi
+        log_info "Using fallback Homebrew prefix: ${homebrew_prefix}"
+    fi
+    
+    export_line="export PATH=\"${homebrew_prefix}/opt/python@${python_version}/bin:${homebrew_prefix}/bin:\$PATH\""
     local backup_file
     
     # Detect shell and RC file
@@ -235,8 +266,25 @@ configure_shell() {
 verify_installation() {
     local python_version="$1"
     local rc_file
+    local homebrew_prefix
     
     log_info "Verifying Python ${python_version} installation..."
+    
+    # Use system detection if available, otherwise fallback
+    if [[ -n "${HOMEBREW_PREFIX:-}" ]]; then
+        homebrew_prefix="${HOMEBREW_PREFIX}"
+        log_info "Using detected Homebrew prefix: ${homebrew_prefix}"
+    else
+        # Fallback detection
+        if [[ -d "/opt/homebrew" ]]; then
+            homebrew_prefix="/opt/homebrew"
+        elif [[ -d "/usr/local" ]]; then
+            homebrew_prefix="/usr/local"
+        else
+            error_exit "Homebrew installation not found in expected locations"
+        fi
+        log_info "Using fallback Homebrew prefix: ${homebrew_prefix}"
+    fi
     
     # Detect RC file for sourcing
     local current_shell
@@ -264,24 +312,44 @@ verify_installation() {
         source "${rc_file}"
     fi
     
-    # Check if python3 is available
-    if ! command -v python3 >/dev/null 2>&1; then
-        error_exit "python3 command not found. Please restart your terminal or run: source ${rc_file}"
+    # Check if Homebrew Python is available
+    local homebrew_python="${homebrew_prefix}/opt/python@${python_version}/bin/python3"
+    if [[ -f "${homebrew_python}" ]]; then
+        log_info "Homebrew Python found at: ${homebrew_python}"
+        
+        # Check version of Homebrew Python
+        local installed_version
+        installed_version=$("${homebrew_python}" --version 2>&1 | cut -d' ' -f2 | cut -d. -f1,2)
+        
+        if [[ "${installed_version}" == "${python_version}" ]]; then
+            log_success "Python ${python_version} is installed correctly"
+            "${homebrew_python}" --version
+        else
+            log_warning "Expected Python ${python_version}, but found ${installed_version}"
+            "${homebrew_python}" --version
+        fi
+    else
+        log_error "Homebrew Python not found at: ${homebrew_python}"
     fi
     
-    # Check Python version
-    local installed_version
-    installed_version=$(python3 --version 2>&1 | cut -d' ' -f2 | cut -d. -f1,2)
-    
-    if [[ "${installed_version}" == "${python_version}" ]]; then
-        log_success "Python ${python_version} is installed and accessible"
-        python3 --version
-        log_info "Python location: $(which python3)"
-        return 0
+    # Check which python3 is being used
+    if command -v python3 >/dev/null 2>&1; then
+        local current_python
+        current_python=$(which python3)
+        log_info "Current python3 location: ${current_python}"
+        
+        if [[ "${current_python}" == "${homebrew_python}" ]]; then
+            log_success "Python ${python_version} is correctly linked"
+            python3 --version
+            return 0
+        else
+            log_warning "System Python is still being used instead of Homebrew Python"
+            log_info "You may need to restart your terminal or run: source ${rc_file}"
+            log_info "Expected: ${homebrew_python}"
+            log_info "Found: ${current_python}"
+        fi
     else
-        log_warning "Expected Python ${python_version}, but found ${installed_version}"
-        log_info "Python location: $(which python3)"
-        python3 --version
+        error_exit "python3 command not found. Please restart your terminal or run: source ${rc_file}"
     fi
 }
 
@@ -324,6 +392,8 @@ main() {
     macos_version=$(echo "${macos_info}" | cut -d: -f1)
     macos_build=$(echo "${macos_info}" | cut -d: -f2)
     log_info "Detected macOS version: ${macos_version} (build ${macos_build})"
+    log_info "System architecture: ${SYSTEM_ARCH:-unknown}"
+    log_info "Apple Silicon: ${IS_APPLE_SILICON:-unknown}"
     
     # Determine Python version
     if [[ -z "${target_version}" ]]; then

@@ -3,7 +3,7 @@
 # Homebrew Installation and Setup Script
 # 
 # This script installs Homebrew on macOS and configures the shell environment
-# to include Homebrew in the PATH. It supports both bash and zsh shells.
+# to include Homebrew in the PATH. It supports both Apple Silicon and Intel Macs.
 #
 # Usage: ./on_brew.sh
 #
@@ -15,6 +15,12 @@
 # License: MIT
 
 set -euo pipefail
+
+# Source system detection if available
+if [[ -f "./system_detect.sh" ]]; then
+    source "./system_detect.sh"
+    detect_system
+fi
 
 # Colors for output (only if terminal supports it)
 if [[ -t 1 ]]; then
@@ -116,10 +122,31 @@ install_homebrew() {
 # Configure shell RC file
 configure_shell() {
     local rc_file="$1"
-    local export_line='export PATH="/opt/homebrew/bin:$PATH"'
+    local homebrew_prefix
+    local export_line
     local backup_file="${rc_file}.backup.$(date +%Y%m%d_%H%M%S)"
     
+    # Use system detection if available, otherwise fallback
+    if [[ -n "${HOMEBREW_PREFIX:-}" ]]; then
+        homebrew_prefix="${HOMEBREW_PREFIX}"
+        log_info "Using detected Homebrew prefix: ${homebrew_prefix}"
+    else
+        # Fallback detection
+        if [[ -d "/opt/homebrew" ]]; then
+            homebrew_prefix="/opt/homebrew"
+        elif [[ -d "/usr/local" ]]; then
+            homebrew_prefix="/usr/local"
+        else
+            error_exit "Homebrew installation not found in expected locations"
+        fi
+        log_info "Using fallback Homebrew prefix: ${homebrew_prefix}"
+    fi
+    
+    export_line="export PATH=\"${homebrew_prefix}/bin:\$PATH\""
+    
     log_info "Configuring shell RC file: ${rc_file}"
+    log_info "System architecture: ${SYSTEM_ARCH:-unknown}"
+    log_info "Apple Silicon: ${IS_APPLE_SILICON:-unknown}"
     
     # Create RC file if it doesn't exist
     if [[ ! -f "${rc_file}" ]]; then
@@ -128,7 +155,7 @@ configure_shell() {
     fi
     
     # Check if Homebrew PATH is already configured
-    if grep -Fxq "${export_line}" "${rc_file}" 2>/dev/null; then
+    if grep -Fq "${homebrew_prefix}/bin" "${rc_file}" 2>/dev/null; then
         log_info "Homebrew PATH already configured in ${rc_file}"
         return 0
     fi
@@ -141,6 +168,7 @@ configure_shell() {
     {
         echo ""
         echo "# Homebrew configuration - added by on_brew.sh on $(date '+%Y-%m-%d %H:%M:%S')"
+        echo "# System: ${SYSTEM_ARCH:-unknown} (Apple Silicon: ${IS_APPLE_SILICON:-unknown})"
         echo "${export_line}"
         echo ""
     } >> "${rc_file}"
