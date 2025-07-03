@@ -190,7 +190,6 @@ configure_shell() {
     local python_version="$1"
     local rc_file
     local homebrew_prefix
-    local python_prefix
     local export_line
     
     # Get Homebrew prefix using brew command
@@ -215,20 +214,8 @@ configure_shell() {
         fi
     fi
     
-    # Get Python prefix using brew command
-    if command -v brew >/dev/null 2>&1; then
-        python_prefix=$(brew --prefix "python@${python_version}")
-        if [[ -n "${python_prefix}" ]]; then
-            log_info "Using brew --prefix python@${python_version}: ${python_prefix}"
-        else
-            log_warning "Could not get prefix for python@${python_version}, using fallback"
-            python_prefix="${homebrew_prefix}/opt/python@${python_version}"
-        fi
-    else
-        python_prefix="${homebrew_prefix}/opt/python@${python_version}"
-    fi
-    
-    export_line="export PATH=\"${python_prefix}/bin:${homebrew_prefix}/bin:\$PATH\""
+    # For Python, we want the Homebrew bin directory first so python3 points to the right version
+    export_line="export PATH=\"${homebrew_prefix}/bin:\$PATH\""
     local backup_file
     
     # Detect shell and RC file
@@ -260,9 +247,9 @@ configure_shell() {
         touch "${rc_file}"
     fi
     
-    # Check if Python PATH is already configured
-    if grep -Fq "${python_prefix}/bin" "${rc_file}" 2>/dev/null; then
-        log_info "Python ${python_version} PATH already configured in ${rc_file}"
+    # Check if Homebrew PATH is already configured
+    if grep -Fq "${homebrew_prefix}/bin" "${rc_file}" 2>/dev/null; then
+        log_info "Homebrew PATH already configured in ${rc_file}"
         return 0
     fi
     
@@ -275,13 +262,12 @@ configure_shell() {
     {
         echo ""
         echo "# Python ${python_version} configuration - added by on_pvm.sh on $(date '+%Y-%m-%d %H:%M:%S')"
-        echo "# Python prefix: ${python_prefix}"
         echo "# Homebrew prefix: ${homebrew_prefix}"
         echo "${export_line}"
         echo ""
     } >> "${rc_file}"
     
-    log_success "Python ${python_version} PATH added to ${rc_file}"
+    log_success "Homebrew PATH added to ${rc_file}"
 }
 
 # Verify Python installation
@@ -289,7 +275,6 @@ verify_installation() {
     local python_version="$1"
     local rc_file
     local homebrew_prefix
-    local python_prefix
     
     log_info "Verifying Python ${python_version} installation..."
     
@@ -313,19 +298,6 @@ verify_installation() {
             fi
             log_info "Using fallback Homebrew prefix: ${homebrew_prefix}"
         fi
-    fi
-    
-    # Get Python prefix using brew command
-    if command -v brew >/dev/null 2>&1; then
-        python_prefix=$(brew --prefix "python@${python_version}")
-        if [[ -n "${python_prefix}" ]]; then
-            log_info "Using brew --prefix python@${python_version}: ${python_prefix}"
-        else
-            log_warning "Could not get prefix for python@${python_version}, using fallback"
-            python_prefix="${homebrew_prefix}/opt/python@${python_version}"
-        fi
-    else
-        python_prefix="${homebrew_prefix}/opt/python@${python_version}"
     fi
     
     # Detect RC file for sourcing
@@ -355,7 +327,7 @@ verify_installation() {
     fi
     
     # Check if Homebrew Python is available
-    local homebrew_python="${python_prefix}/bin/python3"
+    local homebrew_python="${homebrew_prefix}/bin/python3"
     if [[ -f "${homebrew_python}" ]]; then
         log_info "Homebrew Python found at: ${homebrew_python}"
         
@@ -389,6 +361,7 @@ verify_installation() {
             log_info "You may need to restart your terminal or run: source ${rc_file}"
             log_info "Expected: ${homebrew_python}"
             log_info "Found: ${current_python}"
+            log_info "This is normal if you haven't sourced the RC file yet"
         fi
     else
         error_exit "python3 command not found. Please restart your terminal or run: source ${rc_file}"
