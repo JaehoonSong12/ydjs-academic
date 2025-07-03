@@ -83,19 +83,19 @@ get_macos_version() {
 get_compatible_python_version() {
     local macos_info
     local macos_version
+    local macos_build
     local major_version
     local minor_version
     local patch_version
     
     macos_info=$(get_macos_version)
     macos_version=$(echo "${macos_info}" | cut -d: -f1)
+    macos_build=$(echo "${macos_info}" | cut -d: -f2)
     
     # Parse version components
     major_version=$(echo "${macos_version}" | cut -d. -f1)
     minor_version=$(echo "${macos_version}" | cut -d. -f2)
     patch_version=$(echo "${macos_version}" | cut -d. -f3)
-    
-    log_info "Detected macOS version: ${macos_version}"
     
     # Python version compatibility matrix
     # Python 3.13+ requires macOS 14.7.6+ (build 23G93+)
@@ -106,11 +106,15 @@ get_compatible_python_version() {
     
     if [[ "${major_version}" -eq 14 ]]; then
         if [[ "${minor_version}" -eq 7 ]] && [[ "${patch_version}" -ge 6 ]]; then
-            # macOS 14.7.6+ can use Python 3.12+
-            echo "3.12"
+            # Check if build number is 23G93 or higher for Python 3.12+
+            if [[ "${macos_build}" == "23G93" ]] || [[ "${macos_build}" > "23G93" ]]; then
+                echo "3.12"
+            else
+                # macOS 14.7.6 but older build - use Python 3.11
+                echo "3.11"
+            fi
         else
             # macOS 14.x (but < 14.7.6) - use Python 3.11
-            log_warning "macOS ${macos_version} detected. Python 3.12+ requires macOS 14.7.6+. Using Python 3.11."
             echo "3.11"
         fi
     elif [[ "${major_version}" -ge 10 ]] && [[ "${minor_version}" -ge 15 ]]; then
@@ -312,9 +316,28 @@ main() {
     # Check prerequisites
     check_homebrew
     
+    # Get macOS version info for logging
+    local macos_info
+    local macos_version
+    local macos_build
+    macos_info=$(get_macos_version)
+    macos_version=$(echo "${macos_info}" | cut -d: -f1)
+    macos_build=$(echo "${macos_info}" | cut -d: -f2)
+    log_info "Detected macOS version: ${macos_version} (build ${macos_build})"
+    
     # Determine Python version
     if [[ -z "${target_version}" ]]; then
         target_version=$(get_compatible_python_version)
+        
+        # Log the decision based on build number
+        if [[ "${macos_version}" == "14.7.6" ]]; then
+            if [[ "${macos_build}" == "23G93" ]] || [[ "${macos_build}" > "23G93" ]]; then
+                log_info "macOS ${macos_version} (build ${macos_build}) supports Python 3.12+"
+            else
+                log_warning "macOS ${macos_version} (build ${macos_build}) detected. Python 3.12+ requires build 23G93+. Using Python 3.11."
+            fi
+        fi
+        
         log_info "Auto-detected compatible Python version: ${target_version}"
     else
         log_info "Using requested Python version: ${target_version}"
