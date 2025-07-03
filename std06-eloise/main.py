@@ -1,21 +1,59 @@
+import turtle # getting someone else's code
+
+import platform
+platform.mac_ver = lambda: ('14.7.6', ('', '', ''), '')
 
 
-her_name = "Eloise"
-her_age = 11
+screen = turtle.Screen()
+screen.setup(width=600, height=600)  # Set window size
+screen.bgcolor("lightgreen") # Set background color
+screen.title("My Turtle Program")
 
-his_name = "Jaehoon"
-his_age = 17 + her_age
+pen = turtle.Turtle()
+pen.color("blue")
+pen.pensize(3)
+pen.speed(2) # Set drawing speed (0 is fastest, 10 is slowest)
 
-print('s')
-print('''s''')
-print("s")
-print("""s""")
+pen.forward(100)
+pen.left(90)
+pen.forward(50)
+pen.right(180)
+pen.forward(100)
+pen.hideturtle() # Make the turtle invisible
 
-her_name = input('what is your name')
+screen.mainloop()
 
-print("Hi,", her_name, ", my age is", her_age)
 
-print("Hi,", his_name, ", my age is", his_age)
+
+
+
+
+
+
+
+# her_name = "Eloise"
+# her_age = 11
+
+# his_name = "Jaehoon"
+# his_age = 17 + her_age
+
+# print('s')
+# print('''s''')
+# print("s")
+# print("""s""")
+
+# her_name = input('what is your name')
+
+# print("Hi,", her_name, ", my age is", her_age)
+
+# print("Hi,", his_name, ", my age is", his_age)
+
+
+
+
+
+
+
 
 
 
