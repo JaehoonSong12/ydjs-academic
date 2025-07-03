@@ -190,25 +190,45 @@ configure_shell() {
     local python_version="$1"
     local rc_file
     local homebrew_prefix
+    local python_prefix
     local export_line
     
-    # Use system detection if available, otherwise fallback
-    if [[ -n "${HOMEBREW_PREFIX:-}" ]]; then
-        homebrew_prefix="${HOMEBREW_PREFIX}"
-        log_info "Using detected Homebrew prefix: ${homebrew_prefix}"
+    # Get Homebrew prefix using brew command
+    if command -v brew >/dev/null 2>&1; then
+        homebrew_prefix=$(brew --prefix)
+        log_info "Using brew --prefix: ${homebrew_prefix}"
     else
-        # Fallback detection
-        if [[ -d "/opt/homebrew" ]]; then
-            homebrew_prefix="/opt/homebrew"
-        elif [[ -d "/usr/local" ]]; then
-            homebrew_prefix="/usr/local"
+        # Use system detection if available, otherwise fallback
+        if [[ -n "${HOMEBREW_PREFIX:-}" ]]; then
+            homebrew_prefix="${HOMEBREW_PREFIX}"
+            log_info "Using detected Homebrew prefix: ${homebrew_prefix}"
         else
-            error_exit "Homebrew installation not found in expected locations"
+            # Fallback detection
+            if [[ -d "/opt/homebrew" ]]; then
+                homebrew_prefix="/opt/homebrew"
+            elif [[ -d "/usr/local" ]]; then
+                homebrew_prefix="/usr/local"
+            else
+                error_exit "Homebrew installation not found in expected locations"
+            fi
+            log_info "Using fallback Homebrew prefix: ${homebrew_prefix}"
         fi
-        log_info "Using fallback Homebrew prefix: ${homebrew_prefix}"
     fi
     
-    export_line="export PATH=\"${homebrew_prefix}/opt/python@${python_version}/bin:${homebrew_prefix}/bin:\$PATH\""
+    # Get Python prefix using brew command
+    if command -v brew >/dev/null 2>&1; then
+        python_prefix=$(brew --prefix "python@${python_version}")
+        if [[ -n "${python_prefix}" ]]; then
+            log_info "Using brew --prefix python@${python_version}: ${python_prefix}"
+        else
+            log_warning "Could not get prefix for python@${python_version}, using fallback"
+            python_prefix="${homebrew_prefix}/opt/python@${python_version}"
+        fi
+    else
+        python_prefix="${homebrew_prefix}/opt/python@${python_version}"
+    fi
+    
+    export_line="export PATH=\"${python_prefix}/bin:${homebrew_prefix}/bin:\$PATH\""
     local backup_file
     
     # Detect shell and RC file
@@ -241,7 +261,7 @@ configure_shell() {
     fi
     
     # Check if Python PATH is already configured
-    if grep -Fq "python@${python_version}/bin" "${rc_file}" 2>/dev/null; then
+    if grep -Fq "${python_prefix}/bin" "${rc_file}" 2>/dev/null; then
         log_info "Python ${python_version} PATH already configured in ${rc_file}"
         return 0
     fi
@@ -255,6 +275,8 @@ configure_shell() {
     {
         echo ""
         echo "# Python ${python_version} configuration - added by on_pvm.sh on $(date '+%Y-%m-%d %H:%M:%S')"
+        echo "# Python prefix: ${python_prefix}"
+        echo "# Homebrew prefix: ${homebrew_prefix}"
         echo "${export_line}"
         echo ""
     } >> "${rc_file}"
@@ -267,23 +289,43 @@ verify_installation() {
     local python_version="$1"
     local rc_file
     local homebrew_prefix
+    local python_prefix
     
     log_info "Verifying Python ${python_version} installation..."
     
-    # Use system detection if available, otherwise fallback
-    if [[ -n "${HOMEBREW_PREFIX:-}" ]]; then
-        homebrew_prefix="${HOMEBREW_PREFIX}"
-        log_info "Using detected Homebrew prefix: ${homebrew_prefix}"
+    # Get Homebrew prefix using brew command
+    if command -v brew >/dev/null 2>&1; then
+        homebrew_prefix=$(brew --prefix)
+        log_info "Using brew --prefix: ${homebrew_prefix}"
     else
-        # Fallback detection
-        if [[ -d "/opt/homebrew" ]]; then
-            homebrew_prefix="/opt/homebrew"
-        elif [[ -d "/usr/local" ]]; then
-            homebrew_prefix="/usr/local"
+        # Use system detection if available, otherwise fallback
+        if [[ -n "${HOMEBREW_PREFIX:-}" ]]; then
+            homebrew_prefix="${HOMEBREW_PREFIX}"
+            log_info "Using detected Homebrew prefix: ${homebrew_prefix}"
         else
-            error_exit "Homebrew installation not found in expected locations"
+            # Fallback detection
+            if [[ -d "/opt/homebrew" ]]; then
+                homebrew_prefix="/opt/homebrew"
+            elif [[ -d "/usr/local" ]]; then
+                homebrew_prefix="/usr/local"
+            else
+                error_exit "Homebrew installation not found in expected locations"
+            fi
+            log_info "Using fallback Homebrew prefix: ${homebrew_prefix}"
         fi
-        log_info "Using fallback Homebrew prefix: ${homebrew_prefix}"
+    fi
+    
+    # Get Python prefix using brew command
+    if command -v brew >/dev/null 2>&1; then
+        python_prefix=$(brew --prefix "python@${python_version}")
+        if [[ -n "${python_prefix}" ]]; then
+            log_info "Using brew --prefix python@${python_version}: ${python_prefix}"
+        else
+            log_warning "Could not get prefix for python@${python_version}, using fallback"
+            python_prefix="${homebrew_prefix}/opt/python@${python_version}"
+        fi
+    else
+        python_prefix="${homebrew_prefix}/opt/python@${python_version}"
     fi
     
     # Detect RC file for sourcing
@@ -313,7 +355,7 @@ verify_installation() {
     fi
     
     # Check if Homebrew Python is available
-    local homebrew_python="${homebrew_prefix}/opt/python@${python_version}/bin/python3"
+    local homebrew_python="${python_prefix}/bin/python3"
     if [[ -f "${homebrew_python}" ]]; then
         log_info "Homebrew Python found at: ${homebrew_python}"
         
