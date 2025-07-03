@@ -1,110 +1,195 @@
 #!/usr/bin/env bash
+#
+# Homebrew Installation and Setup Script
+# 
+# This script installs Homebrew on macOS and configures the shell environment
+# to include Homebrew in the PATH. It supports both bash and zsh shells.
+#
+# Usage: ./on_brew.sh
+#
+# Exit codes:
+#   0 - Success
+#   1 - Error (with descriptive message)
+#
+# Author: Generated script
+# License: MIT
+
 set -euo pipefail
 
-echo
-echo "Checking environment for Homebrew setup in ${PWD}"
-echo "----------------------------------------------"
-
-# 1. Ensure we’re on macOS
-if [[ "$(uname)" != "Darwin" ]]; then
-  echo "This script is for macOS only. Exiting."
-  exit 1
-fi
-
-# 2. Install Homebrew if missing
-if ! command -v brew >/dev/null 2>&1; then
-  echo "Homebrew not found. Installing..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# Colors for output (only if terminal supports it)
+if [[ -t 1 ]]; then
+    readonly RED='\033[0;31m'
+    readonly GREEN='\033[0;32m'
+    readonly YELLOW='\033[1;33m'
+    readonly BLUE='\033[0;34m'
+    readonly NC='\033[0m' # No Color
 else
-  echo "Homebrew is already installed."
+    readonly RED=''
+    readonly GREEN=''
+    readonly YELLOW=''
+    readonly BLUE=''
+    readonly NC=''
 fi
 
-# 3. Determine your shell and RC file
-SHELL_NAME="$(basename "${SHELL}")"
-if [[ "${SHELL_NAME}" == "zsh" ]]; then
-  RC_FILE="${HOME}/.zshrc"
-  SHELL_NAME="zsh"
-else
-  RC_FILE="${HOME}/.bash_profile"
-  SHELL_NAME="bash"
-fi
+# Logging functions
+log_info() {
+    echo -e "${BLUE}[INFO]${NC} $*"
+}
 
-echo
-echo "Detected shell: ${SHELL_NAME}"
-echo "Using RC file: ${RC_FILE}"
+log_success() {
+    echo -e "${GREEN}[SUCCESS]${NC} $*"
+}
 
-# 4. Create RC file if missing
-if [[ ! -f "${RC_FILE}" ]]; then
-  echo "${RC_FILE} not found. Creating it now."
-  touch "${RC_FILE}"
-else
-  echo "${RC_FILE} already exists."
-fi
+log_warning() {
+    echo -e "${YELLOW}[WARNING]${NC} $*"
+}
 
-# 5. Append Homebrew PATH if not already present
-EXPORT_LINE='export PATH="/opt/homebrew/bin:$PATH"'
-if grep -Fxq "${EXPORT_LINE}" "${RC_FILE}"; then
-  echo "PATH export already present in ${RC_FILE}."
-else
-  echo "Appending Homebrew path to ${RC_FILE}."
-  {
-    echo ""
-    echo "# Added by setup-homebrew.sh on $(date '+%Y-%m-%d')"
-    echo "${EXPORT_LINE}"
-  } >> "${RC_FILE}"
-fi
+log_error() {
+    echo -e "${RED}[ERROR]${NC} $*" >&2
+}
 
-# 6. Source RC file so brew becomes immediately available
-echo
-echo "Sourcing ${RC_FILE}..."
-# shellcheck source=/dev/null
-source "${RC_FILE}"
+# Error handling
+error_exit() {
+    log_error "$1"
+    exit 1
+}
 
-# 7. Verify installation
-echo
-echo "Final check:"
-if brew --version >/dev/null 2>&1; then
-  echo "Homebrew is installed and reachable:"
-  brew --version
-else
-  echo "Error: brew command still not found."
-  exit 1
-fi
+# Check if running on macOS
+check_os() {
+    if [[ "$(uname)" != "Darwin" ]]; then
+        error_exit "This script is designed for macOS only. Detected OS: $(uname)"
+    fi
+    log_info "Operating system check passed"
+}
 
-echo "----------------------------------------------"
-echo "Setup complete!"
+# Detect shell and determine RC file
+detect_shell() {
+    local current_shell
+    local rc_file
+    
+    # Get the current shell name
+    current_shell=$(basename "${SHELL:-$(ps -p $$ -o comm=)}")
+    
+    case "${current_shell}" in
+        zsh)
+            rc_file="${HOME}/.zshrc"
+            ;;
+        bash)
+            # Check for .bash_profile first, then .bashrc
+            if [[ -f "${HOME}/.bash_profile" ]]; then
+                rc_file="${HOME}/.bash_profile"
+            else
+                rc_file="${HOME}/.bashrc"
+            fi
+            ;;
+        *)
+            log_warning "Unsupported shell detected: ${current_shell}. Defaulting to .bash_profile"
+            rc_file="${HOME}/.bash_profile"
+            ;;
+    esac
+    
+    echo "${rc_file}"
+}
 
+# Install Homebrew if not present
+install_homebrew() {
+    if command -v brew >/dev/null 2>&1; then
+        log_info "Homebrew is already installed"
+        return 0
+    fi
+    
+    log_info "Homebrew not found. Installing..."
+    
+    # Check if we can download the installer
+    if ! command -v curl >/dev/null 2>&1; then
+        error_exit "curl is required but not installed. Please install curl first."
+    fi
+    
+    # Install Homebrew
+    if /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; then
+        log_success "Homebrew installation completed"
+    else
+        error_exit "Homebrew installation failed"
+    fi
+}
 
+# Configure shell RC file
+configure_shell() {
+    local rc_file="$1"
+    local export_line='export PATH="/opt/homebrew/bin:$PATH"'
+    local backup_file="${rc_file}.backup.$(date +%Y%m%d_%H%M%S)"
+    
+    log_info "Configuring shell RC file: ${rc_file}"
+    
+    # Create RC file if it doesn't exist
+    if [[ ! -f "${rc_file}" ]]; then
+        log_info "Creating ${rc_file}"
+        touch "${rc_file}"
+    fi
+    
+    # Check if Homebrew PATH is already configured
+    if grep -Fxq "${export_line}" "${rc_file}" 2>/dev/null; then
+        log_info "Homebrew PATH already configured in ${rc_file}"
+        return 0
+    fi
+    
+    # Create backup
+    cp "${rc_file}" "${backup_file}"
+    log_info "Created backup: ${backup_file}"
+    
+    # Add Homebrew configuration
+    {
+        echo ""
+        echo "# Homebrew configuration - added by on_brew.sh on $(date '+%Y-%m-%d %H:%M:%S')"
+        echo "${export_line}"
+        echo ""
+    } >> "${rc_file}"
+    
+    log_success "Homebrew PATH added to ${rc_file}"
+}
 
+# Verify Homebrew installation
+verify_installation() {
+    log_info "Verifying Homebrew installation..."
+    
+    # Source the RC file to get updated PATH
+    local rc_file="$1"
+    if [[ -f "${rc_file}" ]]; then
+        # shellcheck source=/dev/null
+        source "${rc_file}"
+    fi
+    
+    if command -v brew >/dev/null 2>&1; then
+        log_success "Homebrew is installed and accessible"
+        brew --version
+        return 0
+    else
+        error_exit "Homebrew installation verification failed. Please restart your terminal or run: source ${rc_file}"
+    fi
+}
 
+# Main function
+main() {
+    echo
+    log_info "Homebrew Setup Script"
+    log_info "Working directory: ${PWD}"
+    echo "----------------------------------------------"
+    
+    # Run setup steps
+    check_os
+    install_homebrew
+    
+    local rc_file
+    rc_file=$(detect_shell)
+    log_info "Using RC file: ${rc_file}"
+    
+    configure_shell "${rc_file}"
+    verify_installation "${rc_file}"
+    
+    echo "----------------------------------------------"
+    log_success "Setup complete!"
+    log_info "You may need to restart your terminal or run: source ${rc_file}"
+}
 
-
-
-################ PYTHON SETUP
-# 1. Install the correct formula name
-brew install python@3.11
-
-# 2. Unlink any other brew‑installed Pythons (ignore errors if none)
-brew unlink python@3.9 2>/dev/null || true
-brew unlink python@3.10 2>/dev/null || true
-brew unlink python@3.11       # undo any existing link
-brew unlink python@3.12 2>/dev/null || true
-brew unlink python@3.13 2>/dev/null || true
-
-# 3. Link 3.11 into /opt/homebrew/bin
-brew link --force --overwrite python@3.11
-
-ls -l /opt/homebrew/bin/python3
-export PATH="/opt/homebrew/opt/python@3.11/bin:/opt/homebrew/bin:$PATH" # Ensure Homebrew’s Python comes first
-source ~/.zshrc
-
-
-
-# 4. Verify
-which python3
-python3 --version
-
-# or download from https://www.python.org/downloads/macos/
-# python3.12 -m venv newenv
-# source newenv/bin/activate
-# python main.py
+# Run main function
+main "$@"
