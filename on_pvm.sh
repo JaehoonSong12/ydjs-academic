@@ -199,6 +199,8 @@ link_python() {
             log_success "python3 symlink created"
         else
             log_warning "Could not find python3.${python_version} to create symlink"
+            log_info "Available Python binaries:"
+            ls -la "${homebrew_prefix}/bin/" | grep python || log_warning "No Python binaries found"
         fi
     else
         error_exit "Failed to link Python ${python_version}"
@@ -364,6 +366,8 @@ verify_installation() {
         fi
     else
         log_error "Homebrew Python not found at: ${homebrew_python}"
+        log_info "Available Python binaries:"
+        ls -la "${homebrew_prefix}/bin/" | grep python || log_warning "No Python binaries found"
     fi
     
     # Check which python3 is being used
@@ -379,10 +383,15 @@ verify_installation() {
         return 0
     else
         log_warning "System Python is still being used instead of Homebrew Python"
-        log_info "You may need to restart your terminal or run: source ${rc_file}"
         log_info "Expected: ${homebrew_prefix}/bin/python3 or ${homebrew_python}"
         log_info "Found: ${current_python}"
-        log_info "This is normal if you haven't sourced the RC file yet"
+        
+        # Try to create the python3 symlink if it doesn't exist
+        if [[ ! -f "${homebrew_prefix}/bin/python3" ]] && [[ -f "${homebrew_python}" ]]; then
+            log_info "Creating missing python3 symlink..."
+            ln -sf "${homebrew_python}" "${homebrew_prefix}/bin/python3"
+            log_success "python3 symlink created"
+        fi
         
         # Try to source the RC file and check again
         log_info "Attempting to source ${rc_file}..."
@@ -399,6 +408,11 @@ verify_installation() {
                 return 0
             fi
         fi
+        
+        log_info "If Python is still not working, try:"
+        log_info "  1. Restart your terminal"
+        log_info "  2. Or run: source ~/.zshrc"
+        log_info "  3. Or use: python3.${python_version} directly"
     fi
     else
         error_exit "python3 command not found. Please restart your terminal or run: source ${rc_file}"
