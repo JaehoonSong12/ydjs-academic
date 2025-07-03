@@ -11,7 +11,7 @@
 #   0 - Success
 #   1 - Error (with descriptive message)
 #
-# Author: Generated script
+# Author: Jaehoon Song
 # License: MIT
 
 set -euo pipefail
