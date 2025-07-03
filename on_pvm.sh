@@ -450,6 +450,25 @@ uninstall_all_pythons() {
     done
 }
 
+# Check for tkinter and install python-tk if missing
+check_and_install_tk() {
+    local python_version="$1"
+    local python_bin="/usr/local/bin/python${python_version}"
+
+    log_info "Checking for tkinter support in Python ${python_version}..."
+
+    if [[ -x "${python_bin}" ]]; then
+        if ! "${python_bin}" -c "import tkinter" 2>/dev/null; then
+            log_warning "tkinter not found for Python ${python_version}. Installing python-tk@${python_version}..."
+            brew install "python-tk@${python_version}"
+        else
+            log_success "tkinter is available for Python ${python_version}."
+        fi
+    else
+        log_warning "Python binary ${python_bin} not found. Skipping tkinter check."
+    fi
+}
+
 # Main function
 main() {
     local target_version="${1:-}"
@@ -504,12 +523,14 @@ main() {
     configure_shell "${target_version}"
     verify_installation "${target_version}"
     
+    # Check for tkinter and install python-tk if missing
+    check_and_install_tk "${target_version}"
+    
     echo "----------------------------------------------"
     log_success "Python ${target_version} setup complete!"
     log_info "You may need to restart your terminal for changes to take effect."
     log_info "To create a virtual environment: python3 -m venv myenv"
     log_info "To activate virtual environment: source myenv/bin/activate"
-    brew install python-tk@3.11 #### manually install it
 }
 
 # Run main function
