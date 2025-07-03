@@ -1,7 +1,7 @@
 <!-- 
  @requires
  1. VSCode extension: Markdown Preview Enhanced
- 2. Shortcut: 'Ctrl' + 'Shift' + 'V'
+ 2. Shortcut: 'Ctrl/Command' + 'Shift' + 'V'
  3. Split: Drag to right (->)
 
  @requires
@@ -39,6 +39,7 @@ Welcome to the YDJS project repository! This repo is for my students to study co
 ## Table of Contents
 - [Project Repo by YDJS (Jaehoon Song) Academic](#project-repo-by-ydjs-jaehoon-song-academic)
   - [Table of Contents](#table-of-contents)
+  - [Python (Intel Macs)](#python-intel-macs)
 - [Project Overview](#project-overview)
   - [Documentation](#documentation)
   - [Code Access](#code-access)
@@ -61,6 +62,26 @@ Welcome to the YDJS project repository! This repo is for my students to study co
 
 
 <br /><br /><br />
+
+
+
+
+## Python (Intel Macs)
+Follow the steps below to start off.
+1. open the terminal by pressing `ctrl + ~`
+2. type-in `./on_venv.sh`
+3. copy and paste `source ../venv/bin/activate && pip install setuptools && clear`
+4. If you can see `(venv)` at the front of your terminal line, you are all set.
+5. Now, get into your space, for example, `cd std06-eloise/`.
+6. Run your python file. `python main.py`
+
+**Note**: when you type-in, you can `tap` so the bash can automatically generate your space (folder) name.
+
+
+
+
+
+
 
 ---
 
@@ -124,6 +145,9 @@ To start, clone the repository using the following command:
 git clone https://github.com/JaehoonSong12/ydjs_academic.git
 cd ydjs_academic
 ```
+
+
+
 
 ## Python (GT CS 1301 / AP CS A)
 After cloning, initialize the repository by running the provided bash scripts (`copy`, then `right-click` in a bash session):
