@@ -191,14 +191,14 @@ link_python() {
         
         # Create python3 symlink to point to the linked version
         local python_symlink="${homebrew_prefix}/bin/python3"
-        local python_version_symlink="${homebrew_prefix}/bin/python3.${python_version}"
+        local python_version_symlink="${homebrew_prefix}/bin/python${python_version}"
         
         if [[ -f "${python_version_symlink}" ]]; then
-            log_info "Creating python3 symlink to python3.${python_version}"
+            log_info "Creating python3 symlink to python${python_version}"
             ln -sf "${python_version_symlink}" "${python_symlink}"
             log_success "python3 symlink created"
         else
-            log_warning "Could not find python3.${python_version} to create symlink"
+            log_warning "Could not find python${python_version} to create symlink"
             log_info "Available Python binaries:"
             ls -la "${homebrew_prefix}/bin/" | grep python || log_warning "No Python binaries found"
         fi
@@ -349,7 +349,7 @@ verify_installation() {
     fi
     
     # Check if Homebrew Python is available (version-specific symlink)
-    local homebrew_python="${homebrew_prefix}/bin/python3.${python_version}"
+    local homebrew_python="${homebrew_prefix}/bin/python${python_version}"
     if [[ -f "${homebrew_python}" ]]; then
         log_info "Homebrew Python found at: ${homebrew_python}"
         
@@ -412,7 +412,7 @@ verify_installation() {
         log_info "If Python is still not working, try:"
         log_info "  1. Restart your terminal"
         log_info "  2. Or run: source ~/.zshrc"
-        log_info "  3. Or use: python3.${python_version} directly"
+        log_info "  3. Or use: python${python_version} directly"
     fi
     else
         error_exit "python3 command not found. Please restart your terminal or run: source ${rc_file}"
@@ -436,6 +436,37 @@ show_compatibility_info() {
     echo "  Python 3.10+: Requires macOS 10.15+"
     echo "  Python 3.9+:  Requires macOS 10.15+"
     echo
+}
+
+# Uninstall all Homebrew Python versions
+uninstall_all_pythons() {
+    log_info "Uninstalling all Homebrew Python versions..."
+    local versions=("3.9" "3.10" "3.11" "3.12" "3.13")
+    for v in "${versions[@]}"; do
+        if brew list "python@${v}" >/dev/null 2>&1; then
+            log_info "Uninstalling python@${v}..."
+            brew uninstall --ignore-dependencies "python@${v}" || true
+        fi
+    done
+}
+
+# Check for tkinter and install python-tk if missing
+check_and_install_tk() {
+    local python_version="$1"
+    local python_bin="/usr/local/bin/python${python_version}"
+
+    log_info "Checking for tkinter support in Python ${python_version}..."
+
+    if [[ -x "${python_bin}" ]]; then
+        if ! "${python_bin}" -c "import tkinter" 2>/dev/null; then
+            log_warning "tkinter not found for Python ${python_version}. Installing python-tk@${python_version}..."
+            brew install "python-tk@${python_version}"
+        else
+            log_success "tkinter is available for Python ${python_version}."
+        fi
+    else
+        log_warning "Python binary ${python_bin} not found. Skipping tkinter check."
+    fi
 }
 
 # Main function
@@ -482,12 +513,18 @@ main() {
     # Show compatibility information
     show_compatibility_info
     
+    # Uninstall all Homebrew Python versions before installing the requested one
+    uninstall_all_pythons
+    
     # Install and configure Python
     install_python "${target_version}"
     unlink_all_pythons
     link_python "${target_version}"
     configure_shell "${target_version}"
     verify_installation "${target_version}"
+    
+    # Check for tkinter and install python-tk if missing
+    check_and_install_tk "${target_version}"
     
     echo "----------------------------------------------"
     log_success "Python ${target_version} setup complete!"
