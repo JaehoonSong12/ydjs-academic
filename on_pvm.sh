@@ -509,6 +509,7 @@ main() {
     log_info "You may need to restart your terminal for changes to take effect."
     log_info "To create a virtual environment: python3 -m venv myenv"
     log_info "To activate virtual environment: source myenv/bin/activate"
+    brew install python-tk@3.11 #### manually install it
 }
 
 # Run main function
