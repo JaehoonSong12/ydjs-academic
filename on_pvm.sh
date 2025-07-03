@@ -175,11 +175,31 @@ unlink_all_pythons() {
 link_python() {
     local python_version="$1"
     local formula_name="python@${python_version}"
+    local homebrew_prefix
+    
+    # Get Homebrew prefix
+    if command -v brew >/dev/null 2>&1; then
+        homebrew_prefix=$(brew --prefix)
+    else
+        homebrew_prefix="/usr/local"
+    fi
     
     log_info "Linking Python ${python_version}..."
     
     if brew link --force --overwrite "${formula_name}"; then
         log_success "Python ${python_version} linked successfully"
+        
+        # Create python3 symlink to point to the linked version
+        local python_symlink="${homebrew_prefix}/bin/python3"
+        local python_version_symlink="${homebrew_prefix}/bin/python3.${python_version}"
+        
+        if [[ -f "${python_version_symlink}" ]]; then
+            log_info "Creating python3 symlink to python3.${python_version}"
+            ln -sf "${python_version_symlink}" "${python_symlink}"
+            log_success "python3 symlink created"
+        else
+            log_warning "Could not find python3.${python_version} to create symlink"
+        fi
     else
         error_exit "Failed to link Python ${python_version}"
     fi
@@ -326,8 +346,8 @@ verify_installation() {
         source "${rc_file}"
     fi
     
-    # Check if Homebrew Python is available
-    local homebrew_python="${homebrew_prefix}/bin/python3"
+    # Check if Homebrew Python is available (version-specific symlink)
+    local homebrew_python="${homebrew_prefix}/bin/python3.${python_version}"
     if [[ -f "${homebrew_python}" ]]; then
         log_info "Homebrew Python found at: ${homebrew_python}"
         
@@ -352,17 +372,34 @@ verify_installation() {
         current_python=$(which python3)
         log_info "Current python3 location: ${current_python}"
         
-        if [[ "${current_python}" == "${homebrew_python}" ]]; then
-            log_success "Python ${python_version} is correctly linked"
-            python3 --version
-            return 0
-        else
-            log_warning "System Python is still being used instead of Homebrew Python"
-            log_info "You may need to restart your terminal or run: source ${rc_file}"
-            log_info "Expected: ${homebrew_python}"
-            log_info "Found: ${current_python}"
-            log_info "This is normal if you haven't sourced the RC file yet"
+            # Check if we're using the Homebrew Python
+    if [[ "${current_python}" == "${homebrew_prefix}/bin/python3" ]] || [[ "${current_python}" == "${homebrew_python}" ]]; then
+        log_success "Python ${python_version} is correctly linked"
+        python3 --version
+        return 0
+    else
+        log_warning "System Python is still being used instead of Homebrew Python"
+        log_info "You may need to restart your terminal or run: source ${rc_file}"
+        log_info "Expected: ${homebrew_prefix}/bin/python3 or ${homebrew_python}"
+        log_info "Found: ${current_python}"
+        log_info "This is normal if you haven't sourced the RC file yet"
+        
+        # Try to source the RC file and check again
+        log_info "Attempting to source ${rc_file}..."
+        source "${rc_file}"
+        
+        # Check again after sourcing
+        if command -v python3 >/dev/null 2>&1; then
+            current_python=$(which python3)
+            log_info "After sourcing, python3 location: ${current_python}"
+            
+            if [[ "${current_python}" == "${homebrew_prefix}/bin/python3" ]] || [[ "${current_python}" == "${homebrew_python}" ]]; then
+                log_success "Python ${python_version} is now correctly linked!"
+                python3 --version
+                return 0
+            fi
         fi
+    fi
     else
         error_exit "python3 command not found. Please restart your terminal or run: source ${rc_file}"
     fi
