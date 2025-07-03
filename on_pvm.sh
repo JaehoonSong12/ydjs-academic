@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Python Version Manager Setup Script
+# Python Version Manager Setup Script 
 # 
 # This script installs and configures Python versions via Homebrew, handling
 # macOS version compatibility issues. It automatically detects the appropriate
