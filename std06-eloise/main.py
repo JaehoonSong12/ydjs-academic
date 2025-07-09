@@ -24,8 +24,8 @@
 import turtle                       # getting someone else's code (by Python, so not visible in your project directory)
 
 screen = turtle.Screen()            # in turtle.py file, calling "def Screen()" function, returning your computer screen
-screen.setup(width=600, height=600)     # Set window size
-screen.bgcolor("lightgreen") # Set background color
+screen.setup(width=600, height=600) # Set window size
+screen.bgcolor("lightgreen")        # Set background color
 screen.title("My Turtle Program")
 
 pen = turtle.Turtle()
