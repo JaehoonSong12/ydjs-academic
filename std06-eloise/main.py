@@ -1,11 +1,30 @@
-import turtle # getting someone else's code
-
-import platform
-platform.mac_ver = lambda: ('14.7.6', ('', '', ''), '')
 
 
-screen = turtle.Screen()
-screen.setup(width=600, height=600)  # Set window size
+# import custom_module
+
+
+# custom_module.say_hi()
+
+
+# def your_function():
+#     print("Hi") ###### HARD CODING
+#     print("Eloise")
+#     print("from")
+#     print("Jaehoon")
+
+
+# your_function()
+# your_function()
+# your_function()
+# your_function()
+
+
+
+
+import turtle                       # getting someone else's code (by Python, so not visible in your project directory)
+
+screen = turtle.Screen()            # in turtle.py file, calling "def Screen()" function, returning your computer screen
+screen.setup(width=600, height=600)     # Set window size
 screen.bgcolor("lightgreen") # Set background color
 screen.title("My Turtle Program")
 
