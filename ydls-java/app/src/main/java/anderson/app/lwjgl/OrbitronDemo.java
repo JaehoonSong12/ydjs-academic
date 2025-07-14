@@ -183,7 +183,7 @@ public class OrbitronDemo {
     private int currentTex;
 
     private int[] createOrbitronTexture(String text, int padding) {
-        Font font = new Font("Orbitron", Font.PLAIN, 72);
+        Font font = new Font("Orbitron", Font.PLAIN, 24);
         BufferedImage tmp = new BufferedImage(1,1,BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = tmp.createGraphics();
         g2d.setFont(font);
