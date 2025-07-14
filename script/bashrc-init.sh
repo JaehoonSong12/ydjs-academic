@@ -34,19 +34,6 @@ Colon (:) Command: it is a shell built-in that does nothing with exit status (0)
     : <any_literals> 
 
 Its often used as a no-op (no operation) or placeholder.
-
-
-
-
-
-
-fix this latex code!
-
-
-
-
-
-
 '
 
 ################################################################################
@@ -69,36 +56,6 @@ CYAN_RG='\033[0;36m'
 WHITE_RG='\033[0;37m'
 ##########################
 EOC='\033[0m' # End Of Coloring
-#################################< VERSION >####################################
-# Script metadata
-SCRIPT_VERSION="2.1.3"
-SCRIPT_AUTHOR="Jaehoon Song"
-echo -e "${GREEN_RG}# Bash Configuration Version: ${SCRIPT_VERSION}${EOC}"
-echo -e "${MINT_GREEN_RG}# Author: ${SCRIPT_AUTHOR}${EOC}"
-echo -e "${CYAN_RG}############### SYSTEM & USER INFORMATION ###############${EOC}"
-echo -e "HOME directory: ${LIME_GREEN_RG}$HOME${EOC}"
-echo -e "Current directory: ${LIME_GREEN_RG}$PWD${EOC}"
-echo -e "OS Kernel Type: ${LIME_GREEN_RG}$(uname -s)${EOC}"
-echo -e "OS Kernel Version: ${LIME_GREEN_RG}$(uname -r)${EOC}"
-echo -e "Architecture: ${LIME_GREEN_RG}$(uname -m)${EOC}"
-echo -e "Hostname: ${LIME_GREEN_RG}$(hostname)${EOC}"
-echo -e "Logged-in User: ${LIME_GREEN_RG}$(whoami)${EOC}"
-echo -e "Shell Type: ${LIME_GREEN_RG}$SHELL${EOC}"
-echo -e "Shell Version: ${LIME_GREEN_RG}$BASH_VERSION${EOC}"
-# User-specific environment variables
-echo -e "${CYAN_RG}################# ENVIRONMENT VARIABLES #################${EOC}"
-echo -e "PATH Directories:"
-IFS=':' read -ra PATH_ARRAY <<< "$PATH"  # Split PATH into an array by ':'
-for dir in "${PATH_ARRAY[@]}"; do
-    echo -e "  ${LIME_GREEN_RG}$dir${EOC}"
-done
-echo -e "${CYAN_RG}############### PROJECT INFORMATION ###############${EOC}"
-echo -e "Project Name: ${LIME_GREEN_RG}$PROJ_NAME${EOC}"
-echo -e "Project Directory: ${LIME_GREEN_RG}$PROJ_DIR${EOC}"
-echo -e "Project Source Code Directory: ${LIME_GREEN_RG}$PROJ_SRC${EOC}"
-echo -e "Project External Directory: ${LIME_GREEN_RG}$PWD/ext${EOC}"
-echo -e "${CYAN_RG}#########################################################${EOC}"
-echo -e "\n\n"
 ##################################< USAGE >#####################################
 # echo "Pass: $(TEST_PASS 'All tests passed successfully!')."
 # echo "Error: $(TEST_FAIL 'aaaa')."
@@ -756,11 +713,20 @@ function SETUP_KOTLIN {
 }
 
 
+TEMP=$PWD
+
+echo $PWD
+cd ..
+echo $PWD
 
 on_kt
 on_gradle
-
 on_pvm
+
+
+echo $PWD
+cd ..
+echo $PWD
 
 
 EOF
