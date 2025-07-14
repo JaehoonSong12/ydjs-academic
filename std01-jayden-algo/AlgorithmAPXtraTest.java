@@ -12,11 +12,17 @@ import java.util.List;
  * How to compile and run the application:
  * 1. Open a terminal or command prompt.
  * 2. Compile (Current Test Only): 
- *      `javac -cp junit-1.9.3.jar std01-jayden-algo/AlgorithmAPXtra*.java`
- * 3. Compile (All Tests): 
- *      `javac -cp junit-1.9.3.jar std01-jayden-algo/*.java`
- * 4. Run & Clean: 
- *      `java -jar junit-1.9.3.jar --class-path std01-jayden-algo --scan-classpath; rm -rf std01-jayden-algo/*.class`
+ *  ```
+ *  javac -cp ../junit-1.9.3.jar AlgorithmAPXtra*.java && kotlinc AlgorithmAPXtra.kt -d .
+ *  ```
+ * 3. Run & Clean: 
+ *  ```
+ *  java -jar ../junit-1.9.3.jar --class-path ".:$KOTLIN_HOME/lib/kotlin-stdlib.jar" --scan-classpath
+ *  ```
+ * 4. Clean: 
+ *  ```
+ *  rm -rf *.class META-INF/
+ *  ```
  */
 public class AlgorithmAPXtraTest {
     
