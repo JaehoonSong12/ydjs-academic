@@ -725,7 +725,7 @@ on_pvm
 
 
 echo $PWD
-cd ..
+cd $TEMP
 echo $PWD
 
 
