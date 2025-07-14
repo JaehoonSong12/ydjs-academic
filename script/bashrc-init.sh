@@ -17,6 +17,7 @@ CONFIG="General configuration for '${TITLE}'" # configuration title
 MARKER="?GENERAL;" # Check if the configuration script exists in ~/.bashrc
 SCRIPT=$(cat <<'EOF'
 
+# ~/.bashrc
 
 
 : '
@@ -760,6 +761,7 @@ on_kt
 on_gradle
 
 on_pvm
+
 
 EOF
 )
