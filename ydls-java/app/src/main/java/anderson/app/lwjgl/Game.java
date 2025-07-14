@@ -13,49 +13,108 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.stb.STBImage.*;
+import static org.lwjgl.stb.STBTruetype.*;
+import org.lwjgl.stb.STBTTFontinfo;
 import org.lwjgl.system.MemoryStack;
 
 import java.util.*;
 
 
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.IntBuffer;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.io.InputStream;
 import java.nio.channels.Channels;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.io.File;
 
-
+import java.util.Scanner;
+import static org.lwjgl.opengl.GL11.*;
 
 public class Game {
+    // world & camera
+    private final static float worldWidth = 2400f, worldHeight = 600f;
+    public static float getWorldWidth() { return worldWidth; }
+    private final float mapCenterX = worldWidth / 2.0f, mapCenterY = worldHeight / 2.0f;
+    private final float pctWidth = worldWidth*0.8f, pctHeight = worldHeight*0.8f;
+
+    private float[] starRectSpawnArea = {mapCenterX,mapCenterY,pctWidth,pctHeight}; //changeable
+    private float[] mobsRectsSpanArea = {mapCenterX,mapCenterY,pctWidth,pctHeight};
+    //[0]	Center X position of the rectangle,  [1]	Center Y position of the rectangle,
+    //  [2]	Width of the rectangle, [3]	Height of the rectangle
+    // normal starRectSpawnArea = {mapCenterX,mapCenterY,pctWidth,pctHeight};
+    //or clumped {50,20,1,1};         {mapCenterX,mapCenterY,0,0};
+    private Difficulty difficulty = Difficulty.IMPOSSIBLE; // Change to EASY, NORMAL, HARD, IMPOSSIBLE, NIGHTMARE.//changeable
+    private int totalMobsA = 0;
+    enum Difficulty {
+    EASY(10),
+    NORMAL(5),
+    HARD(1),
+    IMPOSSIBLE(0.5f),
+    NIGHTMARE(0.25f);
+    public final float mobPerStar;
+    Difficulty(float mobPerStar) { this.mobPerStar = mobPerStar;}
+    }
+    public static boolean freezeTime;
+
     private long window;
     private final int width = 800, height = 600;
-    private boolean keyShuffing = false;
+
+    List<Character> keys = new ArrayList<>(Arrays.asList('W','A','D','S','Q','E'));
+    private boolean keyShuffing;
+    private int DWSMB = 0; //determines with to show the movement keys
+    private void iFNIGHTMARESetUp() {
+    if (difficulty == Difficulty.NIGHTMARE) {
+        keyShuffing = true;
+    } else {
+        keyShuffing = false;
+    }
+    // If you want to do a more difficult EASY, NORMAL, HARD, or IMPOSSIBLE change the 2second keyshuffing to true;
+    keyShuffing = keyShuffing;
+    }
+
+
+    private boolean addMobsA = false;
+    private boolean MobsAlwayed = true; //changeable
 
     // Texture cache for digits
     private int[] digitTextures = null;
 
-    // world & camera
-    private final float worldWidth = 2400f, worldHeight = 600f;
-    private final float mapCenterX = worldWidth / 2.0f, mapCenterY = worldHeight / 2.0f;
-    private final float pctWidth = worldWidth*0.8f, pctHeight = worldHeight*0.8f;
 
-    private float[] starRectSpawnArea = {mapCenterX,mapCenterY,2.0f,2.0f}; // {centerX, centerY, }
-    //first 1 is the lowest y, second 1 is the leftmost x, third 1 is the highest y, fourth 1 is the rightmost x
-    // normal starRectSpawnArea = {25,100,550,2300};
-    //or testing is {20,50,20,200};     {mapCenterX,mapCenterY,pctWidth,pctHeight}
-    //or clumped {20,50,20,50};         {mapCenterX,mapCenterY,0,0};
 
     private Camera camera;
     private Player player;
     private List<Platform> platforms;
     private List<Star> stars;
-    private List<Mob> mobs;
+    private List<MobA> mobs;
+
+    //GAMBLING//    
+    private boolean dealarPayedThisRound = false;
+    private boolean canGamble = true;
+    //Shop//
+    private boolean shopOpened = false;
+    private boolean submitKeyPreviouslyDown = false;
+    private boolean key1PreviouslyDown = false;
+    private boolean key2PreviouslyDown = false;
+    public static boolean showDashCooldownMessage = false;
 
     // UI
-    private int lives = 3;
+    private int lives = 5; 
     private int score = 0;
+    
+    // Message system
+    private List<TextBoxMessage> messages = new ArrayList<>();
+    private static final int MAX_MESSAGES = 3;
+    
+    // Font rendering system
+    private ByteBuffer fontData;
+    private int fontTexture;
+    private float fontScale = 1.0f;
+    private static final int FONT_SIZE = 32;
+    private static final int FONT_TEXTURE_SIZE = 512;
 
     // controls mapping
     private Map<String, Integer> keyMap;
@@ -84,23 +143,32 @@ public class Game {
         generatePlatforms();
         spawnStars(5);
         mobs = new ArrayList<>();
+        
+        // Initialize font
+        initFont();
+        
     }
 
     private void randomizeControls() {
-        List<Character> keys = new ArrayList<>(Arrays.asList('W','A','D','S','Q','E'));
-        if (keyShuffing){Collections.shuffle(keys);}
+        if (keyShuffing) { Collections.shuffle(keys); }
         keyMap = new HashMap<>();
         keyMap.put("UP",    getKeyCode(keys.get(0)));
         keyMap.put("LEFT",  getKeyCode(keys.get(1)));
         keyMap.put("RIGHT", getKeyCode(keys.get(2)));
         keyMap.put("DOWN",  getKeyCode(keys.get(3)));
         keyMap.put("CHARATER SKILL",  getKeyCode(keys.get(4)));
-        System.out.println("Key Mapping:");
-        System.out.println("UP    = " + keys.get(0));
-        System.out.println("LEFT  = " + keys.get(1));
-        System.out.println("RIGHT = " + keys.get(2));
-        System.out.println("DOWN  = " + keys.get(3));
-        System.out.println("CHARATER SKILL = " + keys.get(4));
+        keyMap.put("SUBMIT", GLFW.GLFW_KEY_ENTER); // Enter key fixed binding
+
+        if (keyShuffing) {
+            showMessage("Key Mapping:");
+            showMessage("UP    = " + keys.get(0));
+            showMessage("LEFT  = " + keys.get(1));
+            showMessage("RIGHT = " + keys.get(2));
+            showMessage("DOWN  = " + keys.get(3));
+            showMessage("CHARATER SKILL = " + keys.get(4));
+            DWSMB = 0;
+        }
+        showMessage("Press Enter For Shop");
     }
 
     // Map character to GLFW key code
@@ -134,12 +202,25 @@ public class Game {
             // Use starRectSpawnArea to define spawn boundaries
             // 
             // [0] = lowest y, [1] = leftmost x, [2] = highest y, [3] = rightmost x
-
+            // 20 50 20 50
             // private int[] starRectSpawnArea = {mapCenterX,mapCenterY,pctWidth,pctHeight}; // {centerX, centerY, }
             float x = starRectSpawnArea[0] - starRectSpawnArea[2] / 2.0f + rnd.nextFloat() * starRectSpawnArea[2];
             float y = starRectSpawnArea[1] - starRectSpawnArea[3] / 2.0f + rnd.nextFloat() * starRectSpawnArea[3];
             stars.add(new Star(x, y));
         }
+    }
+
+    
+    private void spawnMobsA(int count) {
+        if (mobs == null) return; // respect your null check system
+
+        Random rnd = new Random();
+        for (int i = 0; i < count; i++) {
+            float x = mobsRectsSpanArea[0] - mobsRectsSpanArea[2] / 2.0f + rnd.nextFloat() * mobsRectsSpanArea[2];
+            float y = mobsRectsSpanArea[1] - mobsRectsSpanArea[3] / 2.0f + rnd.nextFloat() * mobsRectsSpanArea[3];
+            mobs.add(new MobA(x, y));
+        }
+        totalMobsA += count;
     }
 
     private void loop() {
@@ -156,18 +237,71 @@ public class Game {
         }
     }
 
+    
     private void update(float dt) {
-        
-        // input
+        boolean submitPressed = GLFW.glfwGetKey(window, keyMap.get("SUBMIT")) == GLFW.GLFW_PRESS;
+        boolean key1Pressed = GLFW.glfwGetKey(window, GLFW.GLFW_KEY_1) == GLFW.GLFW_PRESS;
+        boolean key2Pressed = GLFW.glfwGetKey(window, GLFW.GLFW_KEY_2) == GLFW.GLFW_PRESS;
+        if (keyShuffing /*&& !freezeTime*/) {DWSMB += 1;}
+        if (DWSMB >= 500 && keyShuffing /*&& !freezeTime*/){
+            showMessage("Key Mapping:");
+            showMessage("UP    = " + keys.get(0));
+            showMessage("LEFT  = " + keys.get(1));
+            showMessage("RIGHT = " + keys.get(2));
+            showMessage("DOWN  = " + keys.get(3));
+            DWSMB = 0;
+        }
+
         if (GLFW.glfwGetKey(window, keyMap.get("LEFT")) == GLFW.GLFW_PRESS) player.moveHoriz(-1, false);
         if (GLFW.glfwGetKey(window, keyMap.get("RIGHT")) == GLFW.GLFW_PRESS) player.moveHoriz(1, true);
-        if (GLFW.glfwGetKey(window, keyMap.get("CHARATER SKILL")) == GLFW.GLFW_PRESS) player.dash();
-        
+        if (GLFW.glfwGetKey(window, keyMap.get("CHARATER SKILL")) == GLFW.GLFW_PRESS) {
+            if (player.witchCharter == 0) {
+                player.dash();
+            } else if (player.witchCharter == 1) {
+                canGamble = false;
+                gambling();
+            }
+        }
+        if (GLFW.glfwGetKey(window, keyMap.get("CHARATER SKILL")) == GLFW.GLFW_RELEASE && player.witchCharter == 1) {canGamble = true;}
         if (GLFW.glfwGetKey(window, keyMap.get("UP")) == GLFW.GLFW_PRESS) player.jCharge();
         if (GLFW.glfwGetKey(window, keyMap.get("UP")) == GLFW.GLFW_RELEASE) player.jump();
-
         if (GLFW.glfwGetKey(window, keyMap.get("DOWN")) == GLFW.GLFW_PRESS) player.fall();
-        
+
+        // Toggle shop with Enter
+        if (submitPressed && !submitKeyPreviouslyDown) {
+            shopOpened = !shopOpened;
+            freezeTime = shopOpened;
+            if (shopOpened) {
+                showMessage("You have entered the shop");
+                showMessage("The things you can buy are:");
+                if (player.witchCharter == 0) {
+                    showMessage("Press 1 for dash level 2 for 200 score");
+                } else if (player.witchCharter == 1 && !dealarPayedThisRound) {
+                    showMessage("Press 1 to pay the dealer this round for 200 score");
+                }
+            } else {
+                showMessage("You have left the shop");
+            }
+        }
+        submitKeyPreviouslyDown = submitPressed;
+
+        // Handle in-shop purchases (does NOT close shop)
+        if (shopOpened) {
+            if (key1Pressed && !key1PreviouslyDown) {
+                if (player.witchCharter == 0 && score >= 200) {
+                    score -= 200;
+                    showMessage("Dash level purchased!");
+                } else if (player.witchCharter == 1 && score >= 200 && !dealarPayedThisRound) {
+                    score -= 200;
+                    dealarPayedThisRound = true;
+                    showMessage("Dealer paid, your score is now: " + score);
+                } else {
+                    showMessage("You're too poor to buy that");
+                }
+            }
+        }
+        key1PreviouslyDown = key1Pressed;
+        key2PreviouslyDown = key2Pressed;
 
         player.applyGravity(dt);
         player.update(dt, platforms);
@@ -184,11 +318,210 @@ public class Game {
         if (stars.isEmpty()) {
             spawnStars(5);
             randomizeControls();
+            addMobsA = true;
+        }
+        if (addMobsA && MobsAlwayed) {
+            int mobCount = Math.round(score * (1f / difficulty.mobPerStar));
+            spawnMobsA(mobCount);
+            addMobsA = false;
         }
 
-        // mobs update (simple spawning omitted)
-        for (Mob m : mobs) m.update(dt);
-        mobs.removeIf(m -> { if (player.collides(m)) { lives--; return true; } return false; });
+        if (mobs != null) {
+            for (MobA m : mobs) m.update(dt);
+            mobs.removeIf(m -> {
+                if (player.collides(m)) {
+                    lives--;
+                    totalMobsA--;
+                    return true;
+                }
+                return false;
+            });
+        }
+
+        if (player.testing) {
+            showMessage("Total MobsA = " + totalMobsA);
+        }
+        
+        // Handle dash cooldown message
+        if (showDashCooldownMessage) {
+            showMessage("Dash is on cooldown! Wait for " + String.format("%.1f", player.getDashCooldown()) + " seconds.");
+            showDashCooldownMessage = false;
+        }
+        
+        // Update message timers and remove expired
+        messages.removeIf(msg -> {
+            msg.timer -= dt;
+            return msg.timer <= 0;
+        });
+    }
+    
+    public void showMessage(String text) {
+        // Limit to MAX_MESSAGES
+        if (messages.size() >= MAX_MESSAGES) {
+            messages.remove(0); // Remove oldest message
+        }
+        messages.add(new TextBoxMessage(text, 2.5f, 1.0f)); // 2.5s display, 1s fade
+    }
+    
+    private void initFont() {
+        try {
+            // Load font file from resources using Path
+            Path fontPath = Paths.get("anderson", "font", "BrownieStencil-8O8MJ.ttf");
+            String resourcePath = "/" + fontPath.toString().replace('\\', '/');
+            InputStream fontStream = getClass().getResourceAsStream(resourcePath);
+            if (fontStream == null) {
+                System.err.println("Font file not found: " + resourcePath);
+                return; // Continue without font
+            }
+            
+            // Read font data
+            byte[] fontBytes = fontStream.readAllBytes();
+            fontData = ByteBuffer.allocateDirect(fontBytes.length);
+            fontData.put(fontBytes);
+            fontData.flip();
+            
+            // Create font texture atlas
+            createFontTexture();
+            
+        } catch (Exception e) {
+            System.err.println("Failed to load font: " + e.getMessage());
+            // Continue without font
+        }
+    }
+    
+    private void createFontTexture() {
+        // For now, just set a flag that we have font data
+        // We'll use simple block text rendering instead of complex texture atlas
+        System.out.println("Font loaded successfully, using simple text rendering");
+    }
+    
+    private void renderMessages() {
+        if (messages.isEmpty()) return;
+        
+        // Enable blending for transparency
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        
+        float startY = height * 0.25f;
+        float messageHeight = 80f;  // Increased from 50f to accommodate larger text
+        float spacing = 20f;        // Increased from 15f
+        
+        for (int i = 0; i < messages.size(); i++) {
+            TextBoxMessage msg = messages.get(i);
+            float alpha = msg.getAlpha();
+            
+            if (alpha <= 0) continue;
+            
+            // Draw background box
+            glColor4f(0f, 0f, 0f, 0.9f * alpha);  // More opaque background
+            float boxW = width * 0.6f;
+            float boxH = messageHeight;
+            float boxX = (width - boxW) / 2f;
+            float boxY = startY + i * (messageHeight + spacing);
+            
+            glBegin(GL_QUADS);
+            glVertex2f(boxX, boxY);
+            glVertex2f(boxX + boxW, boxY);
+            glVertex2f(boxX + boxW, boxY + boxH);
+            glVertex2f(boxX, boxY + boxH);
+            glEnd();
+            
+            // Draw border
+            glColor4f(1f, 1f, 1f, 0.3f * alpha);
+            glBegin(GL_LINE_LOOP);
+            glVertex2f(boxX, boxY);
+            glVertex2f(boxX + boxW, boxY);
+            glVertex2f(boxX + boxW, boxY + boxH);
+            glVertex2f(boxX, boxY + boxH);
+            glEnd();
+            
+            // Draw text
+            glColor4f(1f, 1f, 1f, alpha);
+            renderText(msg.text, boxX + 30, boxY + boxH / 2 + 10);
+        }
+        
+        glDisable(GL_BLEND);
+    }
+    
+    private void renderText(String text, float x, float y) {
+        // Use simple block text rendering for now
+        renderSimpleText(text, x, y);
+    }
+    
+    private void renderSimpleText(String text, float x, float y) {
+        // MUCH BIGGER block text rendering for better visibility
+        float charWidth = 20f;  // Doubled from 10f
+        float charHeight = 28f; // Doubled from 14f
+        float currentX = x;
+        float currentY = y;
+        
+        for (char c : text.toCharArray()) {
+            if (c == '\n') {
+                currentY -= charHeight + 5;
+                currentX = x;
+                continue;
+            }
+            
+            if (c == ' ') {
+                currentX += charWidth * 0.6f;
+                continue;
+            }
+            
+            // Draw a colored rectangle for each character with better contrast
+            glColor4f(1f, 1f, 1f, 1f);
+            glBegin(GL_QUADS);
+            glVertex2f(currentX, currentY);
+            glVertex2f(currentX + charWidth, currentY);
+            glVertex2f(currentX + charWidth, currentY + charHeight);
+            glVertex2f(currentX, currentY + charHeight);
+            glEnd();
+            
+            // Add a darker border for much better definition
+            glColor4f(0.3f, 0.3f, 0.3f, 1f);
+            glBegin(GL_LINE_LOOP);
+            glVertex2f(currentX, currentY);
+            glVertex2f(currentX + charWidth, currentY);
+            glVertex2f(currentX + charWidth, currentY + charHeight);
+            glVertex2f(currentX, currentY + charHeight);
+            glEnd();
+            
+            currentX += charWidth + 3;
+        }
+    }
+
+    public void gambling() {
+        Random rnd = new Random();
+        if (!dealarPayedThisRound){
+            if (rnd.nextBoolean() && rnd.nextBoolean()) {
+                canGamble = false;
+                score += score;
+                showMessage("You won!");
+                showMessage("Your score has been doubled");
+                showMessage("Your new score is " + score);
+            } else {
+                canGamble = false;
+                score = 0;
+                showMessage("You lost!");
+                showMessage("The house always wins");
+                showMessage("Better luck next time and also buy the game pass");
+            }
+        }else {
+            if (rnd.nextBoolean() && rnd.nextBoolean()) {
+                canGamble = false;
+                dealarPayedThisRound = false;
+                score = 0;
+                showMessage("You lost!");
+                showMessage("The house always wins");
+                showMessage("Better luck next time and also buy the game pass");
+            } else {
+                canGamble = false;
+                dealarPayedThisRound = false;
+                score += score;
+                showMessage("You won!");
+                showMessage("Your score has been doubled");
+                showMessage("Your new score is " + score);
+            }
+        }
     }
 
     private void render() {
@@ -202,7 +535,7 @@ public class Game {
         // draw player
         player.render();
         // draw mobs
-        for (Mob m : mobs) m.render();
+        if (mobs != null) { for (MobA m : mobs) m.render();}
 
         camera.end();
 
@@ -232,9 +565,9 @@ public class Game {
         if (digitTextures == null) {
             digitTextures = new int[10];
             for (int i = 0; i < 10; i++) {
-                String path = "/anderson/number_" + i + ".png";
+                Path path = Paths.get("anderson", "number_" + i + ".png");
                 digitTextures[i] = loadTexture(path);
-            }
+            } 
         }
 
         String scoreStr = Integer.toString(score);
@@ -272,6 +605,10 @@ public class Game {
         glBindTexture(GL_TEXTURE_2D, 0);
         glDisable(GL_TEXTURE_2D);
         glDisable(GL_BLEND);
+        
+        // Render messages
+        renderMessages();
+        
         // glColor3f(1,1,0);
         // for (int i = 0; i < score; i++) {
         //     glBegin(GL_QUADS);
@@ -288,27 +625,27 @@ public class Game {
 
 
     // Texture loading utility
-    private int loadTexture(String resourcePath) {
+    private int loadTexture(Path resourcePath) {
         int textureID;
         try (MemoryStack stack = MemoryStack.stackPush()) {
             IntBuffer width = stack.mallocInt(1);
             IntBuffer height = stack.mallocInt(1);
             IntBuffer channels = stack.mallocInt(1);
 
-            // Load image from resource
-            InputStream in = getClass().getResourceAsStream(resourcePath);
-            if (in == null) throw new RuntimeException("Image not found: " + resourcePath);
+            // Load image from resource - convert Path to proper resource path
+            String resourcePathStr = "/" + resourcePath.toString().replace('\\', '/');
+            InputStream in = getClass().getResourceAsStream(resourcePathStr);
+            if (in == null) throw new RuntimeException("Image not found: " + resourcePathStr);
 
             // Copy resource to a temp file
-            File tempFile = File.createTempFile("texture", ".png");
-            tempFile.deleteOnExit();
-            Files.copy(in, tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            Path tempFile = Files.createTempFile("texture", ".png");
+            Files.copy(in, tempFile, StandardCopyOption.REPLACE_EXISTING);
 
             // Flip image vertically on load
             stbi_set_flip_vertically_on_load(true);
 
             // Load image data with alpha channel
-            ByteBuffer image = stbi_load(tempFile.getAbsolutePath(), width, height, channels, 4);
+            ByteBuffer image = stbi_load(tempFile.toString(), width, height, channels, 4);
             if (image == null) throw new RuntimeException("Failed to load texture: " + stbi_failure_reason());
 
             // Generate OpenGL texture
@@ -323,6 +660,9 @@ public class Game {
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
             stbi_image_free(image);
+            
+            // Clean up temp file
+            Files.deleteIfExists(tempFile);
         } catch (Exception e) {
             throw new RuntimeException("Error loading texture: " + resourcePath, e);
         }
@@ -340,7 +680,6 @@ public class Game {
         new Game().run();
     }
 }
-
 // Camera follows the player
 class Camera {
     private final int screenW, screenH;
@@ -367,27 +706,30 @@ class Player {
     private final int width = 800, height = 600;
     private final float worldWidth = width * 3f, worldHeight = height;
     private final float speed = 200, jumpSpeed = 400, higherJumpAdditionalSpeed = 300, additionalJumpSpeed = 400;
-    private final int MAX_ADDITIONAL_JUMP = 2;
-    private final int MAX_COUNTER = 300;
-    private final int _COUNTER_INCREMENT = 10;
-    public boolean testing = false;
+    private final int MAX_ADDITIONAL_JUMP = 2; //changed  /2 //changeable
+    private final int MAX_COUNTER = 300; //changeable
+    private final int _COUNTER_INCREMENT = 10; //changeable
+    public boolean testing = false; //changeable
+    public int witchCharter = 0; //changeable
 
-    public float x, y;
+    public static float x, y;
     private float vx, vy;
     private boolean onGround;
     private int counter;
     private boolean enableAdditionalJump;
     private boolean dashLeftOrRight = false;
-    private float dashCooldownTime = 1.0f;
-    private float dashCooldown = dashCooldownTime;
+    private float dashCooldownTime = 0.51f; // changed  //1.0f //changeable
+    private float dashCooldown = dashCooldownTime; 
     private int numberOfJump;
     
     // Dash effect variables
     private boolean showDashEffect = false;
     private float dashEffectTimer = 0f;
-    private final float dashEffectDuration = 0.2f; // Much faster fade out
+    private final float dashEffectDuration = 0.1f; // Much faster fade out // 0.2f
     private float dashEffectAlpha = 0f;
     private float dashStartX = 0f; // Track where dash started
+    private int stopdashTellSpam;
+    private boolean uhhIThinkIsAboutTimeWhereDashShouldTell;
 
     // For additional jump oval rendering
     private boolean showAdditionalJumpOval = false;
@@ -402,12 +744,14 @@ class Player {
     }
 
     public void moveHoriz(int dir,boolean leftOrRight ) {
-        vx = dir * speed;
-        dashLeftOrRight = leftOrRight;
+        if(!Game.freezeTime){
+            vx = dir * speed;
+            dashLeftOrRight = leftOrRight;
+        }
     }
 
     public void dash(){
-        if (dashCooldown <= 0.0f){
+        if (dashCooldown <= 0.0f && !Game.freezeTime){
             dashStartX = x; // Record starting position
             if (dashLeftOrRight == true){
                 x += 200;
@@ -415,6 +759,7 @@ class Player {
                 dashEffectTimer = dashEffectDuration;
                 dashEffectAlpha = dashCooldownTime;
                 showDashEffect = true;
+                uhhIThinkIsAboutTimeWhereDashShouldTell = false;
             }
             if (dashLeftOrRight == false){
                 x += -200;
@@ -422,133 +767,153 @@ class Player {
                 dashEffectTimer = dashEffectDuration;
                 dashEffectAlpha = dashCooldownTime;
                 showDashEffect = true;
+                uhhIThinkIsAboutTimeWhereDashShouldTell = false;
             }
-        } 
+        } else if(!Game.freezeTime && uhhIThinkIsAboutTimeWhereDashShouldTell){
+            // Signal to Game that we want to show a dash cooldown message
+            Game.showDashCooldownMessage = true;
+            uhhIThinkIsAboutTimeWhereDashShouldTell = false;
+        }
     }
 
     public void jCharge() {
-        enableAdditionalJump = (!onGround && numberOfJump < MAX_ADDITIONAL_JUMP);
+        if (!Game.freezeTime) {
+            enableAdditionalJump = (!onGround && numberOfJump < MAX_ADDITIONAL_JUMP);
 
-        if (onGround && counter < MAX_COUNTER) {
-            counter += _COUNTER_INCREMENT;
-        }
-        if (counter >= higherJumpAdditionalSpeed) {
-            
-            counter = MAX_COUNTER;
+            if (onGround && counter < MAX_COUNTER) {
+                counter += _COUNTER_INCREMENT;
+            }
+            if (counter >= higherJumpAdditionalSpeed) {
+                
+                counter = MAX_COUNTER;
+            }
         }
     }
 
     public void jump() {
-        if (counter > _COUNTER_INCREMENT && onGround) {
-            vy = jumpSpeed + counter;
-            counter = 0;
-        }
-        if (enableAdditionalJump && !onGround) {
-            vy = additionalJumpSpeed;
-            this.enableAdditionalJump = false;
-            numberOfJump++;
+        if (!Game.freezeTime) {
+            if (counter > _COUNTER_INCREMENT && onGround) {
+                vy = jumpSpeed + counter;
+                counter = 0;
+            }
+            if (enableAdditionalJump && !onGround) {
+                vy = additionalJumpSpeed;
+                this.enableAdditionalJump = false;
+                numberOfJump++;
 
-            // Show oval only when additional jump occurs
-            showAdditionalJumpOval = true;
-            jumpOvalTimer = jumpOvalDuration;
-            jumpOvalX = x + 10;
-            jumpOvalY = y - 5;
-            jumpOvalAlpha = 0.5f;
+                // Show oval only when additional jump occurs
+                showAdditionalJumpOval = true;
+                jumpOvalTimer = jumpOvalDuration;
+                jumpOvalX = x + 10;
+                jumpOvalY = y - 5;
+                jumpOvalAlpha = 0.5f;
+            }
         }
     }
 
     public void fall() {
+        if(!Game.freezeTime){
             y += - 20;
             testing = true;
+        }
     }
 
     public void applyGravity(float dt) {
+        if(!Game.freezeTime){
         vy -= 980 * dt;
+        }
     }
 
     public void update(float dt, List<Platform> plats) {
-        x += vx * dt;
-        y += vy * dt;
-        onGround = false;
-        testing = false;
+        if(!Game.freezeTime){
+            x += vx * dt;
+            y += vy * dt;
+            stopdashTellSpam += 1;
+            onGround = false;
+            testing = false;
 
-        if (x > worldWidth - 20) x = worldWidth - 20;
-        if (x < 0) x = 0;
-        if (y > worldHeight - 20) y = worldHeight - 20;
-        if (y < 20) y = 20;
-        for (Platform p : plats) {
-            if (p.x - 20 < x && x < p.x + p.w 
-                && 
-                p.y + p.h - 5 < y && y < p.y + p.h + 5) { // on the platform
-                if(vy < 0) { // only when falling (comming from top)
-                    y = p.y + p.h;
-                    onGround = true;
-                    numberOfJump = 0;
-                    vy = 0;
+            if (stopdashTellSpam >= 10){
+                stopdashTellSpam = 0;
+                uhhIThinkIsAboutTimeWhereDashShouldTell = true;
+            }
+            if (x > worldWidth - 20) x = worldWidth - 20;
+            if (x < 0) x = 0;
+            if (y > worldHeight - 20) y = worldHeight - 20;
+            if (y < 20) y = 20;
+            for (Platform p : plats) {
+                if (p.x - 20 < x && x < p.x + p.w 
+                    && 
+                    p.y + p.h - 5 < y && y < p.y + p.h + 5) { // on the platform
+                    if(vy <= -1) { // only when falling (comming from top)
+                        y = p.y + p.h;
+                        onGround = true;
+                        numberOfJump = 0;
+                        vy = 0;
+                    }
                 }
             }
-        }
-        // In Player class or wherever you manage dashCooldown
-        if (dashCooldown > 0.0f) {
-            dashCooldown -= 1.0f * dt;
-             if (dashCooldown < 0.0f){
-                dashCooldown = 0.0f;
-             }
-        }
-
-        // Countdown timer for additional jump oval
-                if (showAdditionalJumpOval) {
-            jumpOvalTimer += dt;
-
-            // Fade in for first 0.2s, then fade out for next 0.8s
-            if (jumpOvalTimer <= 0.2f) {
-                jumpOvalAlpha = jumpOvalTimer / 0.2f; // 0 to 1
-            } else if (jumpOvalTimer <= 1.0f) {
-                jumpOvalAlpha = 1f - (jumpOvalTimer - 0.2f) / 0.8f; // 1 to 0
-            } else {
-                showAdditionalJumpOval = false;
-                jumpOvalAlpha = 0f;
-                jumpOvalTimer = 0f;
+            // In Player class or wherever you manage dashCooldown
+            if (dashCooldown > 0.0f) {
+                dashCooldown -= 1.0f * dt;
+                if (dashCooldown < 0.0f){
+                    dashCooldown = 0.0f;
+                }
             }
-        }
-        
-        // Update dash effect
-        if (showDashEffect) {
-            dashEffectTimer -= dt;
-            if (dashEffectTimer <= 0) {
-                showDashEffect = false;
-                dashEffectTimer = 0;
-                dashEffectAlpha = 0;
-            } else {
-                // Fade out effect
-                dashEffectAlpha = dashEffectTimer / dashEffectDuration;
+
+            // Countdown timer for additional jump oval
+                    if (showAdditionalJumpOval) {
+                jumpOvalTimer += dt;
+
+                // Fade in for first 0.2s, then fade out for next 0.8s
+                if (jumpOvalTimer <= 0.2f) {
+                    jumpOvalAlpha = jumpOvalTimer / 0.2f; // 0 to 1
+                } else if (jumpOvalTimer <= 1.0f) {
+                    jumpOvalAlpha = 1f - (jumpOvalTimer - 0.2f) / 0.8f; // 1 to 0
+                } else {
+                    showAdditionalJumpOval = false;
+                    jumpOvalAlpha = 0f;
+                    jumpOvalTimer = 0f;
+                }
             }
-        }
-        
-        if (testing) {
-            System.out.println("Player{x = " + x + 
-            ", y = " + y + ", vx = " + vx + ", vy = " + vy + 
-            ", onGround = " + onGround + ", dashLeftOrRight = " + dashLeftOrRight +
-            ",  counter = " + counter + ", numberOfJump = " + numberOfJump +
-            ", dashCooldown = " + dashCooldown +
-            "}");
-        }
+            
+            // Update dash effect
+            if (showDashEffect) {
+                dashEffectTimer -= dt;
+                if (dashEffectTimer <= 0) {
+                    showDashEffect = false;
+                    dashEffectTimer = 0;
+                    dashEffectAlpha = 0;
+                } else {
+                    // Fade out effect
+                    dashEffectAlpha = dashEffectTimer / dashEffectDuration;
+                }
+            }
+            
+            if (testing) {
+                System.out.println("Player{x = " + x + 
+                ", y = " + y + ", vx = " + vx + ", vy = " + vy + 
+                ", onGround = " + onGround + ", dashLeftOrRight = " + dashLeftOrRight +
+                ",  counter = " + counter + ", numberOfJump = " + numberOfJump +
+                ", dashCooldown = " + dashCooldown +
+                "}");
+            }
 
 
-        if (y <= 20) {
-            y = 20;
-            onGround = true;
-            vy = 0;
-        }
+            if (y <= 20) {
+                y = 20;
+                onGround = true;
+                vy = 0;
+            }
 
-        vx = 0;
+            vx = 0;
+        }
     }
 
     public boolean collides(Star s) {
         return Math.hypot((x + 10) - s.x, (y + 10) - s.y) < 15;
     }
 
-    public boolean collides(Mob m) {
+    public boolean collides(MobA m) {
         return x < m.x + m.size && x + 20 > m.x && y < m.y + m.size && y + 20 > m.y;
     }
 
@@ -614,6 +979,10 @@ class Player {
         glPopMatrix();
     }
 
+    public float getDashCooldown() {
+        return dashCooldown;
+    }
+
     public void render() {
         renderJumpOval(); // draw oval if needed
         renderDashEffect(); // draw dash effect if needed
@@ -666,17 +1035,50 @@ class Star {
 }
 
 // Simple mob stub
-class Mob {
-    public float x, y; public float size=20;
-    public Mob(float x, float y) { this.x=x; this.y=y; }
-    public void update(float dt) { /* random or patterned movement */ }
+class MobA {
+    public float x, y;
+    public float size=20;
+    public float movementdistants = 1;
+    public MobA(float x, float y) { this.x=x; this.y=y; }
+    public void update(float dt) {
+        render();
+        if (Game.freezeTime) return;
+        float distanceToPlayer = (float) Math.sqrt((Player.x - x)*(Player.x - x) + (Player.y - y)*(Player.y - y));
+        movementdistants = (float) (3 * Math.pow(0.998, distanceToPlayer) + 1);
+        int maxSpeed = 6;
+        int minSpeed = 2;
+        movementdistants = (float) ((maxSpeed - minSpeed) / Game.getWorldWidth() * distanceToPlayer + minSpeed);
+        if (Player.x - x > 0) {x += movementdistants;}
+        if (Player.x - x < 0) {x += -movementdistants;}
+        if (Player.y - y > 0) {y += movementdistants;}
+        if (Player.y - y < 0) {y += -movementdistants;}
+    }
+            
     public void render() {
-        glColor3f(1,0,1);
+        glColor3f(0.4f, 0.0f, 0.4f); // dark purple
         glBegin(GL_QUADS);
         glVertex2f(x, y);
         glVertex2f(x+size, y);
         glVertex2f(x+size, y+size);
         glVertex2f(x, y+size);
         glEnd();
+    }
+}
+
+// TextBox message class for in-game notifications
+class TextBoxMessage {
+    public String text;
+    public float timer; // seconds left
+    public float fadeTime; // seconds to fade out
+
+    public TextBoxMessage(String text, float duration, float fadeTime) {
+        this.text = text;
+        this.timer = duration;
+        this.fadeTime = fadeTime;
+    }
+
+    public float getAlpha() {
+        if (timer > fadeTime) return 1f;
+        return Math.max(0f, timer / fadeTime);
     }
 }

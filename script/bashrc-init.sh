@@ -2,7 +2,7 @@
 BASHRC_PATH="$HOME/.bashrc" # Check if .bashrc exists, create if missing
 if [[ -f "$BASHRC_PATH" ]]; then
     echo ".bashrc exists at: $BASHRC_PATH."
-    echo "To erase the existing .bashrc, uncomment the line: > \"\$BASHRC_PATH\""
+    echo "To erase the existing .bashrc, run this command: > \"\$BASHRC_PATH\""
 else
     echo ".bashrc not found. Creating a new one at: $BASHRC_PATH."
     cat <<EOL > "$BASHRC_PATH"
@@ -703,9 +703,63 @@ function SETUP_GRADLE {
 }
 
 
-on_pvm
-on_jvm
+################################################################################
+#                                   ?KOTLIN;
+################################################################################
+#################################< VERSION >####################################
+KOTLIN_VERSIONS=("1.9.20")
+##################################< USAGE >#####################################
+# ### language system setup ... (1)
+# on_kt
+###############################################################################
+KOTLIN_URL="https://github.com/JetBrains/kotlin/releases/download/v{VERSION}/kotlin-compiler-{VERSION}.zip"
+function on_kt {
+    # JRE/JVM setup (Prerequisite)
+    on_jvm
+
+    local KOTLIN_DIR="$PWD/ext/kotlinc-{VERSION}"
+    # KOTLIN checkup (positive)
+    if exists "$PWD/ext" "kotlinc"; then
+        echo "Notice: Directory $(USRPROMPT ''${KOTLIN_DIR}' ')already exists. Kotlin has been setup..."
+        # KOTLIN setup
+        SETUP_KOTLIN
+        return
+    fi
+    # KOTLIN install
+    for ver in "${KOTLIN_VERSIONS[@]}"; do
+        url="${KOTLIN_URL//\{VERSION\}/$ver}"
+        INSTRACT "$url" "kotlin.zip" "$PWD/ext"
+        mv "$PWD/ext/kotlinc" "$PWD/ext/kotlinc-$ver" 2>/dev/null || true
+    done
+    # KOTLIN checkup (negative)
+    if [[ ! -d "$PWD/ext" ]]; then
+        echo "Error: $(TEST_FAIL 'There is no '$PWD/ext' found.')"
+        return
+    fi
+    # KOTLIN setup
+    SETUP_KOTLIN
+}
+function SETUP_KOTLIN {
+    local KOTLIN_DIR="$PWD/ext/kotlinc-{VERSION}/bin"
+    for ver in "${KOTLIN_VERSIONS[@]}"; do
+        export KOTLIN_HOME="$PWD/ext/kotlinc-$ver"
+        export PATH="${KOTLIN_DIR//\{VERSION\}/$ver}:${PATH}"
+    done
+    echo -e "\n------------------------------------------------------------"
+    echo -e "KOTLIN"
+    echo -e "------------------------------------------------------------\n"
+    kotlinc -version
+    kotlin -version
+    echo "KOTLIN_HOME: $KOTLIN_HOME"
+    echo -e "------------------------------------------------------------\n"
+}
+
+
+
+on_kt
 on_gradle
+
+on_pvm
 
 EOF
 )
