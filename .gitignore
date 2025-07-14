@@ -854,7 +854,7 @@ dist/
 
 # private folders
 instructor/
-com/
+# com/
 ydjs/
 temp1
 temp2
