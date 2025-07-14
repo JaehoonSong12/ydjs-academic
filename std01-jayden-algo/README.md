@@ -1,3 +1,9 @@
+# Kotlin Language Reference
+
+For a comprehensive introduction to Kotlin, refer to the official language documentation and high-quality video tutorials.  
+Recommended resource: [Kotlin Official Video Overview](https://youtu.be/F9UC9DY-vIU?si=1tTGcQVk-5Ll2Hj0)
+
+
 # Polyglot JVM Ecosystem
 
 What you’re recalling is the idea of **language interoperability** on a shared runtime—often called **polyglot programming on the JVM**. At its heart, this is an architectural design pattern that treats the JVM not as the end‑point of a single language, but as a common execution and linking layer for many languages (Java, Kotlin, Scala, Groovy, Clojure, JRuby, etc.). Here’s how it fits into your architecture and why it’s so powerful:
