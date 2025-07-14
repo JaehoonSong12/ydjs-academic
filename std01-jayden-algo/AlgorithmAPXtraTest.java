@@ -9,15 +9,36 @@ import java.util.List;
 /**
  * The AlgorithmAPXtraTest class provides JUnit tests for the recursive methods in the AlgorithmAPXtra class.
  * 
- * How to compile and run the application:
+ * 
+ * [Java only] How to compile and run the application:
  * 1. Open a terminal or command prompt.
  * 2. Compile (Current Test Only): 
  *  ```
- *  javac -cp ../junit-1.9.3.jar AlgorithmAPXtra*.java && kotlinc AlgorithmAPXtra.kt -d .
+ *  javac -cp junit-1.9.3.jar AlgorithmAPXtra*.java
  *  ```
  * 3. Run & Clean: 
  *  ```
- *  java -jar ../junit-1.9.3.jar --class-path ".:$KOTLIN_HOME/lib/kotlin-stdlib.jar" --scan-classpath
+ *  java -jar junit-1.9.3.jar --class-path . --scan-classpath; rm -rf AlgorithmAPXtra*.class
+ *  ```
+ * 4. Clean: 
+ *  ```
+ *  rm -rf AlgorithmAPXtra*.class
+ *  ```
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * [Java + Kotlin] How to compile and run the application:
+ * 1. Open a terminal or command prompt.
+ * 2. Compile (Current Test Only): 
+ *  ```
+ *  javac -cp junit-1.9.3.jar AlgorithmAPXtra*.java; kotlinc AlgorithmAPXtra.kt -d .
+ *  ```
+ * 3. Run & Clean: 
+ *  ```
+ *  java -jar junit-1.9.3.jar --class-path ".:$KOTLIN_HOME/lib/kotlin-stdlib.jar" --scan-classpath; rm -rf *.class META-INF/
  *  ```
  * 4. Clean: 
  *  ```

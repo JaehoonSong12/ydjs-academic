@@ -15,7 +15,7 @@
  *
  * 2. Run (ensure kotlin-stdlib is on the classpath):
  *  ```
- *      java -cp ".:$KOTLIN_HOME/lib/kotlin-stdlib.jar" AlgorithmAPXtra
+ *      java -cp ".:$KOTLIN_HOME/lib/kotlin-stdlib.jar" AlgorithmAPXtra; rm -rf AlgorithmAPXtra*.class META-INF/
  *  ```
  *
  * 3. Clean:
@@ -89,7 +89,7 @@ class AlgorithmAPXtra {
 
         @JvmStatic
         fun withoutString(base: String, remove: String): String {
-            return null
+            return "null"
         }
     }
 }
