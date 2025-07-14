@@ -1,3 +1,6 @@
+
+// import java.lang.*; <----------- by JVMjava
+
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -10,12 +13,18 @@ import java.util.List;
  * 
  * How to compile and run the application:
  * 1. Open a terminal or command prompt.
- * 2. Compile: 
- *      `javac std01-jayden-algo/AlgorithmAPXtra.java`
- * 3. Run: 
- *      `java -cp std01-jayden-algo AlgorithmAPXtra`
+ * 2. Compile (Current Test Only): 
+ *  ```
+ *  javac AlgorithmAPXtra.java
+ *  ```
+ * 3. Run & Clean: 
+ *  ```
+ *  java AlgorithmAPXtra && rm -rf AlgorithmAPXtra*.class
+ *  ```
  * 4. Clean: 
- *      `rm -rf std01-jayden-algo/*.class`
+ *  ```
+ *  rm -rf AlgorithmAPXtra*.class
+ *  ```
  */
 public class AlgorithmAPXtra {
     /**
