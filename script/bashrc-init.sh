@@ -2,6 +2,7 @@
 BASHRC_PATH="$HOME/.bashrc" # Check if .bashrc exists, create if missing
 if [[ -f "$BASHRC_PATH" ]]; then
     echo ".bashrc exists at: $BASHRC_PATH."
+    echo "To erase the existing .bashrc, run this command: > \"\$BASHRC_PATH\""
 else
     echo ".bashrc not found. Creating a new one at: $BASHRC_PATH."
     cat <<EOL > "$BASHRC_PATH"
@@ -703,8 +704,6 @@ function SETUP_GRADLE {
 }
 
 
-
-
 ################################################################################
 #                                   ?KOTLIN;
 ################################################################################
@@ -755,6 +754,13 @@ function SETUP_KOTLIN {
     echo "KOTLIN_HOME: $KOTLIN_HOME"
     echo -e "------------------------------------------------------------\n"
 }
+
+
+
+on_kt
+on_gradle
+
+on_pvm
 
 
 EOF
