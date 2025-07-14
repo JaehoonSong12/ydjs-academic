@@ -16,6 +16,7 @@ CONFIG="General configuration for '${TITLE}'" # configuration title
 MARKER="?GENERAL;" # Check if the configuration script exists in ~/.bashrc
 SCRIPT=$(cat <<'EOF'
 
+# ~/.bashrc
 
 
 : '
@@ -32,6 +33,19 @@ Colon (:) Command: it is a shell built-in that does nothing with exit status (0)
     : <any_literals> 
 
 Its often used as a no-op (no operation) or placeholder.
+
+
+
+
+
+
+fix this latex code!
+
+
+
+
+
+
 '
 
 ################################################################################
@@ -41,7 +55,6 @@ Its often used as a no-op (no operation) or placeholder.
 PROJ_NAME="$(basename "$PWD")"
 PROJ_DIR="$PWD"
 PROJ_SRC="$PWD/src"
-PROJ_EXT="$PWD/ext"
 # ANSI escape codes: font coloring
 BLACK_RG='\033[0;30m'
 RED_RG='\033[0;31m'
@@ -56,7 +69,35 @@ WHITE_RG='\033[0;37m'
 ##########################
 EOC='\033[0m' # End Of Coloring
 #################################< VERSION >####################################
-
+# Script metadata
+SCRIPT_VERSION="2.1.3"
+SCRIPT_AUTHOR="Jaehoon Song"
+echo -e "${GREEN_RG}# Bash Configuration Version: ${SCRIPT_VERSION}${EOC}"
+echo -e "${MINT_GREEN_RG}# Author: ${SCRIPT_AUTHOR}${EOC}"
+echo -e "${CYAN_RG}############### SYSTEM & USER INFORMATION ###############${EOC}"
+echo -e "HOME directory: ${LIME_GREEN_RG}$HOME${EOC}"
+echo -e "Current directory: ${LIME_GREEN_RG}$PWD${EOC}"
+echo -e "OS Kernel Type: ${LIME_GREEN_RG}$(uname -s)${EOC}"
+echo -e "OS Kernel Version: ${LIME_GREEN_RG}$(uname -r)${EOC}"
+echo -e "Architecture: ${LIME_GREEN_RG}$(uname -m)${EOC}"
+echo -e "Hostname: ${LIME_GREEN_RG}$(hostname)${EOC}"
+echo -e "Logged-in User: ${LIME_GREEN_RG}$(whoami)${EOC}"
+echo -e "Shell Type: ${LIME_GREEN_RG}$SHELL${EOC}"
+echo -e "Shell Version: ${LIME_GREEN_RG}$BASH_VERSION${EOC}"
+# User-specific environment variables
+echo -e "${CYAN_RG}################# ENVIRONMENT VARIABLES #################${EOC}"
+echo -e "PATH Directories:"
+IFS=':' read -ra PATH_ARRAY <<< "$PATH"  # Split PATH into an array by ':'
+for dir in "${PATH_ARRAY[@]}"; do
+    echo -e "  ${LIME_GREEN_RG}$dir${EOC}"
+done
+echo -e "${CYAN_RG}############### PROJECT INFORMATION ###############${EOC}"
+echo -e "Project Name: ${LIME_GREEN_RG}$PROJ_NAME${EOC}"
+echo -e "Project Directory: ${LIME_GREEN_RG}$PROJ_DIR${EOC}"
+echo -e "Project Source Code Directory: ${LIME_GREEN_RG}$PROJ_SRC${EOC}"
+echo -e "Project External Directory: ${LIME_GREEN_RG}$PWD/ext${EOC}"
+echo -e "${CYAN_RG}#########################################################${EOC}"
+echo -e "\n\n"
 ##################################< USAGE >#####################################
 # echo "Pass: $(TEST_PASS 'All tests passed successfully!')."
 # echo "Error: $(TEST_FAIL 'aaaa')."
@@ -315,7 +356,7 @@ INSTRACT() {
 #   exists "/path/to/dir"
 #     Checks if any subdirectory exists in "/path/to/dir".
 #
-#   if exists "$PROJ_EXT" "$prefix"; then
+#   if exists "$PWD/ext" "$prefix"; then
 #       ...
 #   fi
 ###############################################################################
@@ -408,7 +449,7 @@ function opens {
         darwin*)    open "$dir" ;;
         cygwin*)    cygstart "$dir" ;;
         msys*)      start "$dir" ;;
-        win32*)     start "$dir" ;;
+        win32*)     start "$dir" ;; # "$(wpath "$dir")"
         *)          echo "Unsupported OS type: $OSTYPE" ;;
     esac
 
@@ -538,10 +579,10 @@ PYTHON_VERSIONS=("3.12.2")
 # on_pvm
 ###############################################################################
 PYTHON_URL="https://www.python.org/ftp/python/{VERSION}/python-{VERSION}-embed-amd64.zip"
-PYTHON_DIR="${PROJ_EXT}/Python{VERSION}"
 function on_pvm {
+    local PYTHON_DIR="$PWD/ext/Python{VERSION}"
     # PVM checkup (positive)
-    if exists "$PROJ_EXT" "Python"; then
+    if exists "$PWD/ext" "Python"; then
         echo "Notice: Directory $(USRPROMPT ''${PYTHON_DIR}' ')already exists. PVE has been setup..."
         # PVE setup
         SETUP_PYTHON
@@ -552,24 +593,25 @@ function on_pvm {
         url="${PYTHON_URL//\{VERSION\}/$ver}"
         echo $url
         ver=$(echo "$ver" | awk -F. '{print $1 $2}')                                        # version modification e.g. "3.12.2" to "312"
-        INSTRACT "$url" "python.zip" "${PROJ_EXT}/Python$ver"
-        echo -e "python$ver.zip\n.\nimport site" > "$PROJ_EXT/Python$ver/python$ver._pth"   # enable `Lib/site-packages`
-        curl -o "${PROJ_EXT}/get-pip.py" "https://bootstrap.pypa.io/get-pip.py"             # PIP script
-        ${PYTHON_DIR//\{VERSION\}/$ver}/python "${PROJ_EXT}/get-pip.py"         # Package Installer for Python
-        rm "${PROJ_EXT}/get-pip.py"                                                         # clean PIP script
+        INSTRACT "$url" "python.zip" "$PWD/ext/Python$ver"
+        echo -e "python$ver.zip\n.\nimport site" > "$PWD/ext/Python$ver/python$ver._pth"   # enable `Lib/site-packages`
+        curl -o "$PWD/ext/get-pip.py" "https://bootstrap.pypa.io/get-pip.py"             # PIP script
+        ${PYTHON_DIR//\{VERSION\}/$ver}/python "$PWD/ext/get-pip.py"         # Package Installer for Python
+        rm "$PWD/ext/get-pip.py"                                                         # clean PIP script
         ${PYTHON_DIR//\{VERSION\}/$ver}/Scripts/pip install tox                             # test automation (by virtualenv) 
         ${PYTHON_DIR//\{VERSION\}/$ver}/Scripts/pip install poetry                          # [1] build automation (by virtualenv, setuptools) 
         ${PYTHON_DIR//\{VERSION\}/$ver}/Scripts/pip install pipreqs
     done
     # PVM checkup (negative)
-    if [[ ! -d "$PROJ_EXT" ]]; then
-        echo "Error: $(TEST_FAIL 'There is no '${PROJ_EXT}' found.')"
+    if [[ ! -d "$PWD/ext" ]]; then
+        echo "Error: $(TEST_FAIL 'There is no '$PWD/ext' found.')"
         return
     fi
     # PVE setup
     SETUP_PYTHON
 }
 function SETUP_PYTHON {
+    local PYTHON_DIR="$PWD/ext/Python{VERSION}"
     for ver in "${PYTHON_VERSIONS[@]}"; do
         ver=$(echo "$ver" | awk -F. '{print $1 $2}')    # version modification e.g. "3.12.2" to "312"
         export PATH="${PYTHON_DIR//\{VERSION\}/$ver}:${PATH}"
@@ -581,12 +623,6 @@ function SETUP_PYTHON {
     tox --version
     pipreqs --version
 }
-
-
-
-
-#
-
 
 ###############################################################################
 #                                   ?JAVA;
@@ -606,10 +642,10 @@ GRADLE_VERSIONS=("8.5")
 # on_gradle
 ###############################################################################
 JDK_URL="https://download.java.net/java/GA/jdk{VERSION}/{IDENTIFIER}/35/GPL/openjdk-{VERSION}_windows-x64_bin.zip"
-JDK_DIR="${PROJ_EXT}/jdk-{VERSION}/bin"
 function on_jvm {
+    local JDK_DIR="$PWD/ext/jdk-{VERSION}/bin"
     # JDK checkup (positive)
-    if exists "$PROJ_EXT" "jdk"; then
+    if exists "$PWD/ext" "jdk"; then
         echo "Notice: Directory $(USRPROMPT ''${JDK_DIR}' ')already exists. JRE/JVM has been setup..."
         # JRE/JVM setup
         SETUP_JAVA
@@ -621,14 +657,15 @@ function on_jvm {
         identifier="${JDK_IDENTIFIERS[$i]}"
         url="${JDK_URL//\{VERSION\}/$ver}"
         url="${url//\{IDENTIFIER\}/$identifier}"
-        INSTRACT "$url" "jdk.zip" "${PROJ_EXT}"
+        INSTRACT "$url" "jdk.zip" "$PWD/ext"
     done
     # JRE/JVM setup
     SETUP_JAVA
 }
 function SETUP_JAVA {
+    local JDK_DIR="$PWD/ext/jdk-{VERSION}/bin"
     for ver in "${JDK_VERSIONS[@]}"; do
-        export JAVA_HOME="${PROJ_EXT}/jdk-${ver}"
+        export JAVA_HOME="$PWD/ext/jdk-${ver}"
         export PATH="${JDK_DIR//\{VERSION\}/$ver}:${PATH}"
     done
     echo -e "\n------------------------------------------------------------"
@@ -639,10 +676,10 @@ function SETUP_JAVA {
     echo -e "------------------------------------------------------------\n"
 }
 GRADLE_URL="https://services.gradle.org/distributions/gradle-{VERSION}-bin.zip"
-GRADLE_DIR="${PROJ_EXT}/gradle-{VERSION}/bin"
 function on_gradle {
+    local GRADLE_DIR="$PWD/ext/gradle-{VERSION}/bin"
     # Gradle checkup (positive)
-    if exists "$PROJ_EXT" "gradle"; then
+    if exists "$PWD/ext" "gradle"; then
         echo "Notice: Directory $(USRPROMPT ''${GRADLE_DIR}' ')already exists. Gradle has been setup..."
         # Gradle setup
         SETUP_GRADLE
@@ -651,18 +688,20 @@ function on_gradle {
     # Gradle install
     for ver in "${GRADLE_VERSIONS[@]}"; do
         url="${GRADLE_URL//\{VERSION\}/$ver}"
-        INSTRACT "$url" "gradle.zip" "${PROJ_EXT}"
+        INSTRACT "$url" "gradle.zip" "$PWD/ext"
     done
     # Gradle setup
     SETUP_GRADLE
 }
 function SETUP_GRADLE {
+    local GRADLE_DIR="$PWD/ext/gradle-{VERSION}/bin"
     for ver in "${GRADLE_VERSIONS[@]}"; do
         export PATH="${GRADLE_DIR//\{VERSION\}/$ver}:${PATH}"
     done
     gradle -v
     echo -e "------------------------------------------------------------\n"
 }
+
 
 
 
@@ -716,11 +755,6 @@ function SETUP_KOTLIN {
     echo "KOTLIN_HOME: $KOTLIN_HOME"
     echo -e "------------------------------------------------------------\n"
 }
-
-
-
-on_kt
-on_gradle
 
 
 EOF
