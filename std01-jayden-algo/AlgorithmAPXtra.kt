@@ -41,11 +41,7 @@ class AlgorithmAPXtra {
 
         @JvmStatic
         fun makeBricks(small: Int, big: Int, goal: Int): Boolean {
-            var remaining = goal
-            repeat(big) {
-                if (remaining >= 5) remaining -= 5
-            }
-            return small >= remaining
+            return false
         }
 
         @JvmStatic
@@ -63,67 +59,37 @@ class AlgorithmAPXtra {
 
         @JvmStatic
         fun maxSpan(nums: IntArray): Int {
-            var max = 0
-            nums.forEachIndexed { i, value ->
-                for (j in nums.indices.reversed()) {
-                    if (nums[j] == value) {
-                        val span = j - i + 1
-                        if (span > max) max = span
-                        break
-                    }
-                }
-            }
-            return max
+            return 0
         }
 
         @JvmStatic
         fun catDog(s: String): Boolean {
-            return Regex("cat").findAll(s).count() == Regex("dog").findAll(s).count()
+            return true
         }
 
         @JvmStatic
         fun countCode(s: String): Int {
-            var count = 0
-            for (i in 0..s.length - 4) {
-                if (s.substring(i, i + 2) == "co" && s[i + 3] == 'e') count++
-            }
-            return count
+            return 0
         }
 
         @JvmStatic
         fun sum13(nums: IntArray): Int {
-            var total = 0
-            var skip = false
-            for (n in nums) {
-                when {
-                    skip -> skip = false
-                    n == 13 -> skip = true
-                    else -> total += n
-                }
-            }
-            return total
+            return 0
         }
 
         @JvmStatic
         fun has22(nums: IntArray): Boolean {
-            for (i in 0 until nums.size - 1) {
-                if (nums[i] == 2 && nums[i + 1] == 2) return true
-            }
             return false
         }
 
         @JvmStatic
         fun loneSum(a: Int, b: Int, c: Int): Int {
-            return listOf(a, b, c)
-                .groupingBy { it }.eachCount()
-                .filter { it.value == 1 }
-                .keys.sum()
+            return 0
         }
 
         @JvmStatic
         fun withoutString(base: String, remove: String): String {
-            return base.replace(Regex(remove, RegexOption.IGNORE_CASE), "").split(Regex("\\s+"))
-                .joinToString(" ")
+            return null
         }
     }
 }
