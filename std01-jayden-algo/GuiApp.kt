@@ -7,14 +7,14 @@ INSTRUCTIONS:
 
 COMPILE & EXECUTE & CLEANUP (Kotlin):
 
-     kotlinc    -d out  -cp "$(echo lib/javafx*.jar | tr ' ' ';')"              GuiApp*.kt
-     kotlin             -cp "out;$(echo lib/javafx*.jar | tr ' ' ';')"          GuiApp
+     kotlinc    -d out  -cp "$(echo libs/javafx*.jar | tr ' ' ';')"             GuiApp*.kt
+     kotlin             -cp "out;$(echo libs/javafx*.jar | tr ' ' ';')"         GuiApp
      rm -rf out/
 
 COMPILE & EXECUTE & CLEANUP (Java x Kotlin):
 
-     kotlinc    -d out  -cp "$(echo lib/javafx*.jar | tr ' ' ';')"              GuiApp*.kt
-     java       --module-path lib --add-modules javafx.controls,javafx.fxml \
+     kotlinc    -d out  -cp "$(echo libs/javafx*.jar | tr ' ' ';')"             GuiApp*.kt
+     java       --module-path libs --add-modules javafx.controls,javafx.fxml \
                         -cp "./out:$KOTLIN_HOME/lib/kotlin-stdlib.jar"          GuiApp
      rm -rf out/
 

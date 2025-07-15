@@ -7,8 +7,8 @@ INSTRUCTIONS:
 
 COMPILE & EXECUTE & CLEANUP (Java):
 
-     javac  --module-path lib --add-modules javafx.controls,javafx.fxml -d out          GuiApp*.java
-     java   --module-path lib --add-modules javafx.controls,javafx.fxml         -cp out GuiApp
+     javac  --module-path libs --add-modules javafx.controls,javafx.fxml -d out          GuiApp*.java
+     java   --module-path libs --add-modules javafx.controls,javafx.fxml         -cp out GuiApp
      rm -rf out/
 
 
