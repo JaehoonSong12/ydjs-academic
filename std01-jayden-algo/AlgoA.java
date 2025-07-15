@@ -7,8 +7,8 @@ INSTRUCTIONS:
 
 COMPILE & EXECUTE & CLEANUP (Java):
 
-     javac  -d out              AlgorithmAPXtra.java
-     java           -cp out     AlgorithmAPXtra
+     javac  -d out              AlgoA.java
+     java           -cp out     AlgoA
      rm -rf out/
      
 
@@ -30,7 +30,7 @@ COMPILE & EXECUTE & CLEANUP (Java):
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlgorithmAPXtra {
+public class AlgoA {
     /**
      * < Q00 >
      * This is a placeholder for the main method. It can be used to test the methods in this class.

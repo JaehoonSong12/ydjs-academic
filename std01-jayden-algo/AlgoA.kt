@@ -2,19 +2,19 @@
 INSTRUCTIONS: 
     Kotlin port of algorithmic problems for AP practice. All methods are 
     static via companion object and @JvmStatic,
-    so they can be called from Java (e.g., from AlgorithmAPXtraTest.java).
+    so they can be called from Java (e.g., from AlgoATest.java).
 
 
 COMPILE & EXECUTE & CLEANUP (Kotlin):
 
-     kotlinc    -d out                                                  AlgorithmAPXtra*.kt
-     kotlin             -cp out                                         AlgorithmAPXtra
+     kotlinc    -d out                                                  AlgoA*.kt
+     kotlin             -cp out                                         AlgoA
      rm -rf out/
 
 COMPILE & EXECUTE & CLEANUP (Java x Kotlin):
 
-     kotlinc    -d out                                                  AlgorithmAPXtra*.kt
-     java               -cp "./out:$KOTLIN_HOME/lib/kotlin-stdlib.jar"  AlgorithmAPXtra
+     kotlinc    -d out                                                  AlgoA*.kt
+     java               -cp "./out:$KOTLIN_HOME/lib/kotlin-stdlib.jar"  AlgoA
      rm -rf out/
 
 
@@ -25,7 +25,7 @@ TIP:
      - kotlin `-cp` (Windows) flag accepts relative paths.
  */
 
-class AlgorithmAPXtra {
+class AlgoA {
     companion object {
         /**
          * This is a placeholder for the main method. It can be used to test the methods in this class.
