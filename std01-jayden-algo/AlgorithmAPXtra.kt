@@ -1,32 +1,28 @@
 /**
- * AlgorithmAPXtra.kt
- * 
- * Kotlin port of algorithmic problems for AP practice. All methods are 
- * static via companion object and @JvmStatic,
- * so they can be called from Java (e.g., from AlgorithmAPXtraTest.java).
- *
- * ---
- * How to compile and run (from inside the std01-jayden-algo directory):
- *
- * 1. Compile:
- *  ```
- *      kotlinc AlgorithmAPXtra.kt -d .
- *  ```
- *
- * 2. Run (ensure kotlin-stdlib is on the classpath):
- *  ```
- *      java -cp ".:$KOTLIN_HOME/lib/kotlin-stdlib.jar" AlgorithmAPXtra; rm -rf AlgorithmAPXtra*.class META-INF/
- *  ```
- *
- * 3. Clean:
- *  ```
- *      rm -rf AlgorithmAPXtra*.class META-INF/
- *  ```
- *
- * ---
- * To use from Java (e.g., in AlgorithmAPXtraTest.java):
- *   AlgorithmAPXtra.Companion.methodName(...)
- *   // or, if static import is used, just AlgorithmAPXtra.methodName(...)
+INSTRUCTIONS: 
+    Kotlin port of algorithmic problems for AP practice. All methods are 
+    static via companion object and @JvmStatic,
+    so they can be called from Java (e.g., from AlgorithmAPXtraTest.java).
+
+
+COMPILE & EXECUTE & CLEANUP (Kotlin):
+
+     kotlinc    -d out                                                  AlgorithmAPXtra*.kt
+     kotlin             -cp out                                         AlgorithmAPXtra
+     rm -rf out/
+
+COMPILE & EXECUTE & CLEANUP (Java x Kotlin):
+
+     kotlinc    -d out                                                  AlgorithmAPXtra*.kt
+     java               -cp "./out:$KOTLIN_HOME/lib/kotlin-stdlib.jar"  AlgorithmAPXtra
+     rm -rf out/
+
+
+TIP:
+     - On Windows, use ';' as the classpath separator
+     - On Mac/Linux, use ':' as the classpath separator
+     - java   `-cp` (Mac/Linux) flag must sepcify absolute paths.
+     - kotlin `-cp` (Windows) flag accepts relative paths.
  */
 
 class AlgorithmAPXtra {

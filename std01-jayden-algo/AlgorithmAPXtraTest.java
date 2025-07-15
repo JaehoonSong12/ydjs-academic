@@ -1,3 +1,30 @@
+/**
+INSTRUCTIONS: 
+    The AlgorithmAPXtraTest class provides JUnit tests for the recursive 
+    methods in the AlgorithmAPXtra class.
+
+
+
+COMPILE & EXECUTE & CLEANUP (Java):
+
+     javac     -d out           -cp junit-1.9.3.jar     AlgorithmAPXtra*.java
+     java -jar junit-1.9.3.jar  --class-path "out"      --scan-classpath
+     rm -rf out/
+
+COMPILE & EXECUTE & CLEANUP (Java x Kotlin):
+
+     javac     -d out   -cp junit-1.9.3.jar             AlgorithmAPXtra*.java
+     kotlinc    -d out                                  AlgorithmAPXtra*.kt
+     java -jar junit-1.9.3.jar --class-path "./out:$KOTLIN_HOME/lib/kotlin-stdlib.jar" --scan-classpath
+     rm -rf out/
+
+TIP:
+     - On Windows, use ';' as the classpath separator
+     - On Mac/Linux, use ':' as the classpath separator
+     - java   `-cp` (Mac/Linux) flag must sepcify absolute paths.
+     - kotlin `-cp` (Windows) flag accepts relative paths.
+ */
+
 // File: AlgorithmAPXtraTest.java
 // JDK-17: https://developers.redhat.com/products/openjdk/download?sc_cid=701f2000000RWTnAAO
 // JUnit: https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter/5.10.0
@@ -6,45 +33,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * The AlgorithmAPXtraTest class provides JUnit tests for the recursive methods in the AlgorithmAPXtra class.
- * 
- * 
- * [Java only] How to compile and run the application:
- * 1. Open a terminal or command prompt.
- * 2. Compile (Current Test Only): 
- *  ```
- *  javac -cp junit-1.9.3.jar AlgorithmAPXtra*.java
- *  ```
- * 3. Run & Clean: 
- *  ```
- *  java -jar junit-1.9.3.jar --class-path . --scan-classpath; rm -rf AlgorithmAPXtra*.class
- *  ```
- * 4. Clean: 
- *  ```
- *  rm -rf AlgorithmAPXtra*.class
- *  ```
- * 
- * 
- * 
- * 
- * 
- * 
- * [Java + Kotlin] How to compile and run the application:
- * 1. Open a terminal or command prompt.
- * 2. Compile (Current Test Only): 
- *  ```
- *  javac -cp junit-1.9.3.jar AlgorithmAPXtra*.java; kotlinc AlgorithmAPXtra.kt -d .
- *  ```
- * 3. Run & Clean: 
- *  ```
- *  java -jar junit-1.9.3.jar --class-path ".:$KOTLIN_HOME/lib/kotlin-stdlib.jar" --scan-classpath; rm -rf *.class META-INF/
- *  ```
- * 4. Clean: 
- *  ```
- *  rm -rf *.class META-INF/
- *  ```
- */
 public class AlgorithmAPXtraTest {
     
 

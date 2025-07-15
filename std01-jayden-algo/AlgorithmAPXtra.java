@@ -1,31 +1,35 @@
+/**
+INSTRUCTIONS: 
+    The Algorithm class contains recursive methods for several algorithmic problems.
+    It includes methods to compute factorial, count bunny ears, calculate Fibonacci numbers,
+    sum the digits of a number, count occurrences of the digit 8 (with special counting rules),
+    and compute exponentiation recursively.
+
+COMPILE & EXECUTE & CLEANUP (Java):
+
+     javac  -d out              AlgorithmAPXtra.java
+     java           -cp out     AlgorithmAPXtra
+     rm -rf out/
+     
+
+
+
+
+
+
+
+
+
+
+
+
+ */
 
 // import java.lang.*; <----------- by JVMjava
 
 import java.util.ArrayList;
 import java.util.List;
-/**
- * The Algorithm class contains recursive methods for several algorithmic problems.
- * <p>
- * It includes methods to compute factorial, count bunny ears, calculate Fibonacci numbers,
- * sum the digits of a number, count occurrences of the digit 8 (with special counting rules),
- * and compute exponentiation recursively.
- * </p>
- * 
- * How to compile and run the application:
- * 1. Open a terminal or command prompt.
- * 2. Compile (Current Test Only): 
- *  ```
- *  javac AlgorithmAPXtra.java
- *  ```
- * 3. Run & Clean: 
- *  ```
- *  java AlgorithmAPXtra && rm -rf AlgorithmAPXtra*.class
- *  ```
- * 4. Clean: 
- *  ```
- *  rm -rf AlgorithmAPXtra*.class
- *  ```
- */
+
 public class AlgorithmAPXtra {
     /**
      * < Q00 >
