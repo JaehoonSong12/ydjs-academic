@@ -7,6 +7,7 @@ import org.lwjgl.system.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.geom.AffineTransform;
 import java.nio.ByteBuffer;
 import java.util.*;
 
@@ -16,7 +17,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 public class OrbitronDemo {
     private long window;
-    private final int width = 1024, height = 768;
+    private final int worldWidth = 1024, worldHeight = 768;
 
     // Input buffer for typing
     private StringBuilder inputBuffer = new StringBuilder();
@@ -36,7 +37,7 @@ public class OrbitronDemo {
         if (!glfwInit()) throw new IllegalStateException("Unable to initialize GLFW");
 
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-        window = glfwCreateWindow(width, height, "Orbitron LWJGL Demo", NULL, NULL);
+        window = glfwCreateWindow(worldWidth, worldHeight, "Orbitron LWJGL Demo", NULL, NULL);
         if (window == NULL) throw new RuntimeException("Failed to create GLFW window");
 
         glfwMakeContextCurrent(window);
@@ -89,10 +90,10 @@ public class OrbitronDemo {
             }
         });
 
-        glViewport(0, 0, width, height);
+        glViewport(0, 0, worldWidth, worldHeight);
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        glOrtho(0, width, height, 0, -1, 1);
+        glOrtho(0, worldWidth, worldHeight, 0, -1, 1);
         glMatrixMode(GL_MODELVIEW);
     }
 
@@ -126,7 +127,7 @@ public class OrbitronDemo {
             for (Message m : messages) {
                 double age = now - m.timestamp;
                 float alpha = (float) Math.max(0.0, 1.0 - (age / DISPLAY_DURATION));
-                drawMessage(m.texId, m.width, m.height, idx, alpha);
+                drawMessage(m.texId, m.worldWidth, m.worldHeight, idx, alpha);
                 idx++;
             }
 
@@ -138,7 +139,7 @@ public class OrbitronDemo {
     private void drawMessage(int texId, int textW, int textH, int index, float alpha) {
         int boxW = textW + 20;
         int boxH = textH + 20;
-        int x = (width - boxW) / 2;
+        int x = (worldWidth - boxW) / 2;
         int y = 50 + index * (boxH + 10);
 
         // Black background box with fade
@@ -168,14 +169,14 @@ public class OrbitronDemo {
 
     private class Message {
         final int texId;
-        final int width, height;
+        final int worldWidth, worldHeight;
         final double timestamp;
 
         Message(String text, double timestamp) {
             this.timestamp = timestamp;
             int[] dims = createOrbitronTexture(text, 10);
-            this.width = dims[0];
-            this.height = dims[1];
+            this.worldWidth = dims[0];
+            this.worldHeight = dims[1];
             this.texId = currentTex;
         }
     }
@@ -183,10 +184,14 @@ public class OrbitronDemo {
     private int currentTex;
 
     private int[] createOrbitronTexture(String text, int padding) {
-        Font font = new Font("Orbitron", Font.PLAIN, 24);
+        Font font = new Font("Orbitron", Font.PLAIN, (int) (worldWidth / 42.0));
+        // create an AffineTransform that only scales Y
+        AffineTransform at = AffineTransform.getScaleInstance(1.0, 1.8); 
+        Font tallFont = font.deriveFont(at);
+
         BufferedImage tmp = new BufferedImage(1,1,BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = tmp.createGraphics();
-        g2d.setFont(font);
+        g2d.setFont(tallFont); // for box
         FontMetrics fm = g2d.getFontMetrics();
         int textW = fm.stringWidth(text);
         int textH = fm.getHeight();
@@ -196,7 +201,7 @@ public class OrbitronDemo {
         int imgH = textH + padding * 2;
         BufferedImage img = new BufferedImage(imgW, imgH, BufferedImage.TYPE_INT_ARGB);
         g2d = img.createGraphics();
-        g2d.setFont(font);
+        g2d.setFont(tallFont); // for actual text
         g2d.setColor(Color.WHITE);
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g2d.drawString(text, padding, fm.getAscent() + padding);
