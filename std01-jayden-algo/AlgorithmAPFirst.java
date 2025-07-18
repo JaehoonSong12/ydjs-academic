@@ -60,15 +60,15 @@ public class AlgorithmAPFirst {
      * </p>
      */
     public static boolean scoresIncreasing(int[] scores) {
-        // [Your Implementation Here]    
-        // Case-1. If the question can be solved with 'iteration (for/while)', 
-        //         design the most efficient algorithm.
 
-        // Case-2. If the question can be solved with 'recursion', design a 
-        //         correct algorithm. Since the recursion can be inefficient, 
-        //         use either 'tabulation' or 'memorization' to break it down 
-        //         into 'iteration'.
-        return false;
+
+
+        for (i in 1 until scores.size) {
+            if(scores[i] < scores[i-1]) return false
+        }
+
+        return true
+
     }
 
     /**
@@ -89,6 +89,16 @@ public class AlgorithmAPFirst {
      * </p>
      */
     public static boolean scores100(int[] scores) {
+        var count = 0
+
+        for (i in 1 until scores.size) {
+            if (scores[i] == 100 && scores[i-1] == 100) {
+                count++
+            }
+        }
+        return count > 0
+
+
         // [Your Implementation Here]
         // 
         // Case-1. If the question can be solved with 'iteration (for/while)', 
@@ -98,7 +108,6 @@ public class AlgorithmAPFirst {
         //         correct algorithm. Since the recursion can be inefficient, 
         //         use either 'tabulation' or 'memorization' to break it down 
         //         into 'iteration'.
-        return false;
     }
 
     /**
@@ -122,6 +131,12 @@ public class AlgorithmAPFirst {
      * </p>
      */
     public static boolean scoresClump(int[] scores) {
+        for (i in 1 until scores.size-2) {
+            if ((scores[i+2] - scores[i]) <= 2 ) {
+                return true
+            }
+            return false
+        }
         // [Your Implementation Here]
         //
         // Case-1. If the question can be solved with 'iteration (for/while)',
@@ -157,6 +172,22 @@ public class AlgorithmAPFirst {
      * </p>
      */
     public static int scoresAverage(int[] scores) {
+        val arr_half_size = scores.size / 2
+
+        var firstHalfSum = 0
+        for (i in 0 until arr_half_size) {
+            firstHalfSum += scores[i]
+        }
+
+        var secondHalfSum = 0
+        for (i in arr_half_size until scores.size) {
+            secondHalfSum += scores[i]
+        }
+
+        al firstHalfAvg = firstHalfSum / arr_half_size
+        val secondHalfAvg = secondHalfSum / (scores.size - arr_half_size)
+
+        return if (firstHalfAvg > secondHalfAvg) firstHalfAvg else secondHalfAvg
         // [Your Implementation Here]
         //
         // Case-1. If the question can be solved with 'iteration (for/while)',
