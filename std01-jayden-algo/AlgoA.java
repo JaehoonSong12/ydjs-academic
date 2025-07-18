@@ -45,6 +45,7 @@ public class AlgoA {
         System.out.println(countYZ("!!day--yaz!!"));
         System.out.println(countYZ("yak zak"));
         System.out.println(countYZ("DAY abc XYZ"));
+        return;
     }
 
 

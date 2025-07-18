@@ -37,7 +37,7 @@ import javafx.stage.Stage;
 public class GuiApp extends Application {
     @Override
     public void start(Stage stage) {
-        // 1) title property → setTitle(...)
+        // 1) title property -> setTitle(...)
         stage.setTitle("Kotlin JavaFX");
 
         // 2) Button + anonymous inner-class for the lambda
@@ -56,7 +56,7 @@ public class GuiApp extends Application {
         stage.show();
     }
 
-    //  Kotlin companion object’s @JvmStatic main() → static main in Java
+    //  Kotlin companion object's @JvmStatic main() -> static main in Java
     public static void main(String[] args) {
         Application.launch(GuiApp.class, args);
     }
