@@ -102,16 +102,18 @@ def echo_request(request):
 # b. 
 # c. interpreter
 # d. programming language
-# 2. The physical devices that a computer is made of are referred to as __________. a. hardware
+# 2. The physical devices that a computer is made of are referred to as hardware   
+# a. hardware
 # b. software
 # c. the operating system d. tools
-# 3. The part of a computer that runs programs is called __________. a. RAM
+# 3.The part of a computer that runs programs is called CPU a. RAM
 # b. secondary storage c. main memory
 # e. the CPU
-# 4. Today, CPUs are small chips known as __________. a. ENIACs
+# 4. Today, CPUs are small chips known as microprocessors
+#  a. ENIACs
 # b. microprocessors c. memory chips
 # d. operating systems
-# 5. The computer stores a program while the program is running, as well as the data that the program is working with, in __________.
+# 5. The computer stores a program while the program is running, as well as the data that the program is working with, in main memory
 # a. secondary storage
 # b. the CPU
 # c. main memory
@@ -120,75 +122,78 @@ def echo_request(request):
 # a. RAM
 # b. secondary storage
 # c. the disk drive d. the USB drive
-#                  7. A type of memory that can hold data for long periods of time, even when there is no power to the computer, is called __________.
+#                  7. A type of memory that can hold data for long periods of time, even when there is no power to the computer, is called RAM
 # a. RAM
 # b. main memory
 # c. secondary storage d. CPU storage
-# 8. A component that collects data from people or other devices and sends it to the com- puter is called __________.
+# 8. A component that collects data from people or other devices and sends it to the com- puter is called a input device
 # a. an output device
 # b. an input device
 # c. a secondary storage device d. main memory
-# 9. A video display is a(n) __________ device. a. output
-# b. input
+# 9. A video display is a(n) output device.
 # c. secondary storage d. main memory
-# 10. A __________ is enough memory to store a letter of the alphabet or a small number. a. byte
+# 10 A byte is enough memory to store a letter of the alphabet or a small number. 
+# a. byte
 # b. bit
 # c. switch
 # d. transistor
-# 11. A byte is made up of eight __________. a. CPUs
+# 11. A byte is made up of eight bits. a. CPUs
 # b. instructions c. variables
 # d. bits
-# 12. In the __________ numbering system, all numeric values are written as sequences of 0s and 1s.
+# 12. In the binary numbering system, all numeric values are written as sequences of 0s and 1s.
 # a. hexadecimal b. binary
 # c. octal
 # d. decimal
-# 13. A bit that is turned off represents the following value: __________. a. 1
+# 13. A bit that is turned off represents the following value: 0. a. 1
 # b. −1
 # c. 0
 # d. “no”
-# 14. A set of 128 numeric codes that represent the English letters, various punctuation marks, and other characters is __________.
+# 14. A set of 128 numeric codes that represent the English letters, various punctuation marks, and other characters is ASCII
 # a. binary numbering
 # b. ASCII
 # c. Unicode d. ENIAC
 # Review Questions 25
 
 #                  26 Chapter 1 Introduction to Computers and Programming
-# 15. An extensive encoding scheme that can represent characters for many languages in the world is __________.
+# 15. An extensive encoding scheme that can represent characters for many languages in the world is Unicode.
 # a. binary numbering
 # b. ASCII
 # c. Unicode d. ENIAC
-# 16. Negative numbers are encoded using the __________ technique. a. two’s complement
+# 16. Negative numbers are encoded using the two complement technique.  
+# a. two’s complement
 # b. floating point
 # c. ASCII
 # d. Unicode
-# 17. Real numbers are encoded using the __________ technique. a. two’s complement
+# 17. Real numbers are encoded using the floating point technique. a. two’s complement
 # b. floating point
 # c. ASCII
 # d. Unicode
-# 18. The tiny dots of color that digital images are composed of are called __________. a. bits
+# 18. The tiny dots of color that digital images are composed of are called pixels 
+# a. bits
 # b. bytes
 # c. color packets d. pixels
-# 19. If you were to look at a machine language program, you would see __________. a. Python code
+# 19. If you were to look at a machine language program, you would see a stream of binary numbers a. Python code
 # b. a stream of binary numbers c. English words
 # d. circuits
-# 20. In the __________ part of the fetch-decode-execute cycle, the CPU determines which operation it should perform.
+# 20. In the decode part of the fetch-decode-execute cycle, the CPU determines which operation it should perform.
 # a. fetch
 # b. decode
 # c. execute
 # d. deconstruct
-# 21. Computers can only execute programs that are written in __________. a. Java
+# 21. Computers can only execute programs that are written in machine language. a. Java
 # b. assembly language c. machine language d. Python
-# 22. The __________ translates an assembly language program to a machine language program.
+# 22. The assembler translates an assembly language program to a machine language program.
 # a. assembler b. compiler c. translator d. interpreter
 
                 
-# 23. The words that make up a high-level programming language are called __________. a. binary instructions
+# 23. keywords.The words that make up a high-level programming language are called inary instructions
 # b. mnemonics
 # c. commands
 # d. keywords
-# 24. The rules that must be followed when writing a program are called __________. a. syntax
+# 24. the rules that must be fTollowed when writing a program are called syntax 
+# a. syntax
 # b. punctuation c. keywords d. operators
-# 25. A(n) __________ program translates a high-level language program into a separate machine language program.
+# 25. A(n) compiler program translates a high-level language program into a separate machine language program.
 # a. assembler
 # b. compiler
 # c. translator d. utility
