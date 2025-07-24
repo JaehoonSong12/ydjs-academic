@@ -324,6 +324,80 @@ def study_chapter1_part2():
 
 
 
+
+
+
+
+
+
+##################################################################
+##################################################################
+#                           Chapter 2
+##################################################################
+##################################################################
+def study_chapter2_part1():
+    # string data type
+    print('Kate Austen')
+    print('123 Full Circle Drive')
+    print('Asheville, NC 28899')
+
+    print("Don't fear")
+
+    
+    print('''Don't "fear"''')
+    
+    print('hello!')
+    sq_string = 'hi there'
+    dq_string = "hel" \
+    "lo"
+    tsq_string = '''
+This is 1st line.
+This is 2nd line.
+This is 3rd line.
+'''
+    tdq_string = """goodbye world"""
+
+    # number vs string
+    number = 45
+    num_to_string = str(45)
+    
+    print(number + 1) # 46
+    print(num_to_string + str(1)) # 451
+    print(num_to_string * 3) # 454545
+    
+
+    # format of string (fstring, modern way of format)
+    
+    name = "Jaehoon"
+    # old_style = "Hello, %s!" % name
+    # new_style = "Hello, {}!".format(name)
+    f_string = f"Hello, {name}!"
+    print(f_string)
+
+
+
+    # escape character and raw string
+    # reference: https://en.wikipedia.org/wiki/Escape_character
+    # \' single quote
+    # \" double quote
+    # \\ backslash
+    # \n new line
+    # \r carriage return
+    # \t tab
+    # \b backspace
+    # \f form feed
+    # \v vertical tab
+
+    example_str = "Hi \"Eloise\"..! \nHi 2 \nHi 3"
+    # default: \ enalbed
+    print(example_str)
+
+    r_string = r'C:\new\folder' # disable \
+    print(r_string)
+
+
+
+
 # Modularization is the way you organize your own code.
 def main():
     # print("Doing Nothing Yet")
@@ -337,7 +411,10 @@ def main():
     # echo_request(request)
 
     # study_chapter1_part1()
-    study_chapter1_part2()
+    # study_chapter1_part2()
+
+    study_chapter2_part1()
+
 
 
 if __name__ == "__main__":
