@@ -10,7 +10,16 @@ Parameters: N/A
 Returns: None
 """
 def dominosTime():
+    pizzas = int(input("How many pizzas do you want? "))
+    pasta = int(input("How many orders of pasta do you want? "))
+    wings = int(input("How many orders of chicken wings do you want? "))
+    print(f"By ordering {pizzas} pizzas, {pasta} orders of pasta, "
+          f"and {wings} orders of chicken wings, your "
+          f"order total is ${12*pizzas + 6*pasta + 8*wings}.")
     return
+
+# # Test
+# dominosTime()
 
 #########################################
 
@@ -45,6 +54,9 @@ def tipAndSplit():
 
 # >>> tipAndSplit()
 # What was the order total? 150
+order_total = int()
+
+
 # What percentage would you like to tip? 20
 # How many people are splitting the order? 3
 # The driver got a tip of $\$ 30.0$. Each person paid $\$ 60.0$.
