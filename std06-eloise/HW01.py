@@ -31,14 +31,15 @@ Returns: None
 """
 def tipAndSplit():
     """
-    This function calculates the tip for a food delivery and splits the total cost (including the tip) among friends.
+    This function calculates the tip for a food delivery and splits the 
+    total cost (including the tip) among friends.
 
     Steps:
     1. Ask the user for the order total (positive integer).
     2. Ask the user for the tip percentage they want to give the driver (positive integer).
     3. Ask the user for the number of friends splitting the total (positive integer).
     4. Calculate the tip using the formula:
-       Tip = (Order Total × Tip Percentage) / 100.
+       Tip = (Order Total x Tip Percentage) / 100.
     5. Calculate the total cost by adding the tip to the order total.
     6. Divide the total cost by the number of friends to get the amount each friend must pay.
     7. Round the tip and each friend's share to 2 decimal places.
@@ -48,24 +49,33 @@ def tipAndSplit():
     - All inputs are positive integers.
     - Outputs are rounded to 2 decimal places for clarity.
     """
+
+
+    order_total = float(input("What was the total for the order today? "))
+    tip_percent = float(input('What percent (%) would you like to tip? '))
+    num_people_pay = int(input("how many people are splitting the order? "))
+    tip = (order_total * tip_percent / 100.00)
+    print(f"the driver got a tip of ${tip:.2f}.")
+    print (f"Each person should pay ${((order_total + tip) / num_people_pay):.2f}.")
     return
+
+# Test
+tipAndSplit()
+
 
 ################# < Sample Run >
 
 # >>> tipAndSplit()
 # What was the order total? 150
-order_total = int()
-
-
 # What percentage would you like to tip? 20
 # How many people are splitting the order? 3
-# The driver got a tip of $\$ 30.0$. Each person paid $\$ 60.0$.
+# The driver got a tip of $30.0. Each person paid $60.00.
 
 # >>> tipAndSplit()
 # What was the order total? 25
 # What percentage would you like to tip? 18
 # How many people are splitting the order? 1
-# The driver got a tip of $\$ 4.5$. Each person paid $\$ 29.5$.
+# The driver got a tip of $4.50. Each person paid $29.50.
 
 
 #########################################
@@ -87,7 +97,7 @@ def youtuber():
     2. Ask the user for the number of views per video.
     3. Ask the user for the payment received per view.
     4. Calculate total earnings using the formula:
-       Total Earnings = Number of Videos × Views per Video × Payment per View.
+       Total Earnings = Number of Videos x Views per Video x Payment per View.
     5. Round the result to 2 decimal places.
     6. Print the total earnings.
 
@@ -125,7 +135,7 @@ def bathBomb():
     Steps:
     1. Ask the user for the radius of the bath bomb (can be a float).
     2. Use the formula for the volume of a sphere:
-       Volume = (4/3) × π × (radius^3).
+       Volume = (4/3) x π x (radius^3).
     3. Round the calculated volume to 2 decimal places.
     4. Print the volume.
 
