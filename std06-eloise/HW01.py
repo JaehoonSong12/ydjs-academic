@@ -56,7 +56,7 @@ def tipAndSplit():
     num_people_pay = int(input("how many people are splitting the order? "))
     tip = (order_total * tip_percent / 100.00)
     print(f"the driver got a tip of ${tip:.2f}.")
-    print (f"Each person should pay ${((order_total + tip) / num_people_pay):.2f}.")
+    print(f"Each person should pay ${((order_total + tip) / num_people_pay):.2f}.")
     return
 
 # Test
