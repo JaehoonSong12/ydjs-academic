@@ -59,6 +59,10 @@ def sleepIn(weekday: bool, vacation: bool) -> bool:
 
     return False
 
+    Returns:
+        str: A new string with the first and last characters exchanged.
+    """
+    ### [Your Implementation Here]
 
     # Case-1. If the question can be solved with 'iteration (for/while)', 
     # design the most efficient algorithm.
@@ -215,6 +219,10 @@ def front3(s: str) -> str:
     # either 'tabulation' or 'memorization' to break it down into 'iteration'.
     return ""
 
+    Returns:
+        str: A new string which is 3 copies of the front (first 3 chars, or less if string is shorter).
+    """
+    ### [Your Implementation Here]
 
 # -----------------------------------------------------------------
 # Question 6: startOz
@@ -255,6 +263,10 @@ def startOz(s: str) -> str:
     # either 'tabulation' or 'memorization' to break it down into 'iteration'.
     return ""
 
+    Returns:
+        str: A string made of 'o' (if first char is 'o') and/or 'z' (if second char is 'z').
+    """
+    ### [Your Implementation Here]
 
 # -----------------------------------------------------------------
 # Question 7: sumDouble
@@ -292,6 +304,10 @@ def sumDouble(a: int, b: int) -> int:
     # either 'tabulation' or 'memorization' to break it down into 'iteration'.
     return 0
 
+    Returns:
+        int: The sum of a and b, or double the sum if a == b.
+    """
+    ### [Your Implementation Here]
 
 # -----------------------------------------------------------------
 # Question 8: backAround
