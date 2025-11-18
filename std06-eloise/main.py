@@ -398,6 +398,21 @@ This is 3rd line.
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Modularization is the way you organize your own code.
 def main():
     # print("Doing Nothing Yet")
@@ -413,7 +428,31 @@ def main():
     # study_chapter1_part1()
     # study_chapter1_part2()
 
-    study_chapter2_part1()
+    # study_chapter2_part1()
+
+
+
+    # frontBack('code') -> 'eodc'
+
+    example_str = 'code'
+    reversed_str = ''
+    for i in range(len(example_str)):
+        reversed_str = example_str[i] + reversed_str
+    print(reversed_str)
+
+    # # single_var = 2
+    # tables = [2, 4, 6, 8, 10]
+    # for i in range(len(tables)):
+    #     print(f"{i}-th table,,, table name is {tables[i]}")
+
+
+
+
+
+    # print(tables)
+
+
+    print("End of the code")
 
 
 
