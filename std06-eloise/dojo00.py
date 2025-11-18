@@ -94,6 +94,15 @@ def frontBack(s: str) -> str:
         str: A new string with the first and last characters exchanged.
     """
     ### [Your Implementation Here]
+    reversed_str = ''
+    for i in range(len(s)):
+        if i == 0:
+            reversed_str = reversed_str + s[len(s)-1]
+        elif i == len(s)-1:
+            reversed_str = reversed_str + s[0]
+        else: 
+            reversed_str = reversed_str + s[i]
+    return reversed_str
 
     # Case-1. If the question can be solved with 'iteration (for/while)', 
     # design the most efficient algorithm.
