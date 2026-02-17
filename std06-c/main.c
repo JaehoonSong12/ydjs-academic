@@ -130,6 +130,7 @@ void play_round(int max) {
 int main(void) {
     int x = 10;
     int y = 25;
+    int t =
     int z = x + y;
     printf("Hello, Eloise! Ths sum of %i and %i is %i.\n", x, y, z);
     
