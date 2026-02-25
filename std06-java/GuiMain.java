@@ -14,14 +14,15 @@ Naming      | "Button", "Label"             | "JButton", "JLabel"
 -------------------------------------------------------------------------------------------------
 Feature     |           AWT                 |             Swing             |       OS-term
 -------------------------------------------------------------------------------------------------
-Frame       | java.awt.Frame                | javax.swing.JFrame            |       Window
-Panel       | java.awt.Panel                | javax.swing.JPanel            |     Container
+Frame       | java.awt.Frame                | javax.swing.JFrame            |     Window (execution)
+ ...        |                               |                               |     Session (context)
+Panel       | java.awt.Panel                | javax.swing.JPanel            |     Container (UI components)
 BoxLayout   | java.awt.BoxLayout            | javax.swing.BoxLayout         |     Dividers (box-style)
 GridLayout  | java.awt.GridLayout           | javax.swing.GroupLayout       |     Dividers (grid-style)
 BorderLayout| java.awt.BorderLayout         | javax.swing.BorderLayout      |     Dividers (border-style)
-CardLayout  | java.awt.CardLayout           | javax.swing.CardLayout        |     *Dividers (card-style)
+CardLayout  | java.awt.CardLayout           | javax.swing.CardLayout        |     Dividers (card-stack-style)
 Button      | java.awt.Button               | javax.swing.JButton           |     Button UI
-Label       | java.awt.Label                | javax.swing.JLabel            |      Label UI
+Label       | java.awt.Label                | javax.swing.JLabel            |     Label UI
 -------------------------------------------------------------------------------------------------
 
 
@@ -51,6 +52,29 @@ import java.awt.event.ActionListener;
 // import javax.swing.JPanel;
 // import javax.swing.JButton;
 import javax.swing.*;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 public class GuiMain {
     public static void main(String[] args) {
