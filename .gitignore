@@ -1,11 +1,10 @@
-# --- Generated from ./.gitignores on Sun Feb  8 16:45:57 2026 ---
+# --- Generated from ./.gitignores on Wed Feb 18 03:26:05 2026 ---
 
 #############################################
 # A.gitignore
 #############################################
 #################### ALL PURPOSE GITIGNORE ####################
 project2305*
-_*
 _*/
 tmp*/
 remote*/
@@ -13,6 +12,9 @@ VSLive*/
 vscode*/
 pyright*/
 cursor*/
+python-lang*/
+*.key
+*.key.pub
 
 ################################################################
 # General Ignores (Large Media Files & Common File Types)
@@ -24,7 +26,7 @@ cursor*/
 *.mkv
 
 # Audios (large media files)
-# *.mp3
+*.mp3
 # *.wav
 # *.flac
 
@@ -629,8 +631,8 @@ files/tmp/*
 # ignore updates folder
 /updates/*
 
-# # ignore sitemap.xml
-# /sitemap.xml
+# ignore sitemap.xml
+/sitemap.xml
 
 #############################################
 # Coq.gitignore
@@ -1155,9 +1157,9 @@ resources/.arch-internal-preview.css
 *.ps
 *.mid
 *.midi
-# *.mp3
+*.mp3
 *.aif
-# *.wav
+*.wav
 # Some versions of Finale have a bug and randomly save extra copies of
 # the music source as "<Filename> copy.mus"
 *copy.mus
@@ -2702,9 +2704,9 @@ fp-info-cache
 *.dsn
 *.ses
 
-# # Exported BOM files
-# *.xml
-# *.csv
+# Exported BOM files
+*.xml
+*.csv
 
 # Archived Backups (KiCad 6.0)
 **/*-backups/*.zip
@@ -3766,7 +3768,7 @@ themes/default-bootstrap/modules/*/mails/*
 
 # MISC
 
-# *sitemap.xml
+*sitemap.xml
 /robots.txt
 
 # Symfony
